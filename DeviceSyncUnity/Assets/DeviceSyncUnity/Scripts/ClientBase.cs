@@ -14,7 +14,7 @@ namespace DeviceSyncUnity
         protected string hubConnectionUrl = "http://localhost:8080";
 
         [SerializeField]
-        protected string hubName = "Hub";
+        protected string hubName = "DeviceSyncHub";
 
         [SerializeField]
         protected bool autoStart = true;
