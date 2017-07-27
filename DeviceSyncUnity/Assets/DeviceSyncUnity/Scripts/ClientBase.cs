@@ -21,15 +21,13 @@ namespace DeviceSyncUnity
 
         // Event
 
-        public EventHandler Connected = delegate { };
+        public EventHandler ConnectionStarted = delegate { };
 
         // Properties
 
         public HubConnection Connection { get; protected set; }
 
         public IHubProxy Proxy { get; protected set; }
-
-        public bool IsConnected { get; protected set; }
 
         // Variables
 
@@ -64,11 +62,6 @@ namespace DeviceSyncUnity
                 }
 
                 Connection.Start();
-
-                lock (connectionLock)
-                {
-                    IsConnected = true;
-                }
             });
         }
 
@@ -84,10 +77,10 @@ namespace DeviceSyncUnity
         {
             lock (connectionLock)
             {
-                if (IsConnected && threadConnecting)
+                if (threadConnecting && Connection.IsStarted)
                 {
                     threadConnecting = false;
-                    Connected.Invoke(this, EventArgs.Empty);
+                    ConnectionStarted.Invoke(this, EventArgs.Empty);
                 }
             }
         }
