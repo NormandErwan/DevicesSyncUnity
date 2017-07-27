@@ -1,4 +1,5 @@
-﻿using SignalR.Client._20.Hubs;
+﻿using Newtonsoft.Json;
+using SignalR.Client._20.Hubs;
 using System;
 using System.Threading;
 using UnityEngine;
@@ -48,7 +49,10 @@ namespace DeviceSyncUnity
         protected virtual void Awake()
         {
             Connection = new HubConnection(hubConnectionUrl);
-            Proxy = Connection.CreateProxy(hubName);
+            Proxy = Connection.CreateProxy(hubName, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
 
             connectionThread = new Thread(() =>
             {
