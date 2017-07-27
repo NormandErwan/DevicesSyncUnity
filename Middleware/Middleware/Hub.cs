@@ -1,23 +1,25 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 
 namespace DeviceSyncUnity.Middleware
 {
-    public class Hub : Microsoft.AspNet.SignalR.Hub
+    public class DeviceSyncHub : Hub
     {
         public void Send(string name, string message)
         {
-            Program.Log("send");
             Clients.All.AddMessage(name, message);
         }
 
-        public dynamic RequestReplyDynamic()
+        public void CallMethodAllClients(string method, dynamic data)
         {
-            return new { time = DateTime.Now.ToLongTimeString() };
+            IClientProxy proxy = Clients.All;
+            proxy.Invoke(method, data);
         }
 
-        public int RequestReplyValueType()
+        public void CallMethodOtherClients(string method, dynamic data)
         {
-            return DateTime.Now.Millisecond;
+            IClientProxy proxy = Clients.Others;
+            proxy.Invoke(method, data);
         }
     }
 }
