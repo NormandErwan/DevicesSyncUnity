@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin.Cors;
+﻿using Microsoft.AspNet.SignalR;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Hosting;
 using Owin;
 using System;
@@ -14,17 +15,13 @@ namespace DeviceSyncUnity.Middleware
         {
             using (WebApp.Start<Startup>(url))
             {
-                Log("Device synchronization for Unity - Middleware");
-                Log("Running on " + url);
-                Log("Press Esc to exit");
+                LoggingPipelineModule.Log("Device synchronization for Unity - Middleware");
+                LoggingPipelineModule.Log("Running on " + url);
+
+                Console.WriteLine("\nPress Esc to exit\n");
 
                 while (Console.ReadKey(true).Key != ConsoleKey.Escape) { }
             }
-        }
-
-        internal static void Log(string message)
-        {
-            Console.WriteLine(message);
         }
     }
 
@@ -32,6 +29,7 @@ namespace DeviceSyncUnity.Middleware
     {
         public void Configuration(IAppBuilder app)
         {
+            GlobalHost.HubPipeline.AddModule(new LoggingPipelineModule());
             app.UseCors(CorsOptions.AllowAll);
             app.MapSignalR();
         }
