@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace DeviceSyncUnity
 {
-    public abstract class ClientBase : MonoBehaviour
+    public class DeviceSyncClient : MonoBehaviour
     {
         // Editor fields
 
         [SerializeField]
-        protected string hubConnectionUrl = "http://localhost:8080";
+        protected string hubConnectionUrl = "http://localhost:8090";
 
         [SerializeField]
         protected string hubName = "DeviceSyncHub";
@@ -69,6 +69,7 @@ namespace DeviceSyncUnity
         {
             if (autoStart)
             {
+                Logger.Log("Starting");
                 ConnectionStartAsync();
             }
         }
@@ -79,6 +80,8 @@ namespace DeviceSyncUnity
             {
                 if (threadConnecting && Connection.IsStarted)
                 {
+                    Logger.Log("Started");
+
                     threadConnecting = false;
                     ConnectionStarted.Invoke(this, EventArgs.Empty);
                 }
