@@ -5,28 +5,19 @@ namespace DeviceSyncUnity
 {
     public class SmartphonePCSync : MonoBehaviour
     {
+        // Editor fields
+
         [SerializeField]
         private DeviceSyncClient deviceSyncClient;
+
+        // Methods
 
         protected void Start()
         {
 #if (!UNITY_ANDROID && !UNITY_IOS) || UNITY_EDITOR
-            deviceSyncClient.Proxy.Subscribe("ReceiveTouches").Data += data =>
+            deviceSyncClient.ConnectionStarted += (sender, args) =>
             {
-                Logger.Log("ReceiveTouches received");
-
-                var jtoken = data[0] as JToken;
-                var touches = jtoken.ToObject<Touch[]>();
-
-                int fingerCount = 0;
-                foreach (Touch touch in touches)
-                {
-                    if (touch.phase != TouchPhase.Ended && touch.phase != TouchPhase.Canceled)
-                    {
-                        fingerCount++;
-                    }
-                }
-                Logger.Log("User has " + fingerCount + " finger(s) touching the screen");
+                deviceSyncClient.Proxy.Subscribe("ReceiveTouches").Data += ReceiveTouches;
             };
 #endif
         }
@@ -36,13 +27,25 @@ namespace DeviceSyncUnity
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
             if (deviceSyncClient.Connection.IsStarted)
             {
-                Touch[] touches = Input.touches;
-                deviceSyncClient.Proxy.Invoke("CallMethodAllClients", "ReceiveTouches", touches).Finished += (rtsender, rte) =>
-                {
-                    Logger.Log("ReceiveTouches sent");
-                };
+                deviceSyncClient.Proxy.Invoke("CallMethodOtherClients", "ReceiveTouches", Input.touches);
             }
 #endif
+        }
+
+        protected void ReceiveTouches(object[] data)
+        {
+            var jtoken = data[0] as JToken;
+            var touches = jtoken.ToObject<Touch[]>();
+
+            int fingerCount = 0;
+            foreach (Touch touch in touches)
+            {
+                if (touch.phase != TouchPhase.Ended && touch.phase != TouchPhase.Canceled)
+                {
+                    fingerCount++;
+                }
+            }
+            Logger.Log("User has " + fingerCount + " finger(s) touching the screen");
         }
     }
 }

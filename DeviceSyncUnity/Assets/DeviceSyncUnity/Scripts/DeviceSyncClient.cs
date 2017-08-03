@@ -17,13 +17,19 @@ namespace DeviceSyncUnity
         protected string hubName = "DeviceSyncHub";
 
         [SerializeField]
-        protected bool autoStart = true;
+        protected bool autoStartConnection = true;
 
         // Event
 
         public EventHandler ConnectionStarted = delegate { };
 
         // Properties
+
+        public string HubConnectionUrl { get { return hubConnectionUrl; } set { hubConnectionUrl = value; } }
+
+        public string HubName { get { return hubName; } set { hubName = value; } }
+
+        public bool AutoStartConnection { get { return autoStartConnection; } set { autoStartConnection = value; } }
 
         public HubConnection Connection { get; protected set; }
 
@@ -39,19 +45,30 @@ namespace DeviceSyncUnity
 
         // Methods
 
+        public void CreateConnection()
+        {
+            Logger.Log("Connection created");
+
+            Connection = new HubConnection(HubConnectionUrl);
+            Proxy = Connection.CreateProxy(HubName, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+        }
+
         public void ConnectionStartAsync()
         {
+            Logger.Log("Connection starting");
             connectionThread.Start();
+        }
+
+        public void ConnectionCancel()
+        {
+            // TODO: update the SignalR code
         }
 
         protected virtual void Awake()
         {
-            Connection = new HubConnection(hubConnectionUrl);
-            Proxy = Connection.CreateProxy(hubName, new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            });
-
             connectionThread = new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
@@ -67,9 +84,9 @@ namespace DeviceSyncUnity
 
         protected virtual void Start()
         {
-            if (autoStart)
+            if (AutoStartConnection)
             {
-                Logger.Log("Starting");
+                CreateConnection();
                 ConnectionStartAsync();
             }
         }
@@ -80,7 +97,7 @@ namespace DeviceSyncUnity
             {
                 if (threadConnecting && Connection.IsStarted)
                 {
-                    Logger.Log("Started");
+                    Logger.Log("Connection started");
 
                     threadConnecting = false;
                     ConnectionStarted.Invoke(this, EventArgs.Empty);

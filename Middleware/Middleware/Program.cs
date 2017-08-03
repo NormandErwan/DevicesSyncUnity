@@ -8,7 +8,7 @@ namespace DeviceSyncUnity.Middleware
 {
     class Program
     {
-        private const string url = "http://*:8080";
+        private const string url = "http://*:8090";
         private const int mainLoopEndDelay = 10;
 
         static void Main(string[] args)
