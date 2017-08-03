@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,20 +13,20 @@ namespace DeviceSyncUnity
 
         public static void Log(string message)
         {
-            Debug.Log(message);
-
-            lock (Instance.lines)
-            {
-                Instance.lines.Add(message + "\n");
-            }
+            Instance.LogInternal(message);
         }
 
-        private void Start()
+        public static void LogError(string message)
+        {
+            Instance.LogErrorInternal(message);
+        }
+
+        protected virtual void Start()
         {
             text.text = "";
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             lock (Instance.lines)
             {
@@ -34,6 +35,31 @@ namespace DeviceSyncUnity
                     Instance.text.text += line;
                 }
                 lines.Clear();
+            }
+        }
+
+        protected virtual void LogInternal(string message)
+        {
+            Debug.Log(message);
+            AddLine(message);
+        }
+
+        protected virtual void LogErrorInternal(string message)
+        {
+            Debug.LogError(message);
+            AddLine(message, true);
+        }
+
+        protected void AddLine(string message, bool isError = false)
+        {
+            lock (Instance.lines)
+            {
+                message = DateTime.Now + " - " + message;
+                if (isError)
+                {
+                    message = "<color=red>" + message + "</color>";
+                }
+                Instance.lines.Add(message + "\n");
             }
         }
     }
