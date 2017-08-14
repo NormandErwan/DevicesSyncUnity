@@ -6,9 +6,6 @@ namespace DeviceSyncUnity
     {
         // Editor fields
 
-        [SerializeField]
-        private DeviceSyncClient deviceSyncClient;
-
         // Methods
     }
 }
