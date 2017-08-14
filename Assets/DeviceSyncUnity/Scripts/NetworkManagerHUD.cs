@@ -4,7 +4,6 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.Networking.Match;
 using UnityEngine.UI;
 
 namespace DeviceSyncUnity
@@ -88,7 +87,6 @@ namespace DeviceSyncUnity
 
         protected virtual void Awake()
         {
-            print(Application.persistentDataPath);
             connectionInfoFilePath = Application.persistentDataPath + "/" + connectionInfoFileName;
             LoadConnectionInfo();
 
