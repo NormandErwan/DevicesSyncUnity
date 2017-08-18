@@ -91,15 +91,15 @@ namespace DeviceSyncUnity
             // TODO: send only if touches.Count > 0 previous time
             var message = new TouchesMessage();
 
-            message.touches = new TouchMessage[2];
-            for (int i = 0; i < 2; i++)
+            message.touches = new TouchMessage[Input.touchCount];
+            for (int i = 0; i < message.touches.Length; i++)
             {
                 message.touches[i] = new TouchMessage(Input.touches[i]);
             }
 
             if (LogFilter.currentLogLevel <= LogFilter.Debug)
             {
-                Debug.Log("Send touches (count: " + Input.touchCount + ")");
+                Debug.Log("Send touches (count: " + message.touches.Length + ")");
             }
 
             NetworkManager.client.Send(MessageType.Touches, message);
