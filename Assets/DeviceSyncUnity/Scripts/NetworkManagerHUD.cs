@@ -136,6 +136,7 @@ namespace DeviceSyncUnity
             {
                 if (ManagerConnected())
                 {
+                    UpdatePanelText();
                     break;
                 }
                 yield return null;
