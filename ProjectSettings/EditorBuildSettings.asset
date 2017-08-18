@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/DeviceSyncUnity/Scenes/ClientExample.unity
+  - enabled: 0
+    path: 
     guid: ef978fa19bef31a4c9dbf168d360a26e
+  - enabled: 1
+    path: Assets/DeviceSyncUnity/Scenes/SmartphonePCSyncExample.unity
+    guid: da757275df4f58948898d21069781544
