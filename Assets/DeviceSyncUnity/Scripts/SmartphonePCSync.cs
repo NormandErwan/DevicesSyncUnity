@@ -88,14 +88,19 @@ namespace DeviceSyncUnity
 
         protected void SendTouches()
         {
-            // TODO: send only if touches.Count > 0 previous time
-            var message = new TouchesMessage();
+            if (Input.touchCount == 0 && !touchesLastFrames)
+            {
+                return;
+            }
 
+            var message = new TouchesMessage();
             message.touches = new TouchMessage[Input.touchCount];
             for (int i = 0; i < message.touches.Length; i++)
             {
                 message.touches[i] = new TouchMessage(Input.touches[i]);
             }
+
+            touchesLastFrames = message.touches.Length != 0;
 
             if (LogFilter.currentLogLevel <= LogFilter.Debug)
             {
@@ -109,7 +114,7 @@ namespace DeviceSyncUnity
         protected virtual void SendToAllClientsTouches(NetworkMessage netMessage)
         {
             var message = netMessage.ReadMessage<TouchesMessage>();
-            if (message.touches != null && LogFilter.currentLogLevel <= LogFilter.Debug)
+            if (LogFilter.currentLogLevel <= LogFilter.Debug)
             {
                 Debug.Log("Send to all clients touches (count: " + message.touches.Length + ")");
             }
@@ -119,11 +124,7 @@ namespace DeviceSyncUnity
         protected virtual void ReceiveTouches(NetworkMessage netMessage)
         {
             var message = netMessage.ReadMessage<TouchesMessage>();
-            if ((message == null || message.touches == null) && LogFilter.currentLogLevel <= LogFilter.Warn)
-            {
-                Debug.Log("Received a null message or with null touches property");
-            }
-            if (message != null && message.touches != null && LogFilter.currentLogLevel <= LogFilter.Debug)
+            if (LogFilter.currentLogLevel <= LogFilter.Debug)
             {
                 Debug.Log("Received touches (count: " + message.touches.Length + ")");
             }
