@@ -14,6 +14,8 @@ namespace DeviceSyncUnity
         [SerializeField]
         private NetworkManager networkManager;
 
+        // TODO: choose between an time interval or a frame interval
+
         [SerializeField]
         private float sendTouchesInterval = 0.1f;
 
@@ -23,8 +25,11 @@ namespace DeviceSyncUnity
 
         public float SendTouchesInterval { get { return sendTouchesInterval; } set { sendTouchesInterval = value; } }
 
+        // TODO: dictionary of each sender with latest received touches values
+
         // Events
 
+        // TODO: add a visual debugger that display the touches info on screen
         public event Action<TouchesMessage> TouchesReceived = delegate { };
 
         // Variables
@@ -82,6 +87,9 @@ namespace DeviceSyncUnity
             while (NetworkManager != null && NetworkManager.client != null)
             {
                 SendTouches();
+                // TODO: stack values every frame and send the stack
+                // TODO: send also an average of the stack values
+                // TODO: send Input.touchPressureSupported, Camera.pixelWidth and Camera.pixelHeigth
                 yield return new WaitForSeconds(SendTouchesInterval);
             }
         }
