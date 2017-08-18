@@ -30,6 +30,7 @@ namespace DeviceSyncUnity
         // Events
 
         // TODO: add a visual debugger that display the touches info on screen
+        public event Action<TouchesMessage> ServerTouchesReceived = delegate { };
         public event Action<TouchesMessage> TouchesReceived = delegate { };
 
         // Variables
@@ -71,8 +72,6 @@ namespace DeviceSyncUnity
                     {
                         NetworkManager.client.RegisterHandler(MsgType.Error, OnError);
                     }
-
-                    // TODO: add coroutine to etablish that there is a sync client-server-client communication before start the send touches
 
 #if UNITY_ANDROID || UNITY_IOS
                     StartCoroutine("SendTouchesCoroutine");
@@ -126,6 +125,8 @@ namespace DeviceSyncUnity
             {
                 Debug.Log("Send to all clients touches (count: " + message.touches.Length + ")");
             }
+
+            ServerTouchesReceived.Invoke(message);
             NetworkServer.SendToAll(MessageType.Touches, message);
         }
 
@@ -136,6 +137,7 @@ namespace DeviceSyncUnity
             {
                 Debug.Log("Received touches (count: " + message.touches.Length + ")");
             }
+
             TouchesReceived.Invoke(message);
         }
 
