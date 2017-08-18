@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
@@ -25,7 +26,7 @@ namespace DeviceSyncUnity
 
         public float SendTouchesInterval { get { return sendTouchesInterval; } set { sendTouchesInterval = value; } }
 
-        // TODO: dictionary of each sender with latest received touches values
+        public Dictionary<int, TouchesMessage> Touches { get; protected set; }
 
         // Events
 
@@ -40,13 +41,16 @@ namespace DeviceSyncUnity
 
         // Methods
 
+        // TODO: handle client reconnection
         protected virtual void Start()
         {
+            Touches = new Dictionary<int, TouchesMessage>();
             TryStartSync();
         }
 
         protected virtual void TryStartSync(NetworkManager newNetworkManager = null)
         {
+            // Unsubscribe from the previous NetworkManager
             if (syncStarted)
             {
                 NetworkManager.client.UnregisterHandler(MessageType.Touches);
@@ -55,6 +59,7 @@ namespace DeviceSyncUnity
                 syncStarted = false;
             }
 
+            // Subscribe to the NetworkServer and the NetworkManager's client
             if (NetworkManager != null)
             {
                 syncStarted = true;
@@ -101,6 +106,8 @@ namespace DeviceSyncUnity
             }
 
             var message = new TouchesMessage();
+            message.connectionId = NetworkManager.client.connection.connectionId;
+
             message.touches = new TouchMessage[Input.touchCount];
             for (int i = 0; i < message.touches.Length; i++)
             {
@@ -111,7 +118,7 @@ namespace DeviceSyncUnity
 
             if (LogFilter.currentLogLevel <= LogFilter.Debug)
             {
-                Debug.Log("Send touches (count: " + message.touches.Length + ")");
+                UnityEngine.Debug.Log("Send touches (count: " + message.touches.Length + ")");
             }
 
             NetworkManager.client.Send(MessageType.Touches, message);
@@ -123,7 +130,7 @@ namespace DeviceSyncUnity
             var message = netMessage.ReadMessage<TouchesMessage>();
             if (LogFilter.currentLogLevel <= LogFilter.Debug)
             {
-                Debug.Log("Send to all clients touches (count: " + message.touches.Length + ")");
+                UnityEngine.Debug.Log("Send to all clients touches from " + message.connectionId + " (count: " + message.touches.Length + ")");
             }
 
             ServerTouchesReceived.Invoke(message);
@@ -135,16 +142,17 @@ namespace DeviceSyncUnity
             var message = netMessage.ReadMessage<TouchesMessage>();
             if (LogFilter.currentLogLevel <= LogFilter.Debug)
             {
-                Debug.Log("Received touches (count: " + message.touches.Length + ")");
+                UnityEngine.Debug.Log("Received touches from " + message.connectionId + " (count: " + message.touches.Length + ")");
             }
 
+            Touches[message.connectionId] = message;
             TouchesReceived.Invoke(message);
         }
 
         protected virtual void OnError(NetworkMessage netMessage)
         {
             var errorMessage = netMessage.ReadMessage<ErrorMessage>();
-            Debug.LogError(errorMessage.errorCode);
+            UnityEngine.Debug.LogError(errorMessage.errorCode);
         }
     }
 }
