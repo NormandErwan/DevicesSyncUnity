@@ -73,10 +73,7 @@ namespace DeviceSyncUnity
                 {
                     NetworkManager.client.RegisterHandler(MessageType.Touches, ReceiveTouches);
 
-                    if (LogFilter.currentLogLevel <= LogFilter.Error)
-                    {
-                        NetworkManager.client.RegisterHandler(MsgType.Error, OnError);
-                    }
+                    Debug.Execute(() => NetworkManager.client.RegisterHandler(MsgType.Error, OnError), LogFilter.Error);
 
 #if UNITY_ANDROID || UNITY_IOS
                     StartCoroutine("SendTouchesCoroutine");
@@ -116,10 +113,7 @@ namespace DeviceSyncUnity
 
             touchesLastFrames = message.touches.Length != 0;
 
-            if (LogFilter.currentLogLevel <= LogFilter.Debug)
-            {
-                UnityEngine.Debug.Log("Send touches (count: " + message.touches.Length + ")");
-            }
+            Debug.Log("Send touches (count: " + message.touches.Length + ")", LogFilter.Debug);
 
             NetworkManager.client.Send(MessageType.Touches, message);
         }
@@ -128,10 +122,8 @@ namespace DeviceSyncUnity
         protected virtual void SendToAllClientsTouches(NetworkMessage netMessage)
         {
             var message = netMessage.ReadMessage<TouchesMessage>();
-            if (LogFilter.currentLogLevel <= LogFilter.Debug)
-            {
-                UnityEngine.Debug.Log("Send to all clients touches from " + message.connectionId + " (count: " + message.touches.Length + ")");
-            }
+
+            Debug.Log("Send to all clients touches from " + message.connectionId + " (count: " + message.touches.Length + ")", LogFilter.Debug);
 
             ServerTouchesReceived.Invoke(message);
             NetworkServer.SendToAll(MessageType.Touches, message);
@@ -140,10 +132,8 @@ namespace DeviceSyncUnity
         protected virtual void ReceiveTouches(NetworkMessage netMessage)
         {
             var message = netMessage.ReadMessage<TouchesMessage>();
-            if (LogFilter.currentLogLevel <= LogFilter.Debug)
-            {
-                UnityEngine.Debug.Log("Received touches from " + message.connectionId + " (count: " + message.touches.Length + ")");
-            }
+
+            Debug.Log("Received touches from " + message.connectionId + " (count: " + message.touches.Length + ")", LogFilter.Debug);
 
             Touches[message.connectionId] = message;
             TouchesReceived.Invoke(message);
