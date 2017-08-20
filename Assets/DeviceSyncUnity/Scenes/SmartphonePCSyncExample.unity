@@ -743,7 +743,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkManager: {fileID: 1352797723}
-  sendTouchesInterval: 0.1
+  sendTouchesMode: 1
+  sendTouchesTimeInterval: 0.1
+  sendTouchesFramesInterval: 2
 --- !u!114 &1671463029
 MonoBehaviour:
   m_ObjectHideFlags: 0
