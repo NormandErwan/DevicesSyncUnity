@@ -4,7 +4,7 @@ namespace DeviceSyncUnity
 {
     public struct TouchMessage
     {
-        // Constructors
+        // Constructor
 
         public TouchMessage(Touch touch)
         {

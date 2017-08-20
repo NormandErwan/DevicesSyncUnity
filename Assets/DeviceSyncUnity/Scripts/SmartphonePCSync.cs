@@ -90,7 +90,6 @@ namespace DeviceSyncUnity
                 SendTouches();
                 // TODO: stack values every frame and send the stack
                 // TODO: send also an average of the stack values
-                // TODO: send Input.touchPressureSupported, Camera.pixelWidth and Camera.pixelHeigth
                 yield return new WaitForSeconds(SendTouchesInterval);
             }
         }
@@ -104,17 +103,12 @@ namespace DeviceSyncUnity
 
             var message = new TouchesMessage();
             message.connectionId = NetworkManager.client.connection.connectionId;
-
-            message.touches = new TouchMessage[Input.touchCount];
-            for (int i = 0; i < message.touches.Length; i++)
-            {
-                message.touches[i] = new TouchMessage(Input.touches[i]);
-            }
-
-            touchesLastFrames = message.touches.Length != 0;
+            message.PopulateFromInput();
+            message.PopulateFromCamera(Camera.main);
 
             Debug.Log("Send touches (count: " + message.touches.Length + ")", LogFilter.Debug);
 
+            touchesLastFrames = message.touches.Length != 0;
             NetworkManager.client.Send(MessageType.Touches, message);
         }
 #endif
