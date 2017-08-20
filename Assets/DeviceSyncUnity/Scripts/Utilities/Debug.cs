@@ -10,9 +10,9 @@ namespace DeviceSyncUnity
             Execute(() => UnityEngine.Debug.Log(message), minLogLevel);
         }
 
-        public static void LogError(string message, int minLogLevel)
+        public static void LogError(string message)
         {
-            Execute(() => UnityEngine.Debug.LogError(message), minLogLevel);
+            Execute(() => UnityEngine.Debug.LogError(message), LogFilter.Error);
         }
 
         public static void Execute(Action action, int minLogLevel)
