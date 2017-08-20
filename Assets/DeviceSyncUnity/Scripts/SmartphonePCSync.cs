@@ -72,17 +72,16 @@ namespace DeviceSyncUnity
                 if (NetworkManager.client != null && isClient)
                 {
                     NetworkManager.client.RegisterHandler(MessageType.Touches, ReceiveTouches);
-
                     Debug.Execute(() => NetworkManager.client.RegisterHandler(MsgType.Error, OnError), LogFilter.Error);
 
-#if UNITY_ANDROID || UNITY_IOS
-                    StartCoroutine("SendTouchesCoroutine");
-#endif
+                    if (Input.touchSupported)
+                    {
+                        StartCoroutine("SendTouchesCoroutine");
+                    }
                 }
             }
         }
 
-#if UNITY_ANDROID || UNITY_IOS
         protected virtual IEnumerator SendTouchesCoroutine()
         {
             while (NetworkManager != null && NetworkManager.client != null)
@@ -111,7 +110,6 @@ namespace DeviceSyncUnity
             touchesLastFrames = message.touches.Length != 0;
             NetworkManager.client.Send(MessageType.Touches, message);
         }
-#endif
 
         protected virtual void SendToAllClientsTouches(NetworkMessage netMessage)
         {
