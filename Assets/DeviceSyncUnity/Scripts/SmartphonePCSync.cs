@@ -9,7 +9,6 @@ namespace DeviceSyncUnity
 {
     public enum SendTouchesMode
     {
-        NoSending,
         TimeInterval,
         FramesInterval
     }
@@ -29,7 +28,7 @@ namespace DeviceSyncUnity
         private float sendTouchesTimeInterval = 0.1f;
 
         [SerializeField]
-        private uint sendTouchesFramesInterval = 1;
+        private uint sendTouchesFramesInterval = 2;
 
         // Properties
 
@@ -83,7 +82,7 @@ namespace DeviceSyncUnity
 
         public virtual IEnumerator SendTouchesWithInterval()
         {
-            while (Input.touchSupported && SendTouchesMode != SendTouchesMode.NoSending)
+            while (true)
             {
                 if (Input.touchCount == 0 && !touchesLastFrames)
                 {
@@ -150,7 +149,11 @@ namespace DeviceSyncUnity
                 {
                     NetworkManager.client.RegisterHandler(MessageType.Touches, ReceiveTouches);
                     Debug.Execute(() => NetworkManager.client.RegisterHandler(MsgType.Error, OnError), LogFilter.Error);
-                    StartCoroutine("SendTouchesWithInterval");
+
+                    if (Input.touchSupported)
+                    {
+                        StartCoroutine("SendTouchesWithInterval");
+                    }
                 }
             }
         }
