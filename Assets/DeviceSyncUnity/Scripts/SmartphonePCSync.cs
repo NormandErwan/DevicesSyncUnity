@@ -7,7 +7,7 @@ using UnityEngine.Networking.NetworkSystem;
 
 namespace DeviceSyncUnity
 {
-    public enum SendTouchesMode
+    public enum SendMode
     {
         TimeInterval,
         FramesInterval
@@ -22,7 +22,7 @@ namespace DeviceSyncUnity
         private NetworkManager networkManager;
 
         [SerializeField]
-        private SendTouchesMode sendTouchesMode = SendTouchesMode.TimeInterval;
+        private SendMode sendTouchesMode = SendMode.TimeInterval;
 
         [SerializeField]
         private float sendTouchesTimeInterval = 0.1f;
@@ -34,7 +34,7 @@ namespace DeviceSyncUnity
 
         public NetworkManager NetworkManager { get { return networkManager; } set { TryStartSync(value); } }
 
-        public SendTouchesMode SendTouchesMode { get { return sendTouchesMode; } set { sendTouchesMode = value; } }
+        public SendMode SendTouchesMode { get { return sendTouchesMode; } set { sendTouchesMode = value; } }
         public float SendTouchesTimeInterval { get { return sendTouchesTimeInterval; } set { sendTouchesTimeInterval = value; } }
         public uint SendTouchesFramesInterval { get { return sendTouchesFramesInterval; } set { sendTouchesFramesInterval = value; } }
 
@@ -48,7 +48,8 @@ namespace DeviceSyncUnity
 
         // Variables
 
-        protected uint sendTouchesFramesCount = 0;
+        protected TouchesMessage touches = new TouchesMessage();
+        protected Stack<TouchMessage[]> touchesStack = new Stack<TouchMessage[]>();
         protected float sendTouchesTimer = 0;
         protected bool touchesLastFrames = false;
         protected bool syncStarted = false;
@@ -63,21 +64,16 @@ namespace DeviceSyncUnity
                 return;
             }
 
-            if (touchesMessage == null)
-            {
-                touchesMessage = GetTouchesMessage();
-            }
+            touchesMessage = (touchesMessage != null) ? touchesMessage : GetTouchesMessage();
+
             Debug.Log("Send touches (count: " + touchesMessage.touches.Length + ")", LogFilter.Debug);
             NetworkManager.client.Send(MessageType.Touches, touchesMessage);
         }
 
         public virtual TouchesMessage GetTouchesMessage()
         {
-            var message = new TouchesMessage();
-            message.connectionId = NetworkManager.client.connection.connectionId;
-            message.PopulateFromInput();
-            message.PopulateFromCamera(Camera.main);
-            return message;
+            touches.Populate(NetworkManager.client.connection.connectionId, Camera.main);
+            return touches;
         }
 
         public virtual IEnumerator SendTouchesWithInterval()
@@ -90,36 +86,38 @@ namespace DeviceSyncUnity
                 }
                 touchesLastFrames = Input.touchCount != 0;
 
-                var message = GetTouchesMessage();
-                if (SendTouchesMode == SendTouchesMode.FramesInterval)
+                bool sendTouches = false;
+                if (SendTouchesMode == SendMode.FramesInterval)
                 {
-                    sendTouchesFramesCount++;
-                    if (sendTouchesFramesCount >= SendTouchesFramesInterval)
-                    {
-                        sendTouchesFramesCount = 0;
-                        SendTouches(message);
-                    }
+                    sendTouches = (touchesStack.Count >= SendTouchesFramesInterval);
                 }
-                else if (SendTouchesMode == SendTouchesMode.TimeInterval)
+                else if (SendTouchesMode == SendMode.TimeInterval)
                 {
                     if (Time.unscaledTime - sendTouchesTimer >= SendTouchesTimeInterval)
                     {
                         sendTouchesTimer = Time.unscaledTime;
-                        SendTouches(message);
+                        sendTouches = true;
                     }
                 }
 
-                // TODO: stack values
-                // TODO: send also an average of the stack values
+                var touchesMessage = GetTouchesMessage();
+                if (!sendTouches)
+                {
+                    touchesStack.Push(touchesMessage.touches);
+                }
+                else
+                {
+                    touchesMessage.SetTouchesAverage(touchesStack);
+                    SendTouches(touchesMessage);
+                }
                 yield return null;
             }
         }
 
-        // TODO: handle client reconnection
         protected virtual void Start()
         {
             Touches = new Dictionary<int, TouchesMessage>();
-            TryStartSync();
+            TryStartSync(); // TODO: handle when client is disconnected from server
         }
 
         protected virtual void TryStartSync(NetworkManager newNetworkManager = null)
@@ -160,22 +158,22 @@ namespace DeviceSyncUnity
 
         protected virtual void SendToAllClientsTouches(NetworkMessage netMessage)
         {
-            var message = netMessage.ReadMessage<TouchesMessage>();
+            var touchesMessage = netMessage.ReadMessage<TouchesMessage>();
 
-            Debug.Log("Send to all clients touches from " + message.connectionId + " (count: " + message.touches.Length + ")", LogFilter.Debug);
+            Debug.Log("Send to all clients touches from " + touchesMessage.connectionId + " (count: " + touchesMessage.touches.Length + ")", LogFilter.Debug);
 
-            ServerTouchesReceived.Invoke(message);
-            NetworkServer.SendToAll(MessageType.Touches, message);
+            ServerTouchesReceived.Invoke(touchesMessage);
+            NetworkServer.SendToAll(MessageType.Touches, touchesMessage);
         }
 
         protected virtual void ReceiveTouches(NetworkMessage netMessage)
         {
-            var message = netMessage.ReadMessage<TouchesMessage>();
+            var touchesMessage = netMessage.ReadMessage<TouchesMessage>();
 
-            Debug.Log("Received touches from " + message.connectionId + " (count: " + message.touches.Length + ")", LogFilter.Debug);
+            Debug.Log("Received touches from " + touchesMessage.connectionId + " (count: " + touchesMessage.touches.Length + ")", LogFilter.Debug);
 
-            Touches[message.connectionId] = message;
-            TouchesReceived.Invoke(message);
+            Touches[touchesMessage.connectionId] = touchesMessage;
+            TouchesReceived.Invoke(touchesMessage);
         }
 
         protected virtual void OnError(NetworkMessage netMessage)

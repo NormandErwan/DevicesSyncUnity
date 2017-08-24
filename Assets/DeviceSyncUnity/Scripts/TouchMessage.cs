@@ -2,9 +2,13 @@
 
 namespace DeviceSyncUnity
 {
-    public struct TouchMessage
+    public class TouchMessage
     {
         // Constructor
+
+        public TouchMessage()
+        {
+        }
 
         public TouchMessage(Touch touch)
         {
@@ -24,26 +28,26 @@ namespace DeviceSyncUnity
             radiusVariance = touch.radiusVariance;
         }
 
-        // Properties
+        // Variables
 
-        public int fingerId { get; set; }
-        public Vector2 position { get; set; }
-        public Vector2 rawPosition { get; set; }
-        public Vector2 deltaPosition { get; set; }
-        public float deltaTime { get; set; }
-        public int tapCount { get; set; }
-        public TouchPhase phase { get; set; }
-        public float pressure { get; set; }
-        public float maximumPossiblePressure { get; set; }
-        public TouchType type { get; set; }
-        public float altitudeAngle { get; set; }
-        public float azimuthAngle { get; set; }
-        public float radius { get; set; }
-        public float radiusVariance { get; set; }
+        public int fingerId;
+        public Vector2 position;
+        public Vector2 rawPosition;
+        public Vector2 deltaPosition;
+        public float deltaTime;
+        public int tapCount;
+        public TouchPhase phase;
+        public float pressure;
+        public float maximumPossiblePressure;
+        public TouchType type;
+        public float altitudeAngle;
+        public float azimuthAngle;
+        public float radius;
+        public float radiusVariance;
 
         // Methods
 
-        public Touch GetTouch()
+        public virtual Touch GetTouch()
         {
             Touch touch = new Touch();
             touch.fingerId = fingerId;
