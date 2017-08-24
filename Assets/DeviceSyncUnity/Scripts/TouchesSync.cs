@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeviceSyncUnity.Messages;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace DeviceSyncUnity
     }
 
     [RequireComponent(typeof(NetworkIdentity))]
-    public class SmartphonePCSync : NetworkBehaviour
+    public class TouchesSync : NetworkBehaviour
     {
         // Editor fields
 

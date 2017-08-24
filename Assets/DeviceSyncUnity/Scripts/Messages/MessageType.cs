@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Networking;
 
-namespace DeviceSyncUnity
+namespace DeviceSyncUnity.Messages
 {
     public class MessageType
     {

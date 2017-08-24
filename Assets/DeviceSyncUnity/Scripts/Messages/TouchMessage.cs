@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DeviceSyncUnity
+namespace DeviceSyncUnity.Messages
 {
     public class TouchMessage
     {
