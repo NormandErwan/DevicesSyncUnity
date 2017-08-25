@@ -839,7 +839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf326d1fd25267478f762e267225243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 2
+  syncMode: 0
   sendingMode: 0
   sendingTimeInterval: 0.1
   sendingFramesInterval: 2
