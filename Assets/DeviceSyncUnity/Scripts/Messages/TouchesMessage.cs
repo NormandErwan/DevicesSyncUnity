@@ -75,13 +75,14 @@ namespace DeviceSyncUnity.Messages
             }
 
             // Calculate the average
-            if (previousTouchesStack.Count > 1)
+            if (previousTouchesStack.Count > 0)
             {
+                int touchesCount = previousTouchesStack.Count + 1;
                 foreach (var touchAverage in touchesAverage)
                 {
-                    touchAverage.pressure /= previousTouchesStack.Count;
-                    touchAverage.radius /= previousTouchesStack.Count;
-                    touchAverage.radiusVariance /= previousTouchesStack.Count;
+                    touchAverage.pressure /= touchesCount;
+                    touchAverage.radius /= touchesCount;
+                    touchAverage.radiusVariance /= touchesCount;
                 }
             }
 
