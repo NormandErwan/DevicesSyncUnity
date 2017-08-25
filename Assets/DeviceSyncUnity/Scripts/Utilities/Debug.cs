@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine.Networking;
 
-namespace DeviceSyncUnity
+namespace DeviceSyncUnity.Utilities
 {
     public static class Debug
     {

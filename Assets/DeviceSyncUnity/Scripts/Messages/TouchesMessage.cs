@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace DeviceSyncUnity.Messages
 {
-    public class TouchesMessage : MessageBase
+    public class TouchesMessage : DevicesSyncMessage
     {
         // Variables
-
-        public int connectionId;
 
         public bool multiTouchEnabled;
         public bool stylusTouchSupported;
@@ -21,7 +18,7 @@ namespace DeviceSyncUnity.Messages
 
         // Methods
 
-        public virtual void Populate(int connectionId, Camera camera)
+        public virtual void Populate(Camera camera)
         {
             multiTouchEnabled = Input.multiTouchEnabled;
             stylusTouchSupported = Input.stylusTouchSupported;
@@ -40,7 +37,6 @@ namespace DeviceSyncUnity.Messages
         public virtual void SetTouchesAverage(Stack<TouchMessage[]> previousTouchesStack)
         {
             var touchesAverage = new List<TouchMessage>();
-            var touchesStackCount = previousTouchesStack.Count;
 
             // Initialize
             foreach (var touch in touches)
@@ -49,13 +45,12 @@ namespace DeviceSyncUnity.Messages
             }
 
             // Sum up with touches from previous frames
-            while (previousTouchesStack.Count > 0)
+            foreach (var previousTouches in previousTouchesStack)
             {
-                var previousTouches = previousTouchesStack.Pop();
                 foreach (var previousTouch in previousTouches)
                 {
                     bool newTouch = true;
-                    foreach (var touchAverage in touchesAverage)
+                    foreach (var touchAverage in touchesAverage) // TODO: improve this O(n^3)
                     {
                         if (touchAverage.fingerId == previousTouch.fingerId)
                         {
@@ -79,13 +74,13 @@ namespace DeviceSyncUnity.Messages
             }
 
             // Calculate the average
-            if (touchesStackCount > 1)
+            if (previousTouchesStack.Count > 1)
             {
                 foreach (var touchAverage in touchesAverage)
                 {
-                    touchAverage.pressure /= touchesStackCount;
-                    touchAverage.radius /= touchesStackCount;
-                    touchAverage.radiusVariance /= touchesStackCount;
+                    touchAverage.pressure /= previousTouchesStack.Count;
+                    touchAverage.radius /= previousTouchesStack.Count;
+                    touchAverage.radiusVariance /= previousTouchesStack.Count;
                 }
             }
 

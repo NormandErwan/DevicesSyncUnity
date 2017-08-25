@@ -49,7 +49,7 @@ namespace DeviceSyncUnity.Messages
 
         public virtual Touch GetTouch()
         {
-            Touch touch = new Touch();
+            var touch = new Touch();
             touch.fingerId = fingerId;
             touch.position = position;
             touch.rawPosition = rawPosition;

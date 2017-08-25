@@ -195,7 +195,7 @@ Prefab:
     - target: {fileID: 224129517076037502, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 396.65634
+      value: 396.6563
       objectReference: {fileID: 0}
     - target: {fileID: 224129517076037502, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}
@@ -225,7 +225,7 @@ Prefab:
     - target: {fileID: 224185719184640916, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 479.15634
+      value: 479.1563
       objectReference: {fileID: 0}
     - target: {fileID: 224185719184640916, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}
@@ -371,6 +371,26 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.y
       value: -357.6563
+      objectReference: {fileID: 0}
+    - target: {fileID: 224780461729857996, guid: 8166c9f2197c4b94c9627c753edaad1b,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 493.0066
+      objectReference: {fileID: 0}
+    - target: {fileID: 224799501854130902, guid: 8166c9f2197c4b94c9627c753edaad1b,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 493.0066
+      objectReference: {fileID: 0}
+    - target: {fileID: 224481710802364692, guid: 8166c9f2197c4b94c9627c753edaad1b,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 493.0066
+      objectReference: {fileID: 0}
+    - target: {fileID: 224048110912037106, guid: 8166c9f2197c4b94c9627c753edaad1b,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 493.0066
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8166c9f2197c4b94c9627c753edaad1b, type: 2}
@@ -712,7 +732,7 @@ GameObject:
   - component: {fileID: 1671463028}
   - component: {fileID: 1671463029}
   m_Layer: 0
-  m_Name: DevicesSync
+  m_Name: TouchesSync
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -742,10 +762,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf326d1fd25267478f762e267225243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkManager: {fileID: 1352797723}
-  sendTouchesMode: 1
-  sendTouchesTimeInterval: 0.1
-  sendTouchesFramesInterval: 2
+  sendingTouchesMode: 1
+  sendingTouchesTimeInterval: 0.1
+  sendingTouchesFramesInterval: 2
 --- !u!114 &1671463029
 MonoBehaviour:
   m_ObjectHideFlags: 0
