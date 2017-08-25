@@ -4,21 +4,27 @@ namespace DeviceSyncUnity.Messages
 {
     public class AccelerationEventMessage
     {
-        // Constructor
-
-        public AccelerationEventMessage()
-        {
-        }
-
-        public AccelerationEventMessage(AccelerationEvent accelerationEvent)
-        {
-            acceleration = accelerationEvent.acceleration;
-            deltaTime = accelerationEvent.deltaTime;
-        }
-
         // Variables
 
         public Vector3 acceleration;
         public float deltaTime;
+
+        // Methods
+
+        public static implicit operator AccelerationEventMessage(AccelerationEvent accelerationEvent)
+        {
+            var accelerationEventMessage = new AccelerationEventMessage();
+            accelerationEventMessage.acceleration = accelerationEvent.acceleration;
+            accelerationEventMessage.deltaTime = accelerationEvent.deltaTime;
+            return accelerationEventMessage;
+        }
+
+        public static implicit operator AccelerationEvent(AccelerationEventMessage accelerationEventMessage)
+        {
+            var accelerationEvent = new AccelerationEvent();
+            accelerationEvent.acceleration = accelerationEventMessage.acceleration;
+            accelerationEvent.deltaTime = accelerationEventMessage.deltaTime;
+            return accelerationEvent;
+        }
     }
 }

@@ -4,30 +4,6 @@ namespace DeviceSyncUnity.Messages
 {
     public class TouchMessage
     {
-        // Constructor
-
-        public TouchMessage()
-        {
-        }
-
-        public TouchMessage(Touch touch)
-        {
-            fingerId = touch.fingerId;
-            position = touch.position;
-            rawPosition = touch.rawPosition;
-            deltaPosition = touch.deltaPosition;
-            deltaTime = touch.deltaTime;
-            tapCount = touch.tapCount;
-            phase = touch.phase;
-            pressure = touch.pressure;
-            maximumPossiblePressure = touch.maximumPossiblePressure;
-            type = touch.type;
-            altitudeAngle = touch.altitudeAngle;
-            azimuthAngle = touch.azimuthAngle;
-            radius = touch.radius;
-            radiusVariance = touch.radiusVariance;
-        }
-
         // Variables
 
         public int fingerId;
@@ -47,23 +23,43 @@ namespace DeviceSyncUnity.Messages
 
         // Methods
 
-        public virtual Touch GetTouch()
+        public static implicit operator TouchMessage(Touch touch)
         {
-            var touch = new Touch();
-            touch.fingerId = fingerId;
-            touch.position = position;
-            touch.rawPosition = rawPosition;
-            touch.deltaPosition = deltaPosition;
-            touch.deltaTime = deltaTime;
-            touch.tapCount = tapCount;
-            touch.phase = phase;
-            touch.pressure = pressure;
-            touch.maximumPossiblePressure = maximumPossiblePressure;
-            touch.type = type;
-            touch.altitudeAngle = altitudeAngle;
-            touch.azimuthAngle = azimuthAngle;
-            touch.radius = radius;
-            touch.radiusVariance = radiusVariance;
+            TouchMessage touchMessage = new TouchMessage();
+            touchMessage.fingerId = touch.fingerId;
+            touchMessage.position = touch.position;
+            touchMessage.rawPosition = touch.rawPosition;
+            touchMessage.deltaPosition = touch.deltaPosition;
+            touchMessage.deltaTime = touch.deltaTime;
+            touchMessage.tapCount = touch.tapCount;
+            touchMessage.phase = touch.phase;
+            touchMessage.pressure = touch.pressure;
+            touchMessage.maximumPossiblePressure = touch.maximumPossiblePressure;
+            touchMessage.type = touch.type;
+            touchMessage.altitudeAngle = touch.altitudeAngle;
+            touchMessage.azimuthAngle = touch.azimuthAngle;
+            touchMessage.radius = touch.radius;
+            touchMessage.radiusVariance = touch.radiusVariance;
+            return touchMessage;
+        }
+
+        public static implicit operator Touch(TouchMessage touchMessage)
+        {
+            Touch touch = new Touch();
+            touch.fingerId = touchMessage.fingerId;
+            touch.position = touchMessage.position;
+            touch.rawPosition = touchMessage.rawPosition;
+            touch.deltaPosition = touchMessage.deltaPosition;
+            touch.deltaTime = touchMessage.deltaTime;
+            touch.tapCount = touchMessage.tapCount;
+            touch.phase = touchMessage.phase;
+            touch.pressure = touchMessage.pressure;
+            touch.maximumPossiblePressure = touchMessage.maximumPossiblePressure;
+            touch.type = touchMessage.type;
+            touch.altitudeAngle = touchMessage.altitudeAngle;
+            touch.azimuthAngle = touchMessage.azimuthAngle;
+            touch.radius = touchMessage.radius;
+            touch.radiusVariance = touchMessage.radiusVariance;
             return touch;
         }
     }

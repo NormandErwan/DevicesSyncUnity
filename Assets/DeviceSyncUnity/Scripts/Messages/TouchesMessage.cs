@@ -27,7 +27,7 @@ namespace DeviceSyncUnity.Messages
             touches = new TouchMessage[Input.touchCount];
             for (int i = 0; i < Input.touchCount; i++)
             {
-                touches[i] = new TouchMessage(Input.touches[i]);
+                touches[i] = Input.touches[i];
             }
 
             cameraPixelHeigth = camera.pixelHeight;
@@ -41,7 +41,8 @@ namespace DeviceSyncUnity.Messages
             // Initialize
             foreach (var touch in touches)
             {
-                touchesAverage.Add(new TouchMessage(touch.GetTouch()));
+                Touch touchCopy = touch;
+                touchesAverage.Add(touchCopy);
             }
 
             // Sum up with touches from previous frames

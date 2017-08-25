@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DeviceSyncUnity.Messages
@@ -34,7 +33,7 @@ namespace DeviceSyncUnity.Messages
             while (i < Input.accelerationEventCount)
             {
                 // TODO: check if the order of stacked events if correct
-                accelerationEvents[i + previousLength] = new AccelerationEventMessage(Input.GetAccelerationEvent(i));
+                accelerationEvents[i + previousLength] = Input.GetAccelerationEvent(i);
                 i++;
             }
         }
