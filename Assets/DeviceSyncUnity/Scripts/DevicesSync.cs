@@ -6,6 +6,13 @@ using UnityEngine.Networking.NetworkSystem;
 
 namespace DeviceSyncUnity
 {
+    public enum SyncMode
+    {
+        SenderAndReceiver,
+        SenderOnly,
+        ReceiverOnly
+    }
+
     public enum SendingMode
     {
         TimeInterval,
@@ -14,7 +21,14 @@ namespace DeviceSyncUnity
 
     public abstract class DevicesSync : NetworkBehaviour
     {
+        // Editor fields
+
+        [SerializeField]
+        private SyncMode syncMode = SyncMode.SenderAndReceiver;
+
         // Properties
+
+        public SyncMode SyncMode { get { return syncMode; } set { syncMode = value; } }
 
         public abstract SendingMode SendingMode { get; set; }
         public abstract uint SendingFramesInterval { get; set; }
@@ -46,10 +60,17 @@ namespace DeviceSyncUnity
                 var client = NetworkManager.singleton.client;
                 if (client != null && isClient)
                 {
-                    client.RegisterHandler(MessageType, ClientReceive);
-                    Utilities.Debug.Execute(() => client.RegisterHandler(MsgType.Error, OnError), LogFilter.Error);
+                    if (SyncMode != SyncMode.SenderOnly)
+                    {
+                        client.RegisterHandler(MessageType, ClientReceive);
+                    }
 
-                    StartCoroutine("SendToServerWithInterval");
+                    if (SyncMode != SyncMode.ReceiverOnly)
+                    {
+                        StartCoroutine("SendToServerWithInterval");
+                    }
+
+                    Utilities.Debug.Execute(() => client.RegisterHandler(MsgType.Error, OnError), LogFilter.Error);
                 }
             }
         }
