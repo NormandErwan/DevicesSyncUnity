@@ -53,13 +53,20 @@ namespace DeviceSyncUnity
 
             if (!send)
             {
-                previousTouches.Push(touchesMessage.touches);
+                if (touchesMessage.touches.Length > 0)
+                {
+                    previousTouches.Push(touchesMessage.touches);
+                }
             }
             else
             {
                 touchesMessage.SetTouchesAverage(previousTouches);
                 previousTouches.Clear();
-                SendToServer(touchesMessage);
+
+                if (touchesMessage.touchesAverage.Length > 0)
+                {
+                    SendToServer(touchesMessage);
+                }
             }
         }
 
