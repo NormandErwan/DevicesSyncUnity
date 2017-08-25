@@ -26,7 +26,7 @@ namespace DeviceSyncUnity
         public override float SendingTimeInterval { get { return sendingTimeInterval; } set { sendingTimeInterval = value; } }
         public override uint SendingFramesInterval { get { return sendingFramesInterval; } set { sendingFramesInterval = value; } }
 
-        public Dictionary<int, TouchesMessage> LastTouchesReceived { get; protected set; }
+        public Dictionary<int, TouchesMessage> Touches { get; protected set; }
 
         protected override short MessageType { get { return Messages.MessageType.Touches; } }
 
@@ -43,7 +43,7 @@ namespace DeviceSyncUnity
 
         protected virtual void Awake()
         {
-            LastTouchesReceived = new Dictionary<int, TouchesMessage>();
+            Touches = new Dictionary<int, TouchesMessage>();
         }
 
         protected override void OnSendToServerIntervalIteration(bool send)
@@ -73,7 +73,7 @@ namespace DeviceSyncUnity
         protected override DevicesSyncMessage OnClientReceiveInternal(NetworkMessage netMessage)
         {
             var touchesMessage = netMessage.ReadMessage<TouchesMessage>();
-            LastTouchesReceived[touchesMessage.senderConnectionId] = touchesMessage;
+            Touches[touchesMessage.senderConnectionId] = touchesMessage;
             ClientTouchesReceived.Invoke(touchesMessage);
             return touchesMessage;
         }
