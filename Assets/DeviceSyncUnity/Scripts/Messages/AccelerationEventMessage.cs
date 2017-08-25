@@ -18,13 +18,5 @@ namespace DeviceSyncUnity.Messages
             accelerationEventMessage.deltaTime = accelerationEvent.deltaTime;
             return accelerationEventMessage;
         }
-
-        public static implicit operator AccelerationEvent(AccelerationEventMessage accelerationEventMessage)
-        {
-            var accelerationEvent = new AccelerationEvent();
-            accelerationEvent.acceleration = accelerationEventMessage.acceleration;
-            accelerationEvent.deltaTime = accelerationEventMessage.deltaTime;
-            return accelerationEvent;
-        }
     }
 }
