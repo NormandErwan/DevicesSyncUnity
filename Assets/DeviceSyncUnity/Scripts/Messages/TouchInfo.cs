@@ -2,7 +2,7 @@
 
 namespace DeviceSyncUnity.Messages
 {
-    public class TouchMessage
+    public class TouchInfo
     {
         // Variables
 
@@ -23,9 +23,9 @@ namespace DeviceSyncUnity.Messages
 
         // Methods
 
-        public static implicit operator TouchMessage(Touch touch)
+        public static implicit operator TouchInfo(Touch touch)
         {
-            TouchMessage touchMessage = new TouchMessage();
+            TouchInfo touchMessage = new TouchInfo();
             touchMessage.fingerId = touch.fingerId;
             touchMessage.position = touch.position;
             touchMessage.rawPosition = touch.rawPosition;
@@ -43,7 +43,7 @@ namespace DeviceSyncUnity.Messages
             return touchMessage;
         }
 
-        public static implicit operator Touch(TouchMessage touchMessage)
+        public static implicit operator Touch(TouchInfo touchMessage)
         {
             Touch touch = new Touch();
             touch.fingerId = touchMessage.fingerId;

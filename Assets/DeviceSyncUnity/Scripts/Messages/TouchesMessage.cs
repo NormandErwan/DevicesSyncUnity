@@ -5,38 +5,45 @@ namespace DeviceSyncUnity.Messages
 {
     public class TouchesMessage : DevicesSyncMessage
     {
+        // Properties
+
+        public override SenderInfo SenderInfo { get { return senderInfo; } set { senderInfo = value; } }
+
         // Variables
 
+        public SenderInfo senderInfo;
         public bool multiTouchEnabled;
         public bool stylusTouchSupported;
         public bool touchPressureSupported;
-        public TouchMessage[] touches;
-        public TouchMessage[] touchesAverage;
+        public TouchInfo[] touches;
+        public TouchInfo[] touchesAverage;
 
-        public int cameraPixelHeigth;
+        public int cameraPixelHeight;
         public int cameraPixelWidth;
 
         // Methods
 
-        public virtual void Populate(Camera camera)
+        public override void UpdateInfo()
         {
+            base.UpdateInfo();
+
             multiTouchEnabled = Input.multiTouchEnabled;
             stylusTouchSupported = Input.stylusTouchSupported;
             touchPressureSupported = Input.touchPressureSupported;
 
-            touches = new TouchMessage[Input.touchCount];
+            touches = new TouchInfo[Input.touchCount];
             for (int i = 0; i < Input.touchCount; i++)
             {
                 touches[i] = Input.touches[i];
             }
 
-            cameraPixelHeigth = camera.pixelHeight;
-            cameraPixelWidth = camera.pixelWidth;
+            cameraPixelHeight = Camera.main.pixelHeight;
+            cameraPixelWidth = Camera.main.pixelWidth;
         }
 
-        public virtual void SetTouchesAverage(Stack<TouchMessage[]> previousTouchesStack)
+        public virtual void SetTouchesAverage(Stack<TouchInfo[]> previousTouchesStack)
         {
-            var touchesAverage = new List<TouchMessage>();
+            var touchesAverage = new List<TouchInfo>();
 
             // Initialize
             foreach (var touch in touches)

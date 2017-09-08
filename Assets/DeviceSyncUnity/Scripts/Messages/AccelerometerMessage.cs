@@ -5,16 +5,23 @@ namespace DeviceSyncUnity.Messages
 {
     public class AccelerometerMessage : DevicesSyncMessage
     {
+        // Properties
+
+        public override SenderInfo SenderInfo { get { return senderInfo; } set { senderInfo = value; } }
+
         // Variables
 
+        public SenderInfo senderInfo;
         public Vector3 acceleration;
         public float deltaTime;
         public AccelerationEventMessage[] accelerationEvents;
 
         // Methods
 
-        public virtual void Update()
+        public override void UpdateInfo()
         {
+            base.UpdateInfo();
+
             acceleration += Input.acceleration;
             deltaTime += Time.deltaTime;
 

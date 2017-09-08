@@ -45,10 +45,10 @@ namespace DeviceSyncUnity
             Accelerations = new Dictionary<int, AccelerometerMessage>();
         }
 
-        protected override void OnSendToServerIntervalIteration(bool send)
+        protected override void OnSendToServerIntervalIteration(bool sendToServerThisFrame)
         {
-            accelerometerMessage.Update();
-            if (send)
+            accelerometerMessage.UpdateInfo();
+            if (sendToServerThisFrame)
             {
                 SendToServer(accelerometerMessage);
                 accelerometerMessage = new AccelerometerMessage();
@@ -65,7 +65,7 @@ namespace DeviceSyncUnity
         protected override DevicesSyncMessage OnClientReceiveInternal(NetworkMessage netMessage)
         {
             var accelerometerMessage = netMessage.ReadMessage<AccelerometerMessage>();
-            Accelerations[accelerometerMessage.senderConnectionId] = accelerometerMessage;
+            Accelerations[accelerometerMessage.senderInfo.connectionId] = accelerometerMessage;
             ClientAccelerationReceived.Invoke(accelerometerMessage);
             return accelerometerMessage;
         }

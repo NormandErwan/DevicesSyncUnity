@@ -6,7 +6,6 @@ using UnityEngine.Networking;
 
 namespace DeviceSyncUnity
 {
-    // TODO: add a visual debugger that display the touches info on screen
     public class TouchesSync : DevicesSync
     {
         // Editor fields
@@ -32,7 +31,7 @@ namespace DeviceSyncUnity
 
         // Variables
 
-        protected Stack<TouchMessage[]> previousTouches = new Stack<TouchMessage[]>();
+        protected Stack<TouchInfo[]> previousTouches = new Stack<TouchInfo[]>();
 
         // Events
 
@@ -46,12 +45,12 @@ namespace DeviceSyncUnity
             Touches = new Dictionary<int, TouchesMessage>();
         }
 
-        protected override void OnSendToServerIntervalIteration(bool send)
+        protected override void OnSendToServerIntervalIteration(bool sendTosServerThisFrame)
         {
             var touchesMessage = new TouchesMessage();
-            touchesMessage.Populate(Camera.main);
+            touchesMessage.UpdateInfo();
 
-            if (!send)
+            if (!sendTosServerThisFrame)
             {
                 if (touchesMessage.touches.Length > 0)
                 {
@@ -80,7 +79,7 @@ namespace DeviceSyncUnity
         protected override DevicesSyncMessage OnClientReceiveInternal(NetworkMessage netMessage)
         {
             var touchesMessage = netMessage.ReadMessage<TouchesMessage>();
-            Touches[touchesMessage.senderConnectionId] = touchesMessage;
+            Touches[touchesMessage.senderInfo.connectionId] = touchesMessage;
             ClientTouchesReceived.Invoke(touchesMessage);
             return touchesMessage;
         }
