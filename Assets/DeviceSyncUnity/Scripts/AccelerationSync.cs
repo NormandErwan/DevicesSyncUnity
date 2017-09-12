@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 namespace DeviceSyncUnity
 {
-    public class AccelerometerSync : DevicesSync
+    public class AccelerationSync : DevicesSync
     {
         // Editor fields
 
@@ -25,49 +25,49 @@ namespace DeviceSyncUnity
         public override float SendingTimeInterval { get { return sendingTimeInterval; } set { sendingTimeInterval = value; } }
         public override uint SendingFramesInterval { get { return sendingFramesInterval; } set { sendingFramesInterval = value; } }
 
-        public Dictionary<int, AccelerometerMessage> Accelerations { get; protected set; }
+        public Dictionary<int, AccelerationMessage> Accelerations { get; protected set; }
 
-        protected override short MessageType { get { return Messages.MessageType.Accelerometer; } }
+        protected override short MessageType { get { return Messages.MessageType.Acceleration; } }
 
         // Variables
 
-        AccelerometerMessage accelerometerMessage = new AccelerometerMessage();
+        protected AccelerationMessage accelerationMessage = new AccelerationMessage();
 
         // Events
 
-        public event Action<AccelerometerMessage> ServerAccelerationReceived = delegate { };
-        public event Action<AccelerometerMessage> ClientAccelerationReceived = delegate { };
+        public event Action<AccelerationMessage> ServerAccelerationReceived = delegate { };
+        public event Action<AccelerationMessage> ClientAccelerationReceived = delegate { };
 
         // Methods
 
         protected virtual void Awake()
         {
-            Accelerations = new Dictionary<int, AccelerometerMessage>();
+            Accelerations = new Dictionary<int, AccelerationMessage>();
         }
 
         protected override void OnSendToServerIntervalIteration(bool sendToServerThisFrame)
         {
-            accelerometerMessage.UpdateInfo();
+            accelerationMessage.UpdateInfo();
             if (sendToServerThisFrame)
             {
-                SendToServer(accelerometerMessage);
-                accelerometerMessage = new AccelerometerMessage();
+                SendToServer(accelerationMessage);
+                accelerationMessage = new AccelerationMessage();
             }
         }
 
         protected override DevicesSyncMessage OnSendToAllClientsInternal(NetworkMessage netMessage)
         {
-            var accelerometerMessage = netMessage.ReadMessage<AccelerometerMessage>();
-            ServerAccelerationReceived.Invoke(accelerometerMessage);
-            return accelerometerMessage;
+            var accelerationMessage = netMessage.ReadMessage<AccelerationMessage>();
+            ServerAccelerationReceived.Invoke(accelerationMessage);
+            return accelerationMessage;
         }
 
         protected override DevicesSyncMessage OnClientReceiveInternal(NetworkMessage netMessage)
         {
-            var accelerometerMessage = netMessage.ReadMessage<AccelerometerMessage>();
-            Accelerations[accelerometerMessage.senderInfo.connectionId] = accelerometerMessage;
-            ClientAccelerationReceived.Invoke(accelerometerMessage);
-            return accelerometerMessage;
+            var accelerationMessage = netMessage.ReadMessage<AccelerationMessage>();
+            Accelerations[accelerationMessage.senderInfo.connectionId] = accelerationMessage;
+            ClientAccelerationReceived.Invoke(accelerationMessage);
+            return accelerationMessage;
         }
     }
 }

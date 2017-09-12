@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DeviceSyncUnity.Messages
 {
-    public class AccelerometerMessage : DevicesSyncMessage
+    public class AccelerationMessage : DevicesSyncMessage
     {
         // Properties
 
