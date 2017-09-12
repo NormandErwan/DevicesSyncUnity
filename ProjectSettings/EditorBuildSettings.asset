@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/DeviceSyncUnity/Scenes/SmartphonePCSyncExample.unity
-    guid: da757275df4f58948898d21069781544
+    path: Assets/DeviceSyncUnity/Scenes/MobileSync.unity
+    guid: 7ea6e3eb556c7fd479425d7b6941032a
