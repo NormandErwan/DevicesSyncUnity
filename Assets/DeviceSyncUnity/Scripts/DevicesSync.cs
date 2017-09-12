@@ -38,6 +38,7 @@ namespace DeviceSyncUnity
 
         // Variables
 
+        protected NetworkManager manager;
         protected uint sendingFrameCounter = 0;
         protected float sendingTimer = 0;
 
@@ -45,46 +46,45 @@ namespace DeviceSyncUnity
 
         protected virtual void Start()
         {
-            TryStartSync(); // TODO: handle when client is disconnected from server
-        }
-
-        protected virtual void TryStartSync()
-        {
-            if (NetworkManager.singleton != null)
+            manager = NetworkManager.singleton;
+            if (manager == null)
             {
-                if (isServer)
+                Debug.LogError("There is no NetworkManager in the scene");
+                return;
+            }
+
+            if (isServer)
+            {
+                NetworkServer.RegisterHandler(MessageType, SendToAllClients);
+            }
+
+            var client = manager.client;
+            if (client != null && isClient)
+            {
+                if (SyncMode != SyncMode.SenderOnly)
                 {
-                    NetworkServer.RegisterHandler(MessageType, SendToAllClients);
+                    client.RegisterHandler(MessageType, ClientReceive);
                 }
 
-                var client = NetworkManager.singleton.client;
-                if (client != null && isClient)
+                if (SyncMode != SyncMode.ReceiverOnly)
                 {
-                    if (SyncMode != SyncMode.SenderOnly)
-                    {
-                        client.RegisterHandler(MessageType, ClientReceive);
-                    }
-
-                    if (SyncMode != SyncMode.ReceiverOnly)
-                    {
-                        StartCoroutine("SendToServerWithInterval");
-                    }
-
-                    Utilities.Debug.Execute(() => client.RegisterHandler(MsgType.Error, OnError), LogFilter.Error);
+                    StartCoroutine(SendToServerWithInterval());
                 }
+
+                Utilities.Debug.Execute(() => client.RegisterHandler(MsgType.Error, OnError), LogFilter.Error);
             }
         }
 
         protected virtual void SendToServer(DevicesSyncMessage message)
         {
-            if (NetworkManager.singleton == null || !NetworkManager.singleton.IsClientConnected())
+            if (!manager.IsClientConnected())
             {
-                Utilities.Debug.LogError("Can't send message to server : no NetworkManager, or not connected as client.");
+                Utilities.Debug.LogError("Can't send message to server : not connected as client.");
                 return;
             }
             Utilities.Debug.Log("Client: sending message (type: " + message.GetType() + ")", LogFilter.Debug);
 
-            NetworkManager.singleton.client.Send(MessageType, message);
+            manager.client.Send(MessageType, message);
         }
 
         protected virtual IEnumerator SendToServerWithInterval()
@@ -119,20 +119,20 @@ namespace DeviceSyncUnity
 
         protected virtual void SendToAllClients(NetworkMessage netMessage)
         {
-            var message = OnSendToAllClientsInternal(netMessage);
+            var message = OnSendToAllClients(netMessage);
             Utilities.Debug.Log("Server: sending message (type: " + message.GetType() + ") to all clients from client " + message.SenderInfo.connectionId, LogFilter.Debug);
             NetworkServer.SendToAll(MessageType, message);
         }
 
-        protected abstract DevicesSyncMessage OnSendToAllClientsInternal(NetworkMessage netMessage);
+        protected abstract DevicesSyncMessage OnSendToAllClients(NetworkMessage netMessage);
 
         protected virtual void ClientReceive(NetworkMessage netMessage)
         {
-            var message = OnClientReceiveInternal(netMessage);
+            var message = OnClientReceive(netMessage);
             Utilities.Debug.Log("Client: received message (type: " + message.GetType() + ") from client " + message.SenderInfo.connectionId, LogFilter.Debug);
         }
 
-        protected abstract DevicesSyncMessage OnClientReceiveInternal(NetworkMessage netMessage);
+        protected abstract DevicesSyncMessage OnClientReceive(NetworkMessage netMessage);
 
         protected virtual void OnError(NetworkMessage netMessage)
         {

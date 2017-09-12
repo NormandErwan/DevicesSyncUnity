@@ -59,14 +59,14 @@ namespace DeviceSyncUnity
             zeroAccelerationLastMessage = zeroAcceleration;
         }
 
-        protected override DevicesSyncMessage OnSendToAllClientsInternal(NetworkMessage netMessage)
+        protected override DevicesSyncMessage OnSendToAllClients(NetworkMessage netMessage)
         {
             var accelerationMessage = netMessage.ReadMessage<AccelerationMessage>();
             ServerAccelerationReceived.Invoke(accelerationMessage);
             return accelerationMessage;
         }
 
-        protected override DevicesSyncMessage OnClientReceiveInternal(NetworkMessage netMessage)
+        protected override DevicesSyncMessage OnClientReceive(NetworkMessage netMessage)
         {
             var accelerationMessage = netMessage.ReadMessage<AccelerationMessage>();
             Accelerations[accelerationMessage.senderInfo.connectionId] = accelerationMessage;

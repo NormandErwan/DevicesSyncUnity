@@ -98,6 +98,10 @@ namespace DeviceSyncUnity.DebugDisplay
         protected virtual void Start()
         {
             manager = NetworkManager.singleton;
+            if (manager == null)
+            {
+                Debug.LogError("There is no NetworkManager in the scene");
+            }
         }
 
         protected virtual void StartHost()
