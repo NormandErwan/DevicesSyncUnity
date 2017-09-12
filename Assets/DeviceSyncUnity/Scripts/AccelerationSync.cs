@@ -32,7 +32,7 @@ namespace DeviceSyncUnity
         // Variables
 
         protected AccelerationMessage accelerationMessage = new AccelerationMessage();
-        protected bool zeroAccelerationOnLastMessage = false;
+        protected bool zeroAccelerationLastMessage = false;
 
         // Events
 
@@ -51,12 +51,12 @@ namespace DeviceSyncUnity
             accelerationMessage.UpdateInfo();
 
             bool zeroAcceleration = (accelerationMessage.acceleration.sqrMagnitude == 0f);
-            if (sendToServerThisFrame && !(zeroAcceleration && zeroAccelerationOnLastMessage))
+            if (sendToServerThisFrame && !(zeroAcceleration && zeroAccelerationLastMessage))
             {
                 SendToServer(accelerationMessage);
                 accelerationMessage = new AccelerationMessage();
             }
-            zeroAccelerationOnLastMessage = zeroAcceleration;
+            zeroAccelerationLastMessage = zeroAcceleration;
         }
 
         protected override DevicesSyncMessage OnSendToAllClientsInternal(NetworkMessage netMessage)

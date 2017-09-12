@@ -32,6 +32,7 @@ namespace DeviceSyncUnity
         // Variables
 
         protected Stack<TouchInfo[]> previousTouches = new Stack<TouchInfo[]>();
+        protected bool noTouchesLastMessage = false;
 
         // Events
 
@@ -62,10 +63,12 @@ namespace DeviceSyncUnity
                 touchesMessage.SetTouchesAverage(previousTouches);
                 previousTouches.Clear();
 
-                if (touchesMessage.touchesAverage.Length > 0)
+                bool noTouches = (touchesMessage.touchesAverage.Length == 0);
+                if (!noTouches || !noTouchesLastMessage)
                 {
                     SendToServer(touchesMessage);
                 }
+                noTouchesLastMessage = noTouches;
             }
         }
 
