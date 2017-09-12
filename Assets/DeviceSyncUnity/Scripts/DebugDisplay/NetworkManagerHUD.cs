@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-namespace DeviceSyncUnity
+namespace DeviceSyncUnity.DebugDisplay
 {
     public class NetworkManagerHUD : MonoBehaviour
     {
@@ -20,10 +20,10 @@ namespace DeviceSyncUnity
             {
             }
 
-            public ConnectionInfo(NetworkManager manager)
+            public void SetNetworkManagerInfo()
             {
-                Address = manager.networkAddress;
-                Port = manager.networkPort;
+                Address = NetworkManager.singleton.networkAddress;
+                Port = NetworkManager.singleton.networkPort;
             }
         }
 
@@ -39,9 +39,6 @@ namespace DeviceSyncUnity
         protected const string connectionInfoFileName = "NetworkManagerConnectionInfo";
 
         // Editor fields
-
-        [SerializeField]
-        protected NetworkManager manager;
 
         [SerializeField]
         protected RectTransform connectionPanel;
@@ -81,6 +78,7 @@ namespace DeviceSyncUnity
 
         // Variables
 
+        protected NetworkManager manager;
         protected string connectionInfoFilePath;
 
         // Methods
@@ -95,6 +93,11 @@ namespace DeviceSyncUnity
             startClientButton.onClick.AddListener(StartClient);
             connectingCancelButton.onClick.AddListener(CancelConnection);
             connectedStopButton.onClick.AddListener(StopConnection);
+        }
+
+        protected virtual void Start()
+        {
+            manager = NetworkManager.singleton;
         }
 
         protected virtual void StartHost()
@@ -184,12 +187,16 @@ namespace DeviceSyncUnity
                 }
             }
 
-            if (connectionInfo == null)
+            if (connectionInfo != null)
             {
-                connectionInfo = new ConnectionInfo(manager);
+                networkAddressInput.text = connectionInfo.Address;
+                networkPortInput.text = connectionInfo.Port.ToString();
             }
-            networkAddressInput.text = connectionInfo.Address;
-            networkPortInput.text = connectionInfo.Port.ToString();
+            else
+            {
+                networkAddressInput.text = "";
+                networkPortInput.text = "";
+            }
         }
 
         protected void SaveConnectionInfo()
@@ -199,7 +206,8 @@ namespace DeviceSyncUnity
 
             using (Stream stream = File.Open(connectionInfoFilePath, FileMode.Create))
             {
-                var connectionInfo = new ConnectionInfo(manager);
+                var connectionInfo = new ConnectionInfo();
+                connectionInfo.SetNetworkManagerInfo();
                 new BinaryFormatter().Serialize(stream, connectionInfo);
             }
         }
