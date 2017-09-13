@@ -7,21 +7,19 @@ namespace DeviceSyncUnity.Messages
     {
         // Properties
 
-        public override SenderInfo SenderInfo { get { return senderInfo; } set { senderInfo = value; } }
+        public override int SenderConnectionId { get { return senderConnectionId; } set { senderConnectionId = value; } }
 
         // Variables
 
-        public SenderInfo senderInfo;
+        public int senderConnectionId;
         public Vector3 acceleration;
         public float deltaTime;
         public AccelerationEventMessage[] accelerationEvents;
 
         // Methods
 
-        public override void UpdateInfo()
+        public void UpdateInfo()
         {
-            base.UpdateInfo();
-
             acceleration += Input.acceleration;
             deltaTime += Time.deltaTime;
 

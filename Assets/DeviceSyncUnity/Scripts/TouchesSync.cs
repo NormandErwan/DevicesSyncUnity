@@ -72,7 +72,7 @@ namespace DeviceSyncUnity
             }
         }
 
-        protected override DevicesSyncMessage OnSendToAllClients(NetworkMessage netMessage)
+        protected override DevicesSyncMessage OnServerReceive(NetworkMessage netMessage)
         {
             var touchesMessage = netMessage.ReadMessage<TouchesMessage>();
             ServerTouchesReceived.Invoke(touchesMessage);
@@ -82,7 +82,7 @@ namespace DeviceSyncUnity
         protected override DevicesSyncMessage OnClientReceive(NetworkMessage netMessage)
         {
             var touchesMessage = netMessage.ReadMessage<TouchesMessage>();
-            Touches[touchesMessage.senderInfo.connectionId] = touchesMessage;
+            Touches[touchesMessage.SenderConnectionId] = touchesMessage;
             ClientTouchesReceived.Invoke(touchesMessage);
             return touchesMessage;
         }

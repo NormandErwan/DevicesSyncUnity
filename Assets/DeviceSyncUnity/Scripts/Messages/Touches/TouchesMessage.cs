@@ -7,11 +7,11 @@ namespace DeviceSyncUnity.Messages
     {
         // Properties
 
-        public override SenderInfo SenderInfo { get { return senderInfo; } set { senderInfo = value; } }
+        public override int SenderConnectionId { get { return senderConnectionId; } set { senderConnectionId = value; } }
 
         // Variables
 
-        public SenderInfo senderInfo;
+        public int senderConnectionId;
         public bool multiTouchEnabled;
         public bool stylusTouchSupported;
         public bool touchPressureSupported;
@@ -23,10 +23,8 @@ namespace DeviceSyncUnity.Messages
 
         // Methods
 
-        public override void UpdateInfo()
+        public void UpdateInfo()
         {
-            base.UpdateInfo();
-
             multiTouchEnabled = Input.multiTouchEnabled;
             stylusTouchSupported = Input.stylusTouchSupported;
             touchPressureSupported = Input.touchPressureSupported;

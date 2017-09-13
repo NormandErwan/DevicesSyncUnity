@@ -55,7 +55,7 @@ namespace DeviceSyncUnity
 
             if (isServer)
             {
-                NetworkServer.RegisterHandler(MessageType, SendToAllClients);
+                NetworkServer.RegisterHandler(MessageType, ServerReceive);
             }
 
             var client = manager.client;
@@ -117,19 +117,21 @@ namespace DeviceSyncUnity
 
         protected abstract void OnSendToServerIntervalIteration(bool send);
 
-        protected virtual void SendToAllClients(NetworkMessage netMessage)
+        protected virtual void ServerReceive(NetworkMessage netMessage)
         {
-            var message = OnSendToAllClients(netMessage);
-            Utilities.Debug.Log("Server: sending message (type: " + message.GetType() + ") to all clients from client " + message.SenderInfo.connectionId, LogFilter.Debug);
+            var message = OnServerReceive(netMessage);
+            Utilities.Debug.Log("Server: sending message (type: " + message.GetType() + ") to all clients from client " + message.SenderConnectionId, LogFilter.Debug);
+
+            message.SenderConnectionId = netMessage.conn.connectionId;
             NetworkServer.SendToAll(MessageType, message);
         }
 
-        protected abstract DevicesSyncMessage OnSendToAllClients(NetworkMessage netMessage);
+        protected abstract DevicesSyncMessage OnServerReceive(NetworkMessage netMessage);
 
         protected virtual void ClientReceive(NetworkMessage netMessage)
         {
             var message = OnClientReceive(netMessage);
-            Utilities.Debug.Log("Client: received message (type: " + message.GetType() + ") from client " + message.SenderInfo.connectionId, LogFilter.Debug);
+            Utilities.Debug.Log("Client: received message (type: " + message.GetType() + ") from client " + message.SenderConnectionId, LogFilter.Debug);
         }
 
         protected abstract DevicesSyncMessage OnClientReceive(NetworkMessage netMessage);
