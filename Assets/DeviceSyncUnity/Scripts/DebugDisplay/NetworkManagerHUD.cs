@@ -128,7 +128,7 @@ namespace DeviceSyncUnity.DebugDisplay
         {
             SaveConnectionInfo();
             manager.StartClient();
-            StartCoroutine("CheckConnectingClient");
+            StartCoroutine(CheckConnectingClient());
         }
 
         protected virtual IEnumerator CheckConnectingClient()
