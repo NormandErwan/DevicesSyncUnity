@@ -1,5 +1,6 @@
 ﻿using DeviceSyncUnity.Messages;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
@@ -55,7 +56,7 @@ namespace DeviceSyncUnity
 
             if (isServer)
             {
-                NetworkServer.RegisterHandler(MessageType, ServerReceive);
+                NetworkServer.RegisterHandler(MessageType, ServerMessageReceived);
             }
 
             var client = manager.client;
@@ -63,7 +64,7 @@ namespace DeviceSyncUnity
             {
                 if (SyncMode != SyncMode.SenderOnly)
                 {
-                    client.RegisterHandler(MessageType, ClientReceive);
+                    client.RegisterHandler(MessageType, ClientMessageReceived);
                 }
 
                 if (SyncMode != SyncMode.ReceiverOnly)
@@ -75,17 +76,24 @@ namespace DeviceSyncUnity
             }
         }
 
-        protected virtual void SendToServer(DevicesSyncMessage message)
+        protected virtual void ServerMessageReceived(NetworkMessage netMessage)
         {
-            if (!manager.IsClientConnected())
-            {
-                Utilities.Debug.LogError("Can't send message to server : not connected as client.");
-                return;
-            }
-            Utilities.Debug.Log("Client: sending message (type: " + message.GetType() + ")", LogFilter.Debug);
+            var message = OnServerReceived(netMessage);
+            Utilities.Debug.Log("Server: sending message (type: " + message.GetType() + ") to all clients from client " + message.SenderConnectionId, LogFilter.Debug);
 
-            manager.client.Send(MessageType, message);
+            message.SenderConnectionId = netMessage.conn.connectionId;
+            NetworkServer.SendToAll(MessageType, message);
         }
+
+        protected abstract DevicesSyncMessage OnServerReceived(NetworkMessage netMessage);
+
+        protected virtual void ClientMessageReceived(NetworkMessage netMessage)
+        {
+            var message = OnClientReceived(netMessage);
+            Utilities.Debug.Log("Client: received message (type: " + message.GetType() + ") from client " + message.SenderConnectionId, LogFilter.Debug);
+        }
+
+        protected abstract DevicesSyncMessage OnClientReceived(NetworkMessage netMessage);
 
         protected virtual IEnumerator SendToServerWithInterval()
         {
@@ -117,24 +125,17 @@ namespace DeviceSyncUnity
 
         protected abstract void OnSendToServerIntervalIteration(bool send);
 
-        protected virtual void ServerReceive(NetworkMessage netMessage)
+        protected virtual void SendToServer(DevicesSyncMessage message)
         {
-            var message = OnServerReceive(netMessage);
-            Utilities.Debug.Log("Server: sending message (type: " + message.GetType() + ") to all clients from client " + message.SenderConnectionId, LogFilter.Debug);
+            if (!manager.IsClientConnected())
+            {
+                Utilities.Debug.LogError("Can't send message to server : not connected as client.");
+                return;
+            }
+            Utilities.Debug.Log("Client: sending message (type: " + message.GetType() + ")", LogFilter.Debug);
 
-            message.SenderConnectionId = netMessage.conn.connectionId;
-            NetworkServer.SendToAll(MessageType, message);
+            manager.client.Send(MessageType, message);
         }
-
-        protected abstract DevicesSyncMessage OnServerReceive(NetworkMessage netMessage);
-
-        protected virtual void ClientReceive(NetworkMessage netMessage)
-        {
-            var message = OnClientReceive(netMessage);
-            Utilities.Debug.Log("Client: received message (type: " + message.GetType() + ") from client " + message.SenderConnectionId, LogFilter.Debug);
-        }
-
-        protected abstract DevicesSyncMessage OnClientReceive(NetworkMessage netMessage);
 
         protected virtual void OnError(NetworkMessage netMessage)
         {
