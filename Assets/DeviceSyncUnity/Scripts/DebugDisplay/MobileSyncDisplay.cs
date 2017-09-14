@@ -55,15 +55,7 @@ namespace DeviceSyncUnity.DebugDisplay
 
         protected virtual void Start()
         {
-            NetworkServer.RegisterHandler(MsgType.Disconnect, (netMessage) =>
-            {
-                int connectionId = netMessage.conn.connectionId;
-                if (deviceColors.ContainsKey(connectionId))
-                {
-                    deviceColors.Remove(connectionId);
-                    UpdateDevicesText();
-                }
-            });
+            NetworkServer.RegisterHandler(MsgType.Disconnect, ClientDisconnected);
         }
 
         protected virtual void TouchesSync_TouchesReceived(TouchesMessage touchesMessage)
@@ -120,6 +112,28 @@ namespace DeviceSyncUnity.DebugDisplay
             GetDeviceAssociatedColor(accelerometerMessage.SenderConnectionId);
             UpdateDevicesText();
             // TODO
+        }
+
+        protected void ClientDisconnected(NetworkMessage netMessage)
+        {
+            int connectionId = netMessage.conn.connectionId;
+            
+            // Remove from the devices list
+            if (deviceColors.ContainsKey(connectionId))
+            {
+                deviceColors.Remove(connectionId);
+                UpdateDevicesText();
+            }
+
+            // Clear the touches display
+            List<TouchDisplay> touchDisplays;
+            if (touchesDisplays.TryGetValue(connectionId, out touchDisplays))
+            {
+                foreach (var touchDisplay in touchDisplays)
+                {
+                    touchDisplay.GameObject.SetActive(false);
+                }
+            }
         }
 
         protected Color GetDeviceAssociatedColor(int deviceConnectionId)
