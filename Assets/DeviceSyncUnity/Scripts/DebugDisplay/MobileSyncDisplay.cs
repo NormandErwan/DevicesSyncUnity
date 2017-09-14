@@ -36,6 +36,7 @@ namespace DeviceSyncUnity.DebugDisplay
 
         protected Text devicesListText;
         protected Dictionary<int, List<TouchDisplay>> touchesDisplays = new Dictionary<int, List<TouchDisplay>>();
+        protected Dictionary<int, GameObject> touchesDisplaysParents = new Dictionary<int, GameObject>();
 
         // Methods
 
@@ -65,22 +66,19 @@ namespace DeviceSyncUnity.DebugDisplay
 
             // Get or create the touch displays associated with the sender
             List<TouchDisplay> touchDisplays;
+            GameObject touchDisplaysParent;
             if (!touchesDisplays.TryGetValue(touchesMessage.SenderConnectionId, out touchDisplays))
             {
                 touchDisplays = new List<TouchDisplay>(touchesMessage.touchesAverage.Length);
                 touchesDisplays.Add(touchesMessage.SenderConnectionId, touchDisplays);
-            }
 
-            // Get or create the touch displays parent gameobject
-            GameObject touchDisplayParent;
-            if (touchDisplays.Count == 0)
-            {
-                touchDisplayParent = canvas.gameObject.AddChild("Device " + touchesMessage.SenderConnectionId + " touches");
-                touchDisplayParent.AddComponent<RectTransform>().Stretch();
+                touchDisplaysParent = canvas.gameObject.AddChild("Device " + touchesMessage.SenderConnectionId + " touches");
+                touchDisplaysParent.AddComponent<RectTransform>().Stretch();
+                touchesDisplaysParents.Add(touchesMessage.SenderConnectionId, touchDisplaysParent);
             }
             else
             {
-                touchDisplayParent = touchDisplays[0].GameObject.transform.parent.gameObject;
+                touchDisplaysParent = touchesDisplaysParents[touchesMessage.SenderConnectionId];
             }
 
             // Hide the previous touch displays
@@ -95,7 +93,7 @@ namespace DeviceSyncUnity.DebugDisplay
                 TouchDisplay touchDisplay;
                 if (touchDisplays.Count <= i)
                 {
-                    touchDisplay = new TouchDisplay(touchDisplayParent, canvasRect, deviceColor);
+                    touchDisplay = new TouchDisplay(touchDisplaysParent, canvasRect, deviceColor);
                     touchDisplays.Add(touchDisplay);
                 }
                 else
