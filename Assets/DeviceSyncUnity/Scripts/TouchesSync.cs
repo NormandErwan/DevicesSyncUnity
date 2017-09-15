@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 namespace DeviceSyncUnity
 {
-    public class TouchesSync : DevicesSync
+    public class TouchesSync : DevicesSyncInterval
     {
         // Editor fields
 
@@ -19,11 +19,15 @@ namespace DeviceSyncUnity
         [SerializeField]
         private uint sendingFramesInterval = 2;
 
+        [SerializeField]
+        private DeviceInfoSync deviceInfoSync;
+
         // Properties
 
         public override SendingMode SendingMode { get { return sendingMode; } set { sendingMode = value; } }
         public override float SendingTimeInterval { get { return sendingTimeInterval; } set { sendingTimeInterval = value; } }
         public override uint SendingFramesInterval { get { return sendingFramesInterval; } set { sendingFramesInterval = value; } }
+        public DeviceInfoSync DeviceInfoSync { get { return deviceInfoSync; } set { deviceInfoSync = value; } }
 
         public Dictionary<int, TouchesMessage> Touches { get; protected set; }
 
@@ -85,6 +89,11 @@ namespace DeviceSyncUnity
             Touches[touchesMessage.SenderConnectionId] = touchesMessage;
             ClientTouchesReceived.Invoke(touchesMessage);
             return touchesMessage;
+        }
+
+        protected override void OnClientDeviceDisconnectedReceived(DeviceInfoMessage deviceInfoMessage)
+        {
+            Touches.Remove(deviceInfoMessage.SenderConnectionId);
         }
     }
 }

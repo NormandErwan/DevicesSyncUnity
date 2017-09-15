@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 namespace DeviceSyncUnity
 {
-    public class AccelerationSync : DevicesSync
+    public class AccelerationSync : DevicesSyncInterval
     {
         // Editor fields
 
@@ -72,6 +72,11 @@ namespace DeviceSyncUnity
             Accelerations[accelerationMessage.SenderConnectionId] = accelerationMessage;
             ClientAccelerationReceived.Invoke(accelerationMessage);
             return accelerationMessage;
+        }
+
+        protected override void OnClientDeviceDisconnectedReceived(DeviceInfoMessage deviceInfoMessage)
+        {
+            Accelerations.Remove(deviceInfoMessage.SenderConnectionId);
         }
     }
 }

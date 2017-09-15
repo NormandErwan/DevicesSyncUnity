@@ -19,6 +19,9 @@ namespace DeviceSyncUnity.DebugDisplay
         // Editor fields
 
         [SerializeField]
+        private DeviceInfoSync deviceInfoSync;
+
+        [SerializeField]
         protected TouchesSync touchesSync;
 
         [SerializeField]
@@ -31,10 +34,10 @@ namespace DeviceSyncUnity.DebugDisplay
 
         protected RectTransform canvasRect;
 
-        protected float randomColorHue = 0;
-        protected Dictionary<int, Color> deviceColors = new Dictionary<int, Color>();
-
         protected Text devicesListText;
+        protected SortedDictionary<int, Color> deviceColors = new SortedDictionary<int, Color>();
+
+        protected Dictionary<int, DeviceInfoMessage> devicesInfo = new Dictionary<int, DeviceInfoMessage>();
         protected Dictionary<int, List<TouchDisplay>> touchesDisplays = new Dictionary<int, List<TouchDisplay>>();
         protected Dictionary<int, GameObject> touchesDisplaysParents = new Dictionary<int, GameObject>();
 
@@ -43,6 +46,9 @@ namespace DeviceSyncUnity.DebugDisplay
         protected virtual void Awake()
         {
             canvasRect = canvas.GetComponent<RectTransform>();
+
+            DevicesSync.ClientDeviceDisconnected += DeviceInfoSync_ClientDeviceDisconnected;
+            deviceInfoSync.ClientDeviceInfoReceived += DeviceInfoSync_ClientDeviceInfoReceived;
 
             if (touchesSync != null)
             {
@@ -54,15 +60,36 @@ namespace DeviceSyncUnity.DebugDisplay
             }
         }
 
-        protected virtual void Start()
+        protected void DeviceInfoSync_ClientDeviceInfoReceived(DeviceInfoMessage deviceInfoMessages)
         {
-            NetworkServer.RegisterHandler(MsgType.Disconnect, ClientDisconnected);
+            float randomColorHue = (goldenRatioConjugate * deviceInfoMessages.SenderConnectionId) % 1;
+            var deviceColor = Color.HSVToRGB(randomColorHue, 0.9f, 1f);
+            deviceColors[deviceInfoMessages.SenderConnectionId] = deviceColor;
+
+            devicesInfo[deviceInfoMessages.SenderConnectionId] = deviceInfoMessages;
+            UpdateDevicesText();
+        }
+
+        protected void DeviceInfoSync_ClientDeviceDisconnected(DeviceInfoMessage deviceInfoMessages)
+        {
+            deviceColors.Remove(deviceInfoMessages.SenderConnectionId);
+            devicesInfo.Remove(deviceInfoMessages.SenderConnectionId);
+            UpdateDevicesText();
+
+            GameObject touchDisplaysParent;
+            if (touchesDisplaysParents.TryGetValue(deviceInfoMessages.SenderConnectionId, out touchDisplaysParent))
+            {
+                touchDisplaysParent.SetActive(false);
+            }
         }
 
         protected virtual void TouchesSync_TouchesReceived(TouchesMessage touchesMessage)
         {
-            var deviceColor = GetDeviceAssociatedColor(touchesMessage.SenderConnectionId);
-            UpdateDevicesText();
+            DeviceInfoMessage deviceInfo = null;
+            if (!devicesInfo.TryGetValue(touchesMessage.SenderConnectionId, out deviceInfo))
+            {
+                return;
+            }
 
             // Get or create the touch displays associated with the sender
             List<TouchDisplay> touchDisplays;
@@ -88,6 +115,7 @@ namespace DeviceSyncUnity.DebugDisplay
             }
 
             // Display the touches
+            var deviceColor = deviceColors[touchesMessage.SenderConnectionId];
             for (int i = 0; i < touchesMessage.touchesAverage.Length; i++)
             {
                 TouchDisplay touchDisplay;
@@ -101,14 +129,12 @@ namespace DeviceSyncUnity.DebugDisplay
                     touchDisplay = touchDisplays[i];
                     touchDisplay.GameObject.SetActive(true);
                 }
-                touchDisplay.UpdateDisplay(touchesMessage, i);
+                touchDisplay.UpdateDisplay(deviceInfo, touchesMessage, i);
             }
         }
 
         protected virtual void AccelerometerSync_AccelerationReceived(AccelerationMessage accelerometerMessage)
         {
-            GetDeviceAssociatedColor(accelerometerMessage.SenderConnectionId);
-            UpdateDevicesText();
             // TODO
         }
 
@@ -132,18 +158,6 @@ namespace DeviceSyncUnity.DebugDisplay
                     touchDisplay.GameObject.SetActive(false);
                 }
             }
-        }
-
-        protected Color GetDeviceAssociatedColor(int deviceConnectionId)
-        {
-            Color deviceColor;
-            if (!deviceColors.TryGetValue(deviceConnectionId, out deviceColor))
-            {
-                randomColorHue = (randomColorHue + goldenRatioConjugate) % 1;
-                deviceColor = Color.HSVToRGB(randomColorHue, 0.9f, 1f);
-                deviceColors[deviceConnectionId] = deviceColor;
-            }
-            return deviceColor;
         }
 
         protected void UpdateDevicesText()

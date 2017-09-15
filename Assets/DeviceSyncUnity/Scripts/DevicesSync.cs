@@ -1,6 +1,5 @@
 ﻿using DeviceSyncUnity.Messages;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
@@ -14,12 +13,6 @@ namespace DeviceSyncUnity
         ReceiverOnly
     }
 
-    public enum SendingMode
-    {
-        TimeInterval,
-        FramesInterval
-    }
-
     public abstract class DevicesSync : NetworkBehaviour
     {
         // Editor fields
@@ -31,11 +24,11 @@ namespace DeviceSyncUnity
 
         public SyncMode SyncMode { get { return syncMode; } set { syncMode = value; } }
 
-        public abstract SendingMode SendingMode { get; set; }
-        public abstract uint SendingFramesInterval { get; set; }
-        public abstract float SendingTimeInterval { get; set; }
-
         protected abstract short MessageType { get; }
+
+        // Events
+
+        public static event Action<DeviceInfoMessage> ClientDeviceDisconnected = delegate { };
 
         // Variables
 
@@ -57,6 +50,7 @@ namespace DeviceSyncUnity
             if (isServer)
             {
                 NetworkServer.RegisterHandler(MessageType, ServerMessageReceived);
+                NetworkServer.RegisterHandler(MsgType.Disconnect, ServerClientDisconnected);
             }
 
             var client = manager.client;
@@ -65,11 +59,7 @@ namespace DeviceSyncUnity
                 if (SyncMode != SyncMode.SenderOnly)
                 {
                     client.RegisterHandler(MessageType, ClientMessageReceived);
-                }
-
-                if (SyncMode != SyncMode.ReceiverOnly)
-                {
-                    StartCoroutine(SendToServerWithInterval());
+                    client.RegisterHandler(Messages.MessageType.DeviceDisconnected, ClientDeviceDisconnectedReceived);
                 }
 
                 Utilities.Debug.Execute(() => client.RegisterHandler(MsgType.Error, OnError), LogFilter.Error);
@@ -79,13 +69,19 @@ namespace DeviceSyncUnity
         protected virtual void ServerMessageReceived(NetworkMessage netMessage)
         {
             var message = OnServerReceived(netMessage);
-            Utilities.Debug.Log("Server: sending message (type: " + message.GetType() + ") to all clients from client " + message.SenderConnectionId, LogFilter.Debug);
-
             message.SenderConnectionId = netMessage.conn.connectionId;
+            Utilities.Debug.Log("Server: transfer message (type: " + message.GetType() + ") from client " + message.SenderConnectionId + " to all clients", LogFilter.Debug);
             NetworkServer.SendToAll(MessageType, message);
         }
 
         protected abstract DevicesSyncMessage OnServerReceived(NetworkMessage netMessage);
+
+        protected static void ServerClientDisconnected(NetworkMessage netMessage)
+        {
+            var deviceInfoMessage = new DeviceInfoMessage();
+            deviceInfoMessage.SenderConnectionId = netMessage.conn.connectionId;
+            NetworkServer.SendToAll(Messages.MessageType.DeviceDisconnected, deviceInfoMessage);
+        }
 
         protected virtual void ClientMessageReceived(NetworkMessage netMessage)
         {
@@ -95,35 +91,15 @@ namespace DeviceSyncUnity
 
         protected abstract DevicesSyncMessage OnClientReceived(NetworkMessage netMessage);
 
-        protected virtual IEnumerator SendToServerWithInterval()
+        protected virtual void ClientDeviceDisconnectedReceived(NetworkMessage netMessage)
         {
-            while (true)
-            {
-                bool sendToServerThisFrame = false;
-                if (SendingMode == SendingMode.FramesInterval)
-                {
-                    sendingFrameCounter++;
-                    if (sendingFrameCounter >= SendingFramesInterval)
-                    {
-                        sendingFrameCounter = 0;
-                        sendToServerThisFrame = true;
-                    }
-                }
-                else if (SendingMode == SendingMode.TimeInterval)
-                {
-                    if (Time.unscaledTime - sendingTimer >= SendingTimeInterval)
-                    {
-                        sendingTimer = Time.unscaledTime;
-                        sendToServerThisFrame = true;
-                    }
-                }
-
-                OnSendToServerIntervalIteration(sendToServerThisFrame);
-                yield return null;
-            }
+            var message = netMessage.ReadMessage<DeviceInfoMessage>();
+            OnClientDeviceDisconnectedReceived(message);
+            ClientDeviceDisconnected.Invoke(message);
+            Utilities.Debug.Log("Client: client " + message.SenderConnectionId + " disconnected " + MessageType.GetType(), LogFilter.Debug);
         }
 
-        protected abstract void OnSendToServerIntervalIteration(bool send);
+        protected abstract void OnClientDeviceDisconnectedReceived(DeviceInfoMessage deviceInfoMessage);
 
         protected virtual void SendToServer(DevicesSyncMessage message)
         {

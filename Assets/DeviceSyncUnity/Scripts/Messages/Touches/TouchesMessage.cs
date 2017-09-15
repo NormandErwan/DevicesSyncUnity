@@ -12,31 +12,18 @@ namespace DeviceSyncUnity.Messages
         // Variables
 
         public int senderConnectionId;
-        public bool multiTouchEnabled;
-        public bool stylusTouchSupported;
-        public bool touchPressureSupported;
         public TouchInfo[] touches;
         public TouchInfo[] touchesAverage;
-
-        public int cameraPixelHeight;
-        public int cameraPixelWidth;
 
         // Methods
 
         public void UpdateInfo()
         {
-            multiTouchEnabled = Input.multiTouchEnabled;
-            stylusTouchSupported = Input.stylusTouchSupported;
-            touchPressureSupported = Input.touchPressureSupported;
-
             touches = new TouchInfo[Input.touchCount];
             for (int i = 0; i < Input.touchCount; i++)
             {
                 touches[i] = Input.touches[i];
             }
-
-            cameraPixelHeight = Camera.main.pixelHeight;
-            cameraPixelWidth = Camera.main.pixelWidth;
         }
 
         public virtual void SetTouchesAverage(Stack<TouchInfo[]> previousTouchesStack)

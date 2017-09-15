@@ -56,7 +56,7 @@ namespace DeviceSyncUnity.DebugDisplay
 
         // Methods
 
-        public void UpdateDisplay(TouchesMessage touchesMessage, int touchIndex)
+        public void UpdateDisplay(DeviceInfoMessage deviceInfo, TouchesMessage touchesMessage, int touchIndex)
         {
             var touch = touchesMessage.touchesAverage[touchIndex];
             GameObject.name = "Touch " + touch.fingerId;
@@ -69,7 +69,7 @@ namespace DeviceSyncUnity.DebugDisplay
             }
 
             Vector2 touchPosition = Vector2.Scale(touch.position, canvasRect.rect.size);
-            touchPosition = new Vector2(touchPosition.x / touchesMessage.cameraPixelWidth, touchPosition.y / touchesMessage.cameraPixelHeight);
+            touchPosition = new Vector2(touchPosition.x / deviceInfo.cameraPixelWidth, touchPosition.y / deviceInfo.cameraPixelHeight);
 
             // Display the touch
             rect.anchorMin = rect.anchorMax = rect.pivot = Vector2.zero;
