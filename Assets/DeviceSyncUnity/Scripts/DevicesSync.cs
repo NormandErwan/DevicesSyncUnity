@@ -15,6 +15,10 @@ namespace DeviceSyncUnity
 
     public abstract class DevicesSync : NetworkBehaviour
     {
+        // Constants
+
+        protected static readonly int channelId = Channels.DefaultUnreliable; 
+
         // Editor fields
 
         [SerializeField]
@@ -110,7 +114,7 @@ namespace DeviceSyncUnity
             }
             Utilities.Debug.Log("Client: sending message (type: " + message.GetType() + ")", LogFilter.Debug);
 
-            manager.client.Send(MessageType, message);
+            manager.client.SendByChannel(MessageType, message, channelId);
         }
 
         protected virtual void OnError(NetworkMessage netMessage)
