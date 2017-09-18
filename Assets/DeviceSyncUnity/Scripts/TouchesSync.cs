@@ -11,13 +11,13 @@ namespace DeviceSyncUnity
         // Editor fields
 
         [SerializeField]
-        private SendingMode sendingMode = SendingMode.TimeInterval;
+        private SendingMode sendingMode = SendingMode.FramesInterval;
 
         [SerializeField]
         private float sendingTimeInterval = 0.1f;
 
         [SerializeField]
-        private uint sendingFramesInterval = 2;
+        private uint sendingFramesInterval = 1;
 
         [SerializeField]
         private DeviceInfoSync deviceInfoSync;

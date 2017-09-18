@@ -107,13 +107,7 @@ namespace DeviceSyncUnity
 
         protected virtual void SendToServer(DevicesSyncMessage message)
         {
-            if (!manager.IsClientConnected())
-            {
-                Utilities.Debug.LogError("Can't send message to server : not connected as client.");
-                return;
-            }
             Utilities.Debug.Log("Client: sending message (type: " + message.GetType() + ")", LogFilter.Debug);
-
             manager.client.SendByChannel(MessageType, message, channelId);
         }
 
