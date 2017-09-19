@@ -1,4 +1,9 @@
 {
+  "index.html": {
+    "href": "index.html",
+    "title": "Devices synchronization for Unity | DevicesSyncUnity documentation",
+    "keywords": "Devices synchronization for Unity Synchronize devices information in real time through Unity Networking . This project has been developed as part of the master thesis of Erwan Normand and was supported by the ÉTS - École de Technologie Supérieure . Features Devices sync their touches information. Devices sync their acceleration information. Server keeps the latest information from all devices client and send them to every new connected device client A debug display that show connected devices and their touches information in real time. Installation Make sure the tcp/udp port you're going to use is open on your firewall Clone and build the repo directly on your Unity project Test Connect a mobile device on the same local network than your PC Build and run the Assets/DevicesSyncUnity/Scene/MobileSync.unity scene on the mobile device and on the PC Use the HUD to host on the PC and to connect as client with the mobile device Touch the mobile device and see the touches on the PC screen Usage Set up the NetworkManager on your scene Optionally use Assets/DevicesSyncUnity/Prefabs/NetworkManagerHUD.prefab as replacement of the default Unity's NetworkManagerHUD Drag and drop to scene the Assets/DevicesSyncUnity/Prefabs/{DeviceInfoSync, AccelerationSync, TouchesSync}.prefab prefabs and configure them Optionally use Assets/DevicesSyncUnity/Prefabs/DevicesSyncDisplay.prefab to debug the prefab Documentation The documentation of available online: https://enormand.github.io/DevicesSyncUnity/ License See the LICENSE file for license rights and limitations (3-clause BSD license)."
+  },
   "api/DevicesSyncUnity.Debug.NetworkManagerHUD.html": {
     "href": "api/DevicesSyncUnity.Debug.NetworkManagerHUD.html",
     "title": "Class NetworkManagerHUD | DevicesSyncUnity documentation",
@@ -58,11 +63,6 @@
     "href": "api/DevicesSyncUnity.Debug.html",
     "title": "Namespace DevicesSyncUnity.Debug | DevicesSyncUnity documentation",
     "keywords": "Namespace DevicesSyncUnity.Debug Classes MobileSyncDisplay Display the currents connected devices and their latest touches and acceleration information. NetworkManagerHUD Replacement of the Unity's default NetworkManagerHUD. Displays a responsive UI for controlling the network state of the game. NetworkManagerHUD.ConnectionInfo TouchDisplay Enums NetworkManagerHUD.PanelList"
-  },
-  "index.html": {
-    "href": "index.html",
-    "title": "Devices synchronization for Unity | DevicesSyncUnity documentation",
-    "keywords": "Devices synchronization for Unity Synchronize devices information in real time through Unity Networking . This project has been developed as part of the master thesis of Erwan Normand and was supported by the ÉTS - École de Technologie Supérieure . Features Devices sync their touches information. Devices sync their acceleration information. Server keeps the latest information from all devices client and send them to every new connected device client A debug display that show connected devices and their touches information in real time. Installation Make sure the tcp/udp port you're going to use is open on your firewall Clone and build the repo directly on your Unity project Test Connect a mobile device on the same local network than your PC Build and run the Assets/DeviceSyncUnity/Scene/MobileSync.unity scene on the mobile device and on the PC Use the HUD to host on the PC and to connect as client with the mobile device Touch the mobile device and see the touches on the PC screen Usage Set up the NetworkManager on your scene Optionally use Assets/DeviceSyncUnity/Prefabs/NetworkManagerHUD.prefab as replacement of the default Unity's NetworkManagerHUD Drag and drop to scene the Assets/DeviceSyncUnity/Prefabs/{DeviceInfoSync, AccelerationSync, TouchesSync}.prefab prefabs and configure them Optionally use Assets/DeviceSyncUnity/Prefabs/DeviceSyncDisplay.prefab to debug the prefab Documentation The documentation of available online: https://enormand.github.io/DevicesSyncUnity License See the LICENSE file for license rights and limitations (3-clause BSD license)."
   },
   "api/DevicesSyncUnity.Utilities.html": {
     "href": "api/DevicesSyncUnity.Utilities.html",

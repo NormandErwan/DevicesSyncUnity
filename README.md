@@ -30,7 +30,7 @@ This project has been developed as part of the master thesis of [Erwan Normand](
 
 ## Documentation
 
-The documentation of available online: [https://enormand.github.io/DevicesSyncUnity](https://enormand.github.io/DevicesSyncUnity)
+The documentation of available online: [https://enormand.github.io/DevicesSyncUnity/](https://enormand.github.io/DevicesSyncUnity/)
 
 ## License
 
