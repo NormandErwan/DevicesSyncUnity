@@ -1,0 +1,42 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [ "DevicesSyncUnity.csproj" ]
+        }
+      ],
+      "dest": "obj/api"
+    }
+  ],
+  "build": {
+    "globalMetadata":
+    {
+      "_appTitle": "DevicesSyncUnity documentation",
+      "_appFooter": "<a href=\"https://github.com/enormand/DevicesSyncUnity\">DevicesSyncUnity</a> - <a href=\"https://twitter.com/NormandErwan\">Erwan Normand</a>",
+      "_enableSearch": true
+    },
+    "content": [
+      {
+        "src": "obj/api",
+        "dest": "api",
+        "files": [ "*.yml" ]
+      },
+      {
+        "src": "docs/",
+        "files": [ "toc.yml", "index.md", "LICENSE" ]
+      }
+    ],
+    "overwrite": [
+      {
+        "files": [
+          "api/**"
+        ]
+      }
+    ],
+    "dest": "docs/",
+    "noLangKeyword": false,
+    "keepFileLink": false,
+    "cleanupCacheHistory": false
+  }
+}

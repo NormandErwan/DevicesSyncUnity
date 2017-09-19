@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Devices synchronization for Unity | DevicesSyncUnity documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Devices synchronization for Unity | DevicesSyncUnity documentation ">
+    <meta name="generator" content="docfx 2.24.0.0">
+    
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles/docfx.vendor.css">
+    <link rel="stylesheet" href="styles/docfx.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <meta property="docfx:navrel" content="toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="devices-synchronization-for-unity">Devices synchronization for Unity</h1>
+
+<p>Synchronize devices information in real time through <a href="https://docs.unity3d.com/Manual/UNet.html">Unity Networking</a>.</p>
+<p>This project has been developed as part of the master thesis of <a href="https://twitter.com/NormandErwan">Erwan Normand</a> and was supported by the <a href="https://www.etsmtl.ca/">ÉTS - École de Technologie Supérieure</a>.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li>Devices sync their touches information.</li>
+<li>Devices sync their acceleration information.</li>
+<li>Server keeps the latest information from all devices client and send them to every new connected device client</li>
+<li>A debug display that show connected devices and their touches information in real time.</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<ol>
+<li>Make sure the tcp/udp port you&#39;re going to use is open on your firewall</li>
+<li>Clone and build the repo directly on your Unity project</li>
+<li>Test<ol>
+<li>Connect a mobile device on the same local network than your PC</li>
+<li>Build and run the <code>Assets/DeviceSyncUnity/Scene/MobileSync.unity</code> scene on the mobile device and on the PC</li>
+<li>Use the HUD to host on the PC and to connect as client with the mobile device</li>
+<li>Touch the mobile device and see the touches on the PC screen</li>
+</ol>
+</li>
+</ol>
+<h2 id="usage">Usage</h2>
+<ol>
+<li>Set up the <a href="https://docs.unity3d.com/Manual/UNetManager.html">NetworkManager</a> on your scene</li>
+<li>Optionally use <code>Assets/DeviceSyncUnity/Prefabs/NetworkManagerHUD.prefab</code> as replacement of the default Unity&#39;s NetworkManagerHUD</li>
+<li>Drag and drop to scene the <code>Assets/DeviceSyncUnity/Prefabs/{DeviceInfoSync, AccelerationSync, TouchesSync}.prefab</code> prefabs and configure them</li>
+<li>Optionally use <code>Assets/DeviceSyncUnity/Prefabs/DeviceSyncDisplay.prefab</code> to debug the prefab</li>
+</ol>
+<h2 id="documentation">Documentation</h2>
+<p>The documentation of available online: <a href="https://enormand.github.io/DevicesSyncUnity">https://enormand.github.io/DevicesSyncUnity</a></p>
+<h2 id="license">License</h2>
+<p>See the <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/LICENSE">LICENSE</a> file for license rights and limitations (3-clause BSD license).</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/docs/index.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <a href="https://github.com/enormand/DevicesSyncUnity">DevicesSyncUnity</a> - <a href="https://twitter.com/NormandErwan">Erwan Normand</a>
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>

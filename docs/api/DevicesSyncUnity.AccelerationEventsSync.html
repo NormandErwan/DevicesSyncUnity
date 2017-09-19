@@ -1,0 +1,1080 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class AccelerationEventsSync
+   | DevicesSyncUnity documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class AccelerationEventsSync
+   | DevicesSyncUnity documentation ">
+    <meta name="generator" content="docfx 2.24.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="DevicesSyncUnity.AccelerationEventsSync">
+  
+  
+  <h1 id="DevicesSyncUnity_AccelerationEventsSync" data-uid="DevicesSyncUnity.AccelerationEventsSync" class="text-break">Class AccelerationEventsSync
+  </h1>
+  <div class="markdown level0 summary"><p>Synchronize acceleration events between devices with <a class="xref" href="DevicesSyncUnity.Messages.AccelerationEventsMessage.html">AccelerationEventsMessage</a>.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">UnityEngine.Object</span></div>
+    <div class="level2"><span class="xref">UnityEngine.Component</span></div>
+    <div class="level3"><span class="xref">UnityEngine.Behaviour</span></div>
+    <div class="level4"><span class="xref">UnityEngine.MonoBehaviour</span></div>
+    <div class="level5"><span class="xref">UnityEngine.Networking.NetworkBehaviour</span></div>
+    <div class="level6"><a class="xref" href="DevicesSyncUnity.DevicesSync.html">DevicesSync</a></div>
+    <div class="level7"><a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html">DevicesSyncInterval</a></div>
+    <div class="level8"><span class="xref">AccelerationEventsSync</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html#DevicesSyncUnity_DevicesSyncInterval_Start">DevicesSyncInterval.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html#DevicesSyncUnity_DevicesSyncInterval_SendToServerWithInterval">DevicesSyncInterval.SendToServerWithInterval()</a>
+    </div>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_channelId">DevicesSync.channelId</a>
+    </div>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_SyncMode">DevicesSync.SyncMode</a>
+    </div>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_ClientDeviceDisconnected">DevicesSync.ClientDeviceDisconnected</a>
+    </div>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_manager">DevicesSync.manager</a>
+    </div>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_sendingFrameCounter">DevicesSync.sendingFrameCounter</a>
+    </div>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_sendingTimer">DevicesSync.sendingTimer</a>
+    </div>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_ServerMessageReceived_UnityEngine_Networking_NetworkMessage_">DevicesSync.ServerMessageReceived(NetworkMessage)</a>
+    </div>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_ServerClientDisconnected_UnityEngine_Networking_NetworkMessage_">DevicesSync.ServerClientDisconnected(NetworkMessage)</a>
+    </div>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_ClientMessageReceived_UnityEngine_Networking_NetworkMessage_">DevicesSync.ClientMessageReceived(NetworkMessage)</a>
+    </div>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_ClientDeviceDisconnectedReceived_UnityEngine_Networking_NetworkMessage_">DevicesSync.ClientDeviceDisconnectedReceived(NetworkMessage)</a>
+    </div>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_SendToServer_DevicesSyncUnity_Messages_DevicesSyncMessage_">DevicesSync.SendToServer(DevicesSyncMessage)</a>
+    </div>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_OnError_UnityEngine_Networking_NetworkMessage_">DevicesSync.OnError(NetworkMessage)</a>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.SetDirtyBit(System.UInt32)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.ClearAllDirtyBits()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.OnSerialize(UnityEngine.Networking.NetworkWriter, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.OnDeserialize(UnityEngine.Networking.NetworkReader, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.OnNetworkDestroy()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.OnStartServer()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.OnStartClient()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.OnStartLocalPlayer()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.OnStartAuthority()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.OnStopAuthority()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.OnRebuildObservers(System.Collections.Generic.HashSet&lt;UnityEngine.Networking.NetworkConnection&gt;, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.OnSetLocalVisibility(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.OnCheckObserver(UnityEngine.Networking.NetworkConnection)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.GetNetworkChannel()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.GetNetworkSendInterval()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.localPlayerAuthority</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.isServer</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.isClient</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.isLocalPlayer</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.hasAuthority</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.netId</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.connectionToServer</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.connectionToClient</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.playerControllerId</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.syncVarDirtyBits</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Networking.NetworkBehaviour.syncVarHookGuard</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.Invoke(System.String, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.InvokeRepeating(System.String, System.Single, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.CancelInvoke()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.CancelInvoke(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.IsInvoking(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.IsInvoking()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine(System.Collections.IEnumerator)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine_Auto(System.Collections.IEnumerator)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopCoroutine(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopCoroutine(System.Collections.IEnumerator)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopCoroutine(UnityEngine.Coroutine)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopAllCoroutines()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.print(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.useGUILayout</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.runInEditMode</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Behaviour.enabled</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Behaviour.isActiveAndEnabled</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponent(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponent(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren(System.Type, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren&lt;T&gt;(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren(System.Type, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;(System.Boolean, System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;(System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInParent(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInParent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent(System.Type, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent&lt;T&gt;(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent&lt;T&gt;(System.Boolean, System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents(System.Type, System.Collections.Generic.List&lt;UnityEngine.Component&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents&lt;T&gt;(System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.CompareTag(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String, System.Object, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String, System.Object, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String, System.Object, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.transform</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.gameObject</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.tag</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.rigidbody</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.rigidbody2D</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.camera</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.light</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.animation</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.constantForce</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.renderer</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.audio</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.guiText</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.networkView</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.guiElement</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.guiTexture</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.collider</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.collider2D</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.hingeJoint</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.particleEmitter</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.particleSystem</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Destroy(UnityEngine.Object, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Destroy(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyImmediate(UnityEngine.Object, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyImmediate(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfType(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DontDestroyOnLoad(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyObject(UnityEngine.Object, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyObject(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindSceneObjectsOfType(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfTypeIncludingAssets(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfTypeAll(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.GetInstanceID()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Vector3, UnityEngine.Quaternion)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Transform, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Vector3, UnityEngine.Quaternion)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Transform, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfType&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectOfType&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectOfType(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.name</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.hideFlags</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="DevicesSyncUnity.html">DevicesSyncUnity</a></h6>
+  <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
+  <h5 id="DevicesSyncUnity_AccelerationEventsSync_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class AccelerationEventsSync : DevicesSyncInterval</code></pre>
+  </div>
+  <h3 id="fields">Fields
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync_accelerationMessage.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync.accelerationMessage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L57">View Source</a>
+  </span>
+  <h4 id="DevicesSyncUnity_AccelerationEventsSync_accelerationMessage" data-uid="DevicesSyncUnity.AccelerationEventsSync.accelerationMessage">accelerationMessage</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected AccelerationEventsMessage accelerationMessage</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DevicesSyncUnity.Messages.AccelerationEventsMessage.html">AccelerationEventsMessage</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync_zeroAccelerationLastMessage.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync.zeroAccelerationLastMessage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L58">View Source</a>
+  </span>
+  <h4 id="DevicesSyncUnity_AccelerationEventsSync_zeroAccelerationLastMessage" data-uid="DevicesSyncUnity.AccelerationEventsSync.zeroAccelerationLastMessage">zeroAccelerationLastMessage</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool zeroAccelerationLastMessage</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync_Accelerations.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync.Accelerations%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L48">View Source</a>
+  </span>
+  <a id="DevicesSyncUnity_AccelerationEventsSync_Accelerations_" data-uid="DevicesSyncUnity.AccelerationEventsSync.Accelerations*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationEventsSync_Accelerations" data-uid="DevicesSyncUnity.AccelerationEventsSync.Accelerations">Accelerations</h4>
+  <div class="markdown level1 summary"><p>Gets latest acceleration events from currently connected devices.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;int, AccelerationEventsMessage&gt; Accelerations { get; protected set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.Dictionary</span>&lt;<span class="xref">System.Int32</span>, <a class="xref" href="DevicesSyncUnity.Messages.AccelerationEventsMessage.html">AccelerationEventsMessage</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync_MessageType.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync.MessageType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L53">View Source</a>
+  </span>
+  <a id="DevicesSyncUnity_AccelerationEventsSync_MessageType_" data-uid="DevicesSyncUnity.AccelerationEventsSync.MessageType*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationEventsSync_MessageType" data-uid="DevicesSyncUnity.AccelerationEventsSync.MessageType">MessageType</h4>
+  <div class="markdown level1 summary"><p>See <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_MessageType">MessageType</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override short MessageType { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int16</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_MessageType">DevicesSync.MessageType</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync_SendingFramesInterval.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync.SendingFramesInterval%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L43">View Source</a>
+  </span>
+  <a id="DevicesSyncUnity_AccelerationEventsSync_SendingFramesInterval_" data-uid="DevicesSyncUnity.AccelerationEventsSync.SendingFramesInterval*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationEventsSync_SendingFramesInterval" data-uid="DevicesSyncUnity.AccelerationEventsSync.SendingFramesInterval">SendingFramesInterval</h4>
+  <div class="markdown level1 summary"><p>See <a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html#DevicesSyncUnity_DevicesSyncInterval_SendingFramesInterval">SendingFramesInterval</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override uint SendingFramesInterval { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.UInt32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html#DevicesSyncUnity_DevicesSyncInterval_SendingFramesInterval">DevicesSyncInterval.SendingFramesInterval</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync_SendingMode.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync.SendingMode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L33">View Source</a>
+  </span>
+  <a id="DevicesSyncUnity_AccelerationEventsSync_SendingMode_" data-uid="DevicesSyncUnity.AccelerationEventsSync.SendingMode*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationEventsSync_SendingMode" data-uid="DevicesSyncUnity.AccelerationEventsSync.SendingMode">SendingMode</h4>
+  <div class="markdown level1 summary"><p>See <a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html#DevicesSyncUnity_DevicesSyncInterval_SendingMode">SendingMode</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override SendingMode SendingMode { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DevicesSyncUnity.SendingMode.html">SendingMode</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html#DevicesSyncUnity_DevicesSyncInterval_SendingMode">DevicesSyncInterval.SendingMode</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync_SendingTimeInterval.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync.SendingTimeInterval%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L38">View Source</a>
+  </span>
+  <a id="DevicesSyncUnity_AccelerationEventsSync_SendingTimeInterval_" data-uid="DevicesSyncUnity.AccelerationEventsSync.SendingTimeInterval*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationEventsSync_SendingTimeInterval" data-uid="DevicesSyncUnity.AccelerationEventsSync.SendingTimeInterval">SendingTimeInterval</h4>
+  <div class="markdown level1 summary"><p>See <a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html#DevicesSyncUnity_DevicesSyncInterval_SendingTimeInterval">SendingTimeInterval</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override float SendingTimeInterval { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html#DevicesSyncUnity_DevicesSyncInterval_SendingTimeInterval">DevicesSyncInterval.SendingTimeInterval</a></div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync_Awake.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync.Awake%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L77">View Source</a>
+  </span>
+  <a id="DevicesSyncUnity_AccelerationEventsSync_Awake_" data-uid="DevicesSyncUnity.AccelerationEventsSync.Awake*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationEventsSync_Awake" data-uid="DevicesSyncUnity.AccelerationEventsSync.Awake">Awake()</h4>
+  <div class="markdown level1 summary"><p>Initializes properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Awake()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync_OnClientDeviceDisconnectedReceived_DevicesSyncUnity_Messages_DevicesInfoMessage_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync.OnClientDeviceDisconnectedReceived(DevicesSyncUnity.Messages.DevicesInfoMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L130">View Source</a>
+  </span>
+  <a id="DevicesSyncUnity_AccelerationEventsSync_OnClientDeviceDisconnectedReceived_" data-uid="DevicesSyncUnity.AccelerationEventsSync.OnClientDeviceDisconnectedReceived*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationEventsSync_OnClientDeviceDisconnectedReceived_DevicesSyncUnity_Messages_DevicesInfoMessage_" data-uid="DevicesSyncUnity.AccelerationEventsSync.OnClientDeviceDisconnectedReceived(DevicesSyncUnity.Messages.DevicesInfoMessage)">OnClientDeviceDisconnectedReceived(DevicesInfoMessage)</h4>
+  <div class="markdown level1 summary"><p>Device client removes the disconnected device from <a class="xref" href="DevicesSyncUnity.AccelerationEventsSync.html#DevicesSyncUnity_AccelerationEventsSync_Accelerations">Accelerations</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnClientDeviceDisconnectedReceived(DevicesInfoMessage deviceInfoMessage)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DevicesSyncUnity.Messages.DevicesInfoMessage.html">DevicesInfoMessage</a></td>
+        <td><span class="parametername">deviceInfoMessage</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_OnClientDeviceDisconnectedReceived_DevicesSyncUnity_Messages_DevicesInfoMessage_">DevicesSync.OnClientDeviceDisconnectedReceived(DevicesInfoMessage)</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync_OnClientReceived_UnityEngine_Networking_NetworkMessage_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync.OnClientReceived(UnityEngine.Networking.NetworkMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L118">View Source</a>
+  </span>
+  <a id="DevicesSyncUnity_AccelerationEventsSync_OnClientReceived_" data-uid="DevicesSyncUnity.AccelerationEventsSync.OnClientReceived*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationEventsSync_OnClientReceived_UnityEngine_Networking_NetworkMessage_" data-uid="DevicesSyncUnity.AccelerationEventsSync.OnClientReceived(UnityEngine.Networking.NetworkMessage)">OnClientReceived(NetworkMessage)</h4>
+  <div class="markdown level1 summary"><p>Device client updates <a class="xref" href="DevicesSyncUnity.AccelerationEventsSync.html#DevicesSyncUnity_AccelerationEventsSync_Accelerations">Accelerations</a> and calls <a class="xref" href="DevicesSyncUnity.AccelerationEventsSync.html#DevicesSyncUnity_AccelerationEventsSync_ClientAccelerationReceived">ClientAccelerationReceived</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override DevicesSyncMessage OnClientReceived(NetworkMessage netMessage)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Networking.NetworkMessage</span></td>
+        <td><span class="parametername">netMessage</span></td>
+        <td><p>The received networking message.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DevicesSyncUnity.Messages.DevicesSyncMessage.html">DevicesSyncMessage</a></td>
+        <td><p>The typed network message extracted.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_OnClientReceived_UnityEngine_Networking_NetworkMessage_">DevicesSync.OnClientReceived(NetworkMessage)</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync_OnSendToServerIntervalIteration_System_Boolean_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync.OnSendToServerIntervalIteration(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L87">View Source</a>
+  </span>
+  <a id="DevicesSyncUnity_AccelerationEventsSync_OnSendToServerIntervalIteration_" data-uid="DevicesSyncUnity.AccelerationEventsSync.OnSendToServerIntervalIteration*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationEventsSync_OnSendToServerIntervalIteration_System_Boolean_" data-uid="DevicesSyncUnity.AccelerationEventsSync.OnSendToServerIntervalIteration(System.Boolean)">OnSendToServerIntervalIteration(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Sends current and previous frames acceleration events if required and if there are acceleration events and
+there were acceleration events at the previous interval.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnSendToServerIntervalIteration(bool sendToServerThisFrame)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">sendToServerThisFrame</span></td>
+        <td><p>If the acceleration events should be sent this frame.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html#DevicesSyncUnity_DevicesSyncInterval_OnSendToServerIntervalIteration_System_Boolean_">DevicesSyncInterval.OnSendToServerIntervalIteration(Boolean)</a></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync_OnServerReceived_UnityEngine_Networking_NetworkMessage_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync.OnServerReceived(UnityEngine.Networking.NetworkMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L106">View Source</a>
+  </span>
+  <a id="DevicesSyncUnity_AccelerationEventsSync_OnServerReceived_" data-uid="DevicesSyncUnity.AccelerationEventsSync.OnServerReceived*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationEventsSync_OnServerReceived_UnityEngine_Networking_NetworkMessage_" data-uid="DevicesSyncUnity.AccelerationEventsSync.OnServerReceived(UnityEngine.Networking.NetworkMessage)">OnServerReceived(NetworkMessage)</h4>
+  <div class="markdown level1 summary"><p>Server invokes <a class="xref" href="DevicesSyncUnity.AccelerationEventsSync.html#DevicesSyncUnity_AccelerationEventsSync_ServerAccelerationReceived">ServerAccelerationReceived</a>. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override DevicesSyncMessage OnServerReceived(NetworkMessage netMessage)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Networking.NetworkMessage</span></td>
+        <td><span class="parametername">netMessage</span></td>
+        <td><p>The received networking message.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DevicesSyncUnity.Messages.DevicesSyncMessage.html">DevicesSyncMessage</a></td>
+        <td><p>The typed network message extracted.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_OnServerReceived_UnityEngine_Networking_NetworkMessage_">DevicesSync.OnServerReceived(NetworkMessage)</a></div>
+  <h3 id="events">Events
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync_ClientAccelerationReceived.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync.ClientAccelerationReceived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L70">View Source</a>
+  </span>
+  <h4 id="DevicesSyncUnity_AccelerationEventsSync_ClientAccelerationReceived" data-uid="DevicesSyncUnity.AccelerationEventsSync.ClientAccelerationReceived">ClientAccelerationReceived</h4>
+  <div class="markdown level1 summary"><p>Called on device client when a new <a class="xref" href="DevicesSyncUnity.Messages.AccelerationEventsMessage.html">AccelerationEventsMessage</a> is received from another device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;AccelerationEventsMessage&gt; ClientAccelerationReceived</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;<a class="xref" href="DevicesSyncUnity.Messages.AccelerationEventsMessage.html">AccelerationEventsMessage</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync_ServerAccelerationReceived.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync.ServerAccelerationReceived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L65">View Source</a>
+  </span>
+  <h4 id="DevicesSyncUnity_AccelerationEventsSync_ServerAccelerationReceived" data-uid="DevicesSyncUnity.AccelerationEventsSync.ServerAccelerationReceived">ServerAccelerationReceived</h4>
+  <div class="markdown level1 summary"><p>Called on server when a new <a class="xref" href="DevicesSyncUnity.Messages.AccelerationEventsMessage.html">AccelerationEventsMessage</a> is received from device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;AccelerationEventsMessage&gt; ServerAccelerationReceived</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;<a class="xref" href="DevicesSyncUnity.Messages.AccelerationEventsMessage.html">AccelerationEventsMessage</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationEventsSync.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationEventsSync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationEventsSync.cs/#L12" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <a href="https://github.com/enormand/DevicesSyncUnity">DevicesSyncUnity</a> - <a href="https://twitter.com/NormandErwan">Erwan Normand</a>
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

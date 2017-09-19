@@ -1,0 +1,424 @@
+{
+  "homepages": [],
+  "source_base_path": "D:/Etudes/ETS/Maitrise/Prototype/DevicesSyncUnity",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      },
+      "is_incremental": false
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "T4vXTzLr+hhbixA8OZnetQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "KysEFoOSgCt/3KSC4QAAWQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.AccelerationEventsSync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.AccelerationEventsSync.html",
+          "hash": "i7JIP7+gOlLNMva9KLcwGA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Debug.MobileSyncDisplay.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Debug.MobileSyncDisplay.html",
+          "hash": "mG6bjgcyBfmqvJezA3wN1Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Debug.NetworkManagerHUD.ConnectionInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Debug.NetworkManagerHUD.ConnectionInfo.html",
+          "hash": "93d1LqjZ/jumC8lEETxxCw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Debug.NetworkManagerHUD.PanelList.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Debug.NetworkManagerHUD.PanelList.html",
+          "hash": "+df2ZX+28YElxjxMADA46Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Debug.NetworkManagerHUD.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Debug.NetworkManagerHUD.html",
+          "hash": "gNDf+ebiogeSvqGvsoW5PQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Debug.TouchDisplay.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Debug.TouchDisplay.html",
+          "hash": "r9QEwmpJ1Rjhr/dTMcuGZQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Debug.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Debug.html",
+          "hash": "fuMEGfotkCQx7QzD0X46tg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.DevicesInfoSync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.DevicesInfoSync.html",
+          "hash": "L8+SwUS4gbVvJXFNu67Gfg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.DevicesSync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.DevicesSync.html",
+          "hash": "KBYTpeUTX+NZo9uMW7CevQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.DevicesSyncInterval.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.DevicesSyncInterval.html",
+          "hash": "sAi2yKifuJNLhXZYSRQhJA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.AccelerationEventInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Messages.AccelerationEventInfo.html",
+          "hash": "RtU6XmV7MQOD55hbOFMPAw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.AccelerationEventsMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Messages.AccelerationEventsMessage.html",
+          "hash": "TlhdKoUMuIps7Mc7JT/lYw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.DevicesInfoMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Messages.DevicesInfoMessage.html",
+          "hash": "Sllz+wgS2VFZ76/A7cjuOg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.DevicesSyncMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Messages.DevicesSyncMessage.html",
+          "hash": "OO0v/SVNXhV90qJWEB6cfg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.MessageType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Messages.MessageType.html",
+          "hash": "qPiTrt9NtnsGQbUk8e9Sdg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.TouchInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Messages.TouchInfo.html",
+          "hash": "r8BFqFGVVXT2i7CHGsXWeg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.TouchesMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Messages.TouchesMessage.html",
+          "hash": "RpphOe5bcL1STBoB+ccBFA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Messages.html",
+          "hash": "smj+5Mln60coFS5txpXKhg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.SendingMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.SendingMode.html",
+          "hash": "snEKYymu5EPmnilGf8DfnQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.SyncMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.SyncMode.html",
+          "hash": "9lE/rWbibSVgRpG3jfDdjA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.TouchesSync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.TouchesSync.html",
+          "hash": "98OrQGuRIB691dhGoEtJdA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Utilities.Debug.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Utilities.Debug.html",
+          "hash": "QXNv0ri9jS4lYBHb0C9q3g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Utilities.GameObjecExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Utilities.GameObjecExtensions.html",
+          "hash": "vIdbm45X8r7jbxls1m+BcA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Utilities.RectTransformExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Utilities.RectTransformExtensions.html",
+          "hash": "rqxQni+NiZrf53/2w7jPrQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Utilities.TransformExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Utilities.TransformExtensions.html",
+          "hash": "3IngTtqqKi6jfn6mJCL/Lw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Utilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Utilities.html",
+          "hash": "bB1qLDz+mQIKh0ZtLOYxGA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.html",
+          "hash": "uVJF0RWP/lg1eI1PNtlbiQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "obj/api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "0XFYuUeCWV7HcU13n/ym7A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build"
+      },
+      "processors": {
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "RestApiDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: should not trace intermediate info.",
+        "incrementalPhase": "postProcessing"
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
