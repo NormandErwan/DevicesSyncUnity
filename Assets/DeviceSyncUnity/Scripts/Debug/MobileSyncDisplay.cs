@@ -5,8 +5,11 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-namespace DeviceSyncUnity.DebugDisplay
+namespace DeviceSyncUnity.Debug
 {
+    /// <summary>
+    /// Display the currents connected devices and their latest touches and acceleration information.
+    /// </summary>
     public class MobileSyncDisplay : MonoBehaviour
     {
         // Constants

@@ -3,20 +3,43 @@ using UnityEngine;
 
 namespace DeviceSyncUnity.Messages
 {
+    /// <summary>
+    /// Message that contains device touches information from latest frame, and touches average information from
+    /// previous frames.
+    /// </summary>
     public class TouchesMessage : DevicesSyncMessage
     {
         // Properties
 
+        /// <summary>
+        /// See <see cref="DevicesSyncMessage.SenderConnectionId"/>.
+        /// </summary>
         public override int SenderConnectionId { get { return senderConnectionId; } set { senderConnectionId = value; } }
 
         // Variables
 
+        /// <summary>
+        /// See <see cref="DevicesSyncMessage.SenderConnectionId"/>.
+        /// </summary>
         public int senderConnectionId;
+
+        /// <summary>
+        /// Copy of the latest <see cref="Input.touches"/>.
+        /// </summary>
         public TouchInfo[] touches;
+
+        /// <summary>
+        /// Copy of the latest <see cref="Input.touches"/> with some fields summed up over the previous frames
+        /// (<see cref="Touch.deltaPosition"/>, <see cref="Touch.deltaTime"/>, <see cref="Touch.tapCount"/>) and other
+        /// averaged (<see cref="Touch.pressure"/>, <see cref="Touch.radius"/>, <see cref="Touch.radiusVariance"/>).
+        /// </summary>
         public TouchInfo[] touchesAverage;
 
         // Methods
 
+        /// <summary>
+        /// Copies the current <see cref="Input.touches"/> to <see cref="touches"/>.
+        /// </summary>
         public void UpdateInfo()
         {
             touches = new TouchInfo[Input.touchCount];
@@ -26,6 +49,10 @@ namespace DeviceSyncUnity.Messages
             }
         }
 
+        /// <summary>
+        /// Sets <see cref="touchesAverage"/> with <see cref="touches"/> and touches from previous frames.
+        /// </summary>
+        /// <param name="previousTouchesStack">Touches from previous frames.</param>
         public virtual void SetTouchesAverage(Stack<TouchInfo[]> previousTouchesStack)
         {
             var touchesAverage = new List<TouchInfo>();

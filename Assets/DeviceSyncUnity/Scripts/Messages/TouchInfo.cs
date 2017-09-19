@@ -2,6 +2,9 @@
 
 namespace DeviceSyncUnity.Messages
 {
+    /// <summary>
+    /// Copy of a <see cref="Touch"/> structure, usable for network messages.
+    /// </summary>
     public class TouchInfo
     {
         // Variables
@@ -23,6 +26,9 @@ namespace DeviceSyncUnity.Messages
 
         // Methods
 
+        /// <summary>
+        /// Returns a TouchInfo copied from a <see cref="Touch"/> struct.
+        /// </summary>
         public static implicit operator TouchInfo(Touch touch)
         {
             TouchInfo touchMessage = new TouchInfo();
@@ -43,6 +49,9 @@ namespace DeviceSyncUnity.Messages
             return touchMessage;
         }
 
+        /// <summary>
+        /// Returns a <see cref="Touch"/> struct copied from a TouchInfo.
+        /// </summary>
         public static implicit operator Touch(TouchInfo touchMessage)
         {
             Touch touch = new Touch();

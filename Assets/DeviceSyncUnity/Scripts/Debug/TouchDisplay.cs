@@ -3,7 +3,7 @@ using DeviceSyncUnity.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DeviceSyncUnity.DebugDisplay
+namespace DeviceSyncUnity.Debug
 {
     public class TouchDisplay
     {
@@ -62,7 +62,7 @@ namespace DeviceSyncUnity.DebugDisplay
             GameObject.name = "Touch " + touch.fingerId;
 
             // Configure the touch
-            Vector2 touchSize = touchImageBaseSize * Vector2.one;
+            Vector2 touchSize = touchImageBaseSize * touch.pressure * Vector2.one;
             if (touch.radius > 0)
             {
                 touchSize *= touch.radius;

@@ -1,18 +1,20 @@
-# Device synchronization for Unity
+# Devices synchronization for Unity
 
-Synchronize devices information in real time through Unity Networking (UNet).
+Synchronize devices information in real time through [Unity Networking](https://docs.unity3d.com/Manual/UNet.html).
+
+This project has been developed as part of the master thesis of [Erwan Normand](https://twitter.com/NormandErwan) and was supported by the [ÉTS - École de Technologie Supérieure](https://www.etsmtl.ca/).
 
 ## Features
 
-- Devices sync their touches information
-- Devices sync their acceleration information
+- Devices sync their touches information.
+- Devices sync their acceleration information.
 - Server keeps the latest information from all devices client and send them to every new connected device client
-- A debug display that show connected devices and their touches information in real time
+- A debug display that show connected devices and their touches information in real time.
 
-## Installlation
+## Installation
 
 1. Make sure the tcp/udp port you're going to use is open on your firewall
-2. Clone and build the repo directly on your project
+2. Clone and build the repo directly on your Unity project
 3. Test
     1. Connect a mobile device on the same local network than your PC
     2. Build and run the `Assets/DeviceSyncUnity/Scene/MobileSync.unity` scene on the mobile device and on the PC
@@ -24,6 +26,12 @@ Synchronize devices information in real time through Unity Networking (UNet).
 1. Set up the [NetworkManager](https://docs.unity3d.com/Manual/UNetManager.html) on your scene
 2. Optionally use `Assets/DeviceSyncUnity/Prefabs/NetworkManagerHUD.prefab` as replacement of the default Unity's NetworkManagerHUD
 3. Drag and drop to scene the `Assets/DeviceSyncUnity/Prefabs/{DeviceInfoSync, AccelerationSync, TouchesSync}.prefab` prefabs and configure them
-4. Optionally use `Assets/DeviceSyncUnity/Prefabs/DeviceSyncDisplay.prefab` to debug
+4. Optionally use `Assets/DeviceSyncUnity/Prefabs/DeviceSyncDisplay.prefab` to debug the prefab
 
-This project has been developped using Unity 5.6.
+## Documentation
+
+The documentation of available online: [https://enormand.github.io/DevicesSyncUnity](https://enormand.github.io/DevicesSyncUnity)
+
+## License
+
+See the [LICENSE](https://github.com/enormand/DevicesSyncUnity/blob/master/LICENSE) file for license rights and limitations (3-clause BSD license).

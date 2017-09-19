@@ -6,8 +6,12 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-namespace DeviceSyncUnity.DebugDisplay
+namespace DeviceSyncUnity.Debug
 {
+    /// <summary>
+    /// Replacement of the Unity's default NetworkManagerHUD. Displays a responsive UI for controlling the network
+    /// state of the game.
+    /// </summary>
     public class NetworkManagerHUD : MonoBehaviour
     {
         [Serializable]
@@ -100,7 +104,7 @@ namespace DeviceSyncUnity.DebugDisplay
             manager = NetworkManager.singleton;
             if (manager == null)
             {
-                Debug.LogError("There is no NetworkManager in the scene");
+                UnityEngine.Debug.LogError("There is no NetworkManager in the scene");
             }
         }
 
@@ -172,7 +176,9 @@ namespace DeviceSyncUnity.DebugDisplay
 
         protected virtual bool ClientConnecting()
         {
-            return manager.client != null && manager.client.connection != null && manager.client.connection.connectionId != -1;
+            return manager.client != null 
+                && manager.client.connection != null 
+                && manager.client.connection.connectionId != -1;
         }
 
         protected virtual bool ManagerConnected()
