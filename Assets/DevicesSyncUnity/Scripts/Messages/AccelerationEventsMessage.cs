@@ -25,25 +25,22 @@ namespace DevicesSyncUnity.Messages
         /// <summary>
         /// List of the <see cref="AccelerationEvent"/> from the previous frames.
         /// </summary>
-        public AccelerationEventInfo[] accelerationEvents;
+        public AccelerationEventInfo[] accelerationEvents = new AccelerationEventInfo[0];
 
         // Methods
+
+        public void Reset()
+        {
+            Array.Resize(ref accelerationEvents, 0);
+        }
 
         /// <summary>
         /// Adds the current accelerations events to <see cref="accelerationEvents"/>.
         /// </summary>
         public void UpdateInfo()
         {
-            int previousLength = 0;
-            if (accelerationEvents == null)
-            {
-                accelerationEvents = new AccelerationEventInfo[Input.accelerationEventCount];
-            }
-            else
-            {
-                previousLength = accelerationEvents.Length;
-                Array.Resize(ref accelerationEvents, accelerationEvents.Length + Input.accelerationEventCount);
-            }
+            int previousLength = accelerationEvents.Length;
+            Array.Resize(ref accelerationEvents, previousLength + Input.accelerationEventCount);
 
             int i = 0;
             while (i < Input.accelerationEventCount)

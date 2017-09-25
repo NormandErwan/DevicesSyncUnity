@@ -93,7 +93,7 @@ namespace DevicesSyncUnity
             if (sendToServerThisFrame && !(zeroAcceleration && zeroAccelerationLastMessage))
             {
                 SendToServer(accelerationEventsMessage);
-                accelerationEventsMessage = new AccelerationEventsMessage();
+                accelerationEventsMessage.Reset();
             }
             zeroAccelerationLastMessage = zeroAcceleration;
         }
