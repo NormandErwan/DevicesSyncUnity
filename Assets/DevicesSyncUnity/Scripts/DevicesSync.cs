@@ -74,6 +74,10 @@ namespace DevicesSyncUnity
         /// </summary>
         public static event Action<DeviceInfoMessage> ClientDeviceDisconnected = delegate { };
 
+        // Variables
+
+        private static DeviceInfoMessage deviceDisconnectedMessage = new DeviceInfoMessage();
+
         // Methods
 
         /// <summary>
@@ -136,9 +140,9 @@ namespace DevicesSyncUnity
         /// <param name="netMessage">The disconnection message from the disconnected device client.</param>
         protected static void ServerClientDisconnected(NetworkMessage netMessage)
         {
-            var deviceInfoMessage = new DeviceInfoMessage();
-            deviceInfoMessage.SenderConnectionId = netMessage.conn.connectionId;
-            NetworkServer.SendToAll(Messages.MessageType.DeviceDisconnected, deviceInfoMessage);
+            deviceDisconnectedMessage.SenderConnectionId = netMessage.conn.connectionId;
+            Utilities.Debug.Log("Server: device client " + netMessage.conn.connectionId + " disconnected", LogFilter.Debug);
+            NetworkServer.SendToAll(Messages.MessageType.DeviceDisconnected, deviceDisconnectedMessage);
         }
 
         /// <summary>
@@ -168,8 +172,7 @@ namespace DevicesSyncUnity
             var message = netMessage.ReadMessage<DeviceInfoMessage>();
             OnClientDeviceDisconnectedReceived(message);
             ClientDeviceDisconnected.Invoke(message);
-            Utilities.Debug.Log("Client: device client " + message.SenderConnectionId + " disconnected " 
-                + MessageType.GetType(), LogFilter.Debug);
+            Utilities.Debug.Log("Client: device client " + message.SenderConnectionId + " disconnected", LogFilter.Debug);
         }
 
         /// <summary>

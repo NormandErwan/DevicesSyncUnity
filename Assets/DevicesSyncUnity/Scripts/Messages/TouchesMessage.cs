@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DevicesSyncUnity.Messages
@@ -35,6 +36,8 @@ namespace DevicesSyncUnity.Messages
         /// </summary>
         public TouchInfo[] touchesAverage;
 
+        private List<TouchInfo> touchesAverageList = new List<TouchInfo>();
+
         // Methods
 
         /// <summary>
@@ -42,7 +45,7 @@ namespace DevicesSyncUnity.Messages
         /// </summary>
         public void UpdateInfo()
         {
-            touches = new TouchInfo[Input.touchCount];
+            Array.Resize(ref touches, Input.touchCount);
             for (int i = 0; i < Input.touchCount; i++)
             {
                 touches[i] = Input.touches[i];
@@ -55,13 +58,12 @@ namespace DevicesSyncUnity.Messages
         /// <param name="previousTouchesStack">Touches from previous frames.</param>
         public virtual void SetTouchesAverage(Stack<TouchInfo[]> previousTouchesStack)
         {
-            var touchesAverage = new List<TouchInfo>();
-
             // Initialize
+            touchesAverageList.Clear();
             foreach (var touch in touches)
             {
                 Touch touchCopy = touch;
-                touchesAverage.Add(touchCopy);
+                touchesAverageList.Add(touchCopy);
             }
 
             // Sum up with touches from previous frames
@@ -70,7 +72,7 @@ namespace DevicesSyncUnity.Messages
                 foreach (var previousTouch in previousTouches)
                 {
                     bool newTouch = true;
-                    foreach (var touchAverage in touchesAverage) // TODO: improve this O(n^3)
+                    foreach (var touchAverage in touchesAverageList) // TODO: improve this O(n^3)
                     {
                         if (touchAverage.fingerId == previousTouch.fingerId)
                         {
@@ -88,7 +90,7 @@ namespace DevicesSyncUnity.Messages
 
                     if (newTouch)
                     {
-                        touchesAverage.Add(previousTouch);
+                        touchesAverageList.Add(previousTouch);
                     }
                 }
             }
@@ -97,7 +99,7 @@ namespace DevicesSyncUnity.Messages
             if (previousTouchesStack.Count > 0)
             {
                 int touchesCount = previousTouchesStack.Count + 1;
-                foreach (var touchAverage in touchesAverage)
+                foreach (var touchAverage in touchesAverageList)
                 {
                     touchAverage.pressure /= touchesCount;
                     touchAverage.radius /= touchesCount;
@@ -105,7 +107,7 @@ namespace DevicesSyncUnity.Messages
                 }
             }
 
-            this.touchesAverage = touchesAverage.ToArray();
+            touchesAverage = touchesAverageList.ToArray();
         }
     }
 }

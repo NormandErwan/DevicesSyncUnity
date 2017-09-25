@@ -52,11 +52,6 @@ namespace DevicesSyncUnity
         /// </summary>
         protected override short MessageType { get { return Messages.MessageType.AccelerationEvents; } }
 
-        // Variables
-
-        protected AccelerationEventsMessage accelerationEventsMessage = new AccelerationEventsMessage();
-        protected bool zeroAccelerationLastMessage = false;
-
         // Events
 
         /// <summary>
@@ -68,6 +63,11 @@ namespace DevicesSyncUnity
         /// Called on device client when a new <see cref="AccelerationEventsMessage"/> is received from another device.
         /// </summary>
         public event Action<AccelerationEventsMessage> ClientAccelerationEventsReceived = delegate { };
+
+        // Variables
+
+        protected AccelerationEventsMessage accelerationEventsMessage = new AccelerationEventsMessage();
+        protected bool zeroAccelerationLastMessage = false;
 
         // Methods
 

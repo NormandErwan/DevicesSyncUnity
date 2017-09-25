@@ -60,11 +60,6 @@ namespace DevicesSyncUnity
         /// </summary>
         protected override short MessageType { get { return Messages.MessageType.Touches; } }
 
-        // Variables
-
-        protected Stack<TouchInfo[]> previousTouches = new Stack<TouchInfo[]>();
-        protected bool noTouchesLastMessage = false;
-
         // Events
 
         /// <summary>
@@ -76,6 +71,12 @@ namespace DevicesSyncUnity
         /// Called on device client when a new <see cref="TouchesMessage"/> is received from another device.
         /// </summary>
         public event Action<TouchesMessage> ClientTouchesReceived = delegate { };
+
+        // Variables
+
+        protected Stack<TouchInfo[]> previousTouches = new Stack<TouchInfo[]>();
+        protected bool noTouchesLastMessage = false;
+        private TouchesMessage touchesMessage = new TouchesMessage();
 
         // Methods
 
@@ -94,8 +95,6 @@ namespace DevicesSyncUnity
         /// <param name="sendToServerThisFrame">If the touches information should be sent this frame.</param>
         protected override void OnSendToServerIntervalIteration(bool sendToServerThisFrame)
         {
-            // Copies current touches
-            var touchesMessage = new TouchesMessage();
             touchesMessage.UpdateInfo();
 
             if (!sendToServerThisFrame)

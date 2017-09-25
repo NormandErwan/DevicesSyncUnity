@@ -25,7 +25,7 @@ namespace DevicesSyncUnity.Messages
         /// <summary>
         /// List of the <see cref="AccelerationEvent"/> from the previous frames.
         /// </summary>
-        public AccelerationEventInfo[] accelerationEvents = new AccelerationEventInfo[0];
+        public AccelerationEventInfo[] accelerationEvents;
 
         // Methods
 
@@ -39,15 +39,15 @@ namespace DevicesSyncUnity.Messages
         /// </summary>
         public void UpdateInfo()
         {
-            int previousLength = accelerationEvents.Length;
+            int previousLength = (accelerationEvents != null) ? accelerationEvents.Length : 0;
             Array.Resize(ref accelerationEvents, previousLength + Input.accelerationEventCount);
 
-            int i = 0;
-            while (i < Input.accelerationEventCount)
+            int index = 0;
+            while (index < Input.accelerationEventCount)
             {
                 // TODO: check if the order of stacked events if correct
-                accelerationEvents[i + previousLength] = Input.GetAccelerationEvent(i);
-                i++;
+                accelerationEvents[index + previousLength] = Input.GetAccelerationEvent(index);
+                index++;
             }
         }
     }
