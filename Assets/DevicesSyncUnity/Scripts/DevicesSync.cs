@@ -37,15 +37,24 @@ namespace DevicesSyncUnity
         /// <summary>
         /// The channel to use for sending messages.
         /// </summary>
-        protected static readonly int channelId = Channels.DefaultUnreliable; 
+        protected static readonly int channelId = Channels.DefaultUnreliable;
 
         // Editor fields
+
+        [SerializeField]
+        [Tooltip("The network manager to use for receive messages from the server.")]
+        protected NetworkManager networkManager;
 
         [SerializeField]
         [Tooltip("Synchronization mode to use between device client and the server.")]
         private SyncMode syncMode = SyncMode.SenderAndReceiver;
 
         // Properties
+
+        /// <summary>
+        /// The network manager to use for receive messages from the server.
+        /// </summary>
+        public NetworkManager NetworkManager { get { return networkManager; } set { networkManager = value; } }
 
         /// <summary>
         /// Gets or sets the synchronization mode between device client and the server.
@@ -65,12 +74,6 @@ namespace DevicesSyncUnity
         /// </summary>
         public static event Action<DeviceInfoMessage> ClientDeviceDisconnected = delegate { };
 
-        // Variables
-
-        protected NetworkManager manager;
-        protected uint sendingFrameCounter = 0;
-        protected float sendingTimer = 0;
-
         // Methods
 
         /// <summary>
@@ -78,8 +81,8 @@ namespace DevicesSyncUnity
         /// </summary>
         protected virtual void Start()
         {
-            manager = NetworkManager.singleton;
-            if (manager == null)
+            NetworkManager = NetworkManager.singleton;
+            if (NetworkManager == null)
             {
                 UnityEngine.Debug.LogError("There is no NetworkManager in the scene");
                 return;
@@ -91,7 +94,7 @@ namespace DevicesSyncUnity
                 NetworkServer.RegisterHandler(MsgType.Disconnect, ServerClientDisconnected);
             }
 
-            var client = manager.client;
+            var client = NetworkManager.client;
             if (client != null && isClient)
             {
                 if (SyncMode != SyncMode.SenderOnly)
@@ -182,7 +185,7 @@ namespace DevicesSyncUnity
         protected virtual void SendToServer(DevicesSyncMessage message)
         {
             Utilities.Debug.Log("Client: sending message (type: " + message.GetType() + ")", LogFilter.Debug);
-            manager.client.SendByChannel(MessageType, message, channelId);
+            NetworkManager.client.SendByChannel(MessageType, message, channelId);
         }
 
         /// <summary>

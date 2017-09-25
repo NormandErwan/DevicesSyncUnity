@@ -41,6 +41,11 @@ namespace DevicesSyncUnity
         /// </summary>
         public abstract float SendingTimeInterval { get; set; }
 
+        // Variables
+
+        protected uint sendingFrameCounter = 0;
+        protected float sendingTimer = 0;
+
         // Methods
 
         /// <summary>
@@ -49,7 +54,7 @@ namespace DevicesSyncUnity
         protected override void Start()
         {
             base.Start();
-            if (manager.client != null && isClient && SyncMode != SyncMode.ReceiverOnly)
+            if (NetworkManager.client != null && isClient && SyncMode != SyncMode.ReceiverOnly)
             {
                 StartCoroutine(SendToServerWithInterval());
             }
