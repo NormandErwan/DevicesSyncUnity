@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114134725037383630}
   - component: {fileID: 114412747533735806}
   m_Layer: 0
-  m_Name: DevicesSyncDisplay
+  m_Name: MobilesSyncDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ MonoBehaviour:
   deviceInfoSync: {fileID: 0}
   touchesSync: {fileID: 0}
   accelerometerSync: {fileID: 0}
-  canvas: {fileID: 223417311069870864}
+  displayCanvas: {fileID: 0}
 --- !u!114 &114304707693103740
 MonoBehaviour:
   m_ObjectHideFlags: 1

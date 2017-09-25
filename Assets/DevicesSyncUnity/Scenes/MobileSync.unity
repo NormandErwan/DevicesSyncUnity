@@ -242,9 +242,27 @@ Prefab:
       propertyPath: m_AssetId.i15
       value: 39
       objectReference: {fileID: 0}
+    - target: {fileID: 1193881202498058, guid: 3191926bab0cd2c4c8d978cd213a1a27, type: 2}
+      propertyPath: m_Name
+      value: MobilesSyncDisplay
+      objectReference: {fileID: 0}
+    - target: {fileID: 1810994407038040, guid: 3191926bab0cd2c4c8d978cd213a1a27, type: 2}
+      propertyPath: m_Name
+      value: DisplayCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 114134725037383630, guid: 3191926bab0cd2c4c8d978cd213a1a27,
+        type: 2}
+      propertyPath: displayCanvas
+      value: 
+      objectReference: {fileID: 129663401}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3191926bab0cd2c4c8d978cd213a1a27, type: 2}
   m_IsPrefabParent: 0
+--- !u!223 &129663401 stripped
+Canvas:
+  m_PrefabParentObject: {fileID: 223417311069870864, guid: 3191926bab0cd2c4c8d978cd213a1a27,
+    type: 2}
+  m_PrefabInternal: {fileID: 129663400}
 --- !u!114 &528649006 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114968228225572540, guid: 9a2e6a89424b0d748877707c4b1fbb58,
@@ -636,6 +654,59 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1810961000}
   m_Script: {fileID: 11500000, guid: 9620b8bf4dac19b468b013c16c14adbc, type: 3}
+--- !u!1 &1511494748
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1511494750}
+  - component: {fileID: 1511494749}
+  m_Layer: 0
+  m_Name: LeanTouch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1511494749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1511494748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc98219a83dff145947365dc914d06e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TapThreshold: 0.5
+  SwipeThreshold: 50
+  ReferenceDpi: 200
+  GuiLayers:
+    serializedVersion: 2
+    m_Bits: 4294967291
+  RecordFingers: 1
+  RecordThreshold: 5
+  RecordLimit: 10
+  SimulateMultiFingers: 1
+  PinchTwistKey: 306
+  MultiDragKey: 308
+  FingerTexture: {fileID: 2800000, guid: 25c48be3a87ea0f489a6d41c9c9a2194, type: 3}
+--- !u!4 &1511494750
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1511494748}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1536793894
 GameObject:
   m_ObjectHideFlags: 0

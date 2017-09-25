@@ -10,7 +10,7 @@ namespace DevicesSyncUnity.Debug
     /// <summary>
     /// Display the currents connected devices and their latest touches and acceleration information.
     /// </summary>
-    public class MobileSyncDisplay : MonoBehaviour
+    public class MobilesSyncDisplay : MonoBehaviour
     {
         // Constants
 
@@ -31,7 +31,7 @@ namespace DevicesSyncUnity.Debug
         protected AccelerationEventsSync accelerometerSync;
 
         [SerializeField]
-        protected Canvas canvas;
+        protected Canvas displayCanvas;
 
         // Variables
 
@@ -48,7 +48,7 @@ namespace DevicesSyncUnity.Debug
 
         protected virtual void Awake()
         {
-            canvasRect = canvas.GetComponent<RectTransform>();
+            canvasRect = displayCanvas.GetComponent<RectTransform>();
 
             DevicesSync.ClientDeviceDisconnected += DeviceInfoSync_ClientDeviceDisconnected;
             deviceInfoSync.ClientDeviceInfoReceived += DeviceInfoSync_ClientDeviceInfoReceived;
@@ -102,7 +102,7 @@ namespace DevicesSyncUnity.Debug
                 touchDisplays = new List<TouchDisplay>(touchesMessage.touchesAverage.Length);
                 touchesDisplays.Add(touchesMessage.SenderConnectionId, touchDisplays);
 
-                touchDisplaysParent = canvas.gameObject.AddChild("Device " + touchesMessage.SenderConnectionId + " touches");
+                touchDisplaysParent = displayCanvas.gameObject.AddChild("Device " + touchesMessage.SenderConnectionId + " touches");
                 touchDisplaysParent.AddComponent<RectTransform>().Stretch();
                 touchesDisplaysParents.Add(touchesMessage.SenderConnectionId, touchDisplaysParent);
             }
@@ -168,7 +168,7 @@ namespace DevicesSyncUnity.Debug
             // Initialize if needed
             if (devicesListText == null)
             {
-                var devicesList = canvas.gameObject.AddChild("Sender Devices Info");
+                var devicesList = displayCanvas.gameObject.AddChild("Sender Devices Info");
                 var devicesListRect = devicesList.AddComponent<RectTransform>();
                 devicesListRect.Stretch();
                 devicesListRect.offsetMax = devicesListMargins;

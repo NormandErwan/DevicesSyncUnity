@@ -2025,7 +2025,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16901d9761d75d14b89ccfb61e1ea1ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
   connectionPanel: {fileID: 224825293941490126}
   networkAddressInput: {fileID: 114958580213509640}
   networkPortInput: {fileID: 114997614838001174}
