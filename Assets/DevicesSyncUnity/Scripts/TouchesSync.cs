@@ -150,7 +150,7 @@ namespace DevicesSyncUnity
         /// Device client removes the disconnected device from <see cref="Touches"/>.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
-        protected override void OnClientDeviceDisconnectedReceived(DevicesInfoMessage deviceInfoMessage)
+        protected override void OnClientDeviceDisconnectedReceived(DeviceInfoMessage deviceInfoMessage)
         {
             Touches.Remove(deviceInfoMessage.SenderConnectionId);
         }

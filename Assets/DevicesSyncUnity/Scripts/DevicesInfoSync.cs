@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 namespace DevicesSyncUnity
 {
     /// <summary>
-    /// Synchronize static information between devices with <see cref="DevicesInfoMessage"/>.
+    /// Synchronize static information between devices with <see cref="DeviceInfoMessage"/>.
     /// </summary>
     public class DevicesInfoSync : DevicesSync
     {
@@ -15,7 +15,7 @@ namespace DevicesSyncUnity
         /// <summary>
         /// Gets information from currently connected devices.
         /// </summary>
-        public Dictionary<int, DevicesInfoMessage> DevicesInfo { get; protected set; }
+        public Dictionary<int, DeviceInfoMessage> DevicesInfo { get; protected set; }
 
         /// <summary>
         /// See <see cref="DevicesSync.MessageType"/>.
@@ -25,14 +25,14 @@ namespace DevicesSyncUnity
         // Events
 
         /// <summary>
-        /// Called on server when a new <see cref="DevicesInfoMessage"/> is received from device.
+        /// Called on server when a new <see cref="DeviceInfoMessage"/> is received from device.
         /// </summary>
-        public event Action<DevicesInfoMessage> ServerDeviceInfoReceived = delegate { };
+        public event Action<DeviceInfoMessage> ServerDeviceInfoReceived = delegate { };
 
         /// <summary>
-        /// Called on device client when a new <see cref="DevicesInfoMessage"/> is received from another device.
+        /// Called on device client when a new <see cref="DeviceInfoMessage"/> is received from another device.
         /// </summary>
-        public event Action<DevicesInfoMessage> ClientDeviceInfoReceived = delegate { };
+        public event Action<DeviceInfoMessage> ClientDeviceInfoReceived = delegate { };
 
         // Methods
 
@@ -41,7 +41,7 @@ namespace DevicesSyncUnity
         /// </summary>
         protected virtual void Awake()
         {
-            DevicesInfo = new Dictionary<int, DevicesInfoMessage>();
+            DevicesInfo = new Dictionary<int, DeviceInfoMessage>();
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace DevicesSyncUnity
         {
             base.Start();
 
-            var deviceInfoMessage = new DevicesInfoMessage();
+            var deviceInfoMessage = new DeviceInfoMessage();
             deviceInfoMessage.UpdateInfo();
             SendToServer(deviceInfoMessage);
         }
@@ -63,7 +63,7 @@ namespace DevicesSyncUnity
         /// <returns>The typed network message extracted.</returns>
         protected override DevicesSyncMessage OnServerReceived(NetworkMessage netMessage)
         {
-            var deviceInfoMessage = netMessage.ReadMessage<DevicesInfoMessage>();
+            var deviceInfoMessage = netMessage.ReadMessage<DeviceInfoMessage>();
             ServerDeviceInfoReceived.Invoke(deviceInfoMessage);
 
             int clientConnectionId = netMessage.conn.connectionId;
@@ -84,7 +84,7 @@ namespace DevicesSyncUnity
         /// <returns>The typed network message extracted.</returns>
         protected override DevicesSyncMessage OnClientReceived(NetworkMessage netMessage)
         {
-            var deviceInfoMessage = netMessage.ReadMessage<DevicesInfoMessage>();
+            var deviceInfoMessage = netMessage.ReadMessage<DeviceInfoMessage>();
             DevicesInfo[deviceInfoMessage.SenderConnectionId] = deviceInfoMessage;
             ClientDeviceInfoReceived.Invoke(deviceInfoMessage);
             return deviceInfoMessage;
@@ -94,7 +94,7 @@ namespace DevicesSyncUnity
         /// Device client removes the disconnected device from <see cref="DevicesInfo"/>.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
-        protected override void OnClientDeviceDisconnectedReceived(DevicesInfoMessage deviceInfoMessage)
+        protected override void OnClientDeviceDisconnectedReceived(DeviceInfoMessage deviceInfoMessage)
         {
             DevicesInfo.Remove(deviceInfoMessage.SenderConnectionId);
         }

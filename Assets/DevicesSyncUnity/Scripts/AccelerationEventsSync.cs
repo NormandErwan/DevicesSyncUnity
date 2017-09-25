@@ -45,16 +45,16 @@ namespace DevicesSyncUnity
         /// <summary>
         /// Gets latest acceleration events from currently connected devices.
         /// </summary>
-        public Dictionary<int, AccelerationEventsMessage> Accelerations { get; protected set; }
+        public Dictionary<int, AccelerationEventsMessage> AccelerationEvents { get; protected set; }
 
         /// <summary>
         /// See <see cref="DevicesSync.MessageType"/>.
         /// </summary>
-        protected override short MessageType { get { return Messages.MessageType.Acceleration; } }
+        protected override short MessageType { get { return Messages.MessageType.AccelerationEvents; } }
 
         // Variables
 
-        protected AccelerationEventsMessage accelerationMessage = new AccelerationEventsMessage();
+        protected AccelerationEventsMessage accelerationEventsMessage = new AccelerationEventsMessage();
         protected bool zeroAccelerationLastMessage = false;
 
         // Events
@@ -62,12 +62,12 @@ namespace DevicesSyncUnity
         /// <summary>
         /// Called on server when a new <see cref="AccelerationEventsMessage"/> is received from device.
         /// </summary>
-        public event Action<AccelerationEventsMessage> ServerAccelerationReceived = delegate { };
+        public event Action<AccelerationEventsMessage> ServerAccelerationEventsReceived = delegate { };
 
         /// <summary>
         /// Called on device client when a new <see cref="AccelerationEventsMessage"/> is received from another device.
         /// </summary>
-        public event Action<AccelerationEventsMessage> ClientAccelerationReceived = delegate { };
+        public event Action<AccelerationEventsMessage> ClientAccelerationEventsReceived = delegate { };
 
         // Methods
 
@@ -76,7 +76,7 @@ namespace DevicesSyncUnity
         /// </summary>
         protected virtual void Awake()
         {
-            Accelerations = new Dictionary<int, AccelerationEventsMessage>();
+            AccelerationEvents = new Dictionary<int, AccelerationEventsMessage>();
         }
 
         /// <summary>
@@ -86,50 +86,50 @@ namespace DevicesSyncUnity
         /// <param name="sendToServerThisFrame">If the acceleration events should be sent this frame.</param>
         protected override void OnSendToServerIntervalIteration(bool sendToServerThisFrame)
         {
-            accelerationMessage.UpdateInfo();
+            accelerationEventsMessage.UpdateInfo();
 
-            bool zeroAcceleration  = (accelerationMessage.accelerationEvents.Length == 0 
-                || accelerationMessage.accelerationEvents[0].acceleration.sqrMagnitude == 0f);
+            bool zeroAcceleration  = (accelerationEventsMessage.accelerationEvents.Length == 0 
+                || accelerationEventsMessage.accelerationEvents[0].acceleration.sqrMagnitude == 0f);
             if (sendToServerThisFrame && !(zeroAcceleration && zeroAccelerationLastMessage))
             {
-                SendToServer(accelerationMessage);
-                accelerationMessage = new AccelerationEventsMessage();
+                SendToServer(accelerationEventsMessage);
+                accelerationEventsMessage = new AccelerationEventsMessage();
             }
             zeroAccelerationLastMessage = zeroAcceleration;
         }
 
         /// <summary>
-        /// Server invokes <see cref="ServerAccelerationReceived"/>. 
+        /// Server invokes <see cref="ServerAccelerationEventsReceived"/>. 
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
         /// <returns>The typed network message extracted.</returns>
         protected override DevicesSyncMessage OnServerReceived(NetworkMessage netMessage)
         {
             var accelerationMessage = netMessage.ReadMessage<AccelerationEventsMessage>();
-            ServerAccelerationReceived.Invoke(accelerationMessage);
+            ServerAccelerationEventsReceived.Invoke(accelerationMessage);
             return accelerationMessage;
         }
 
         /// <summary>
-        /// Device client updates <see cref="Accelerations"/> and calls <see cref="ClientAccelerationReceived"/>.
+        /// Device client updates <see cref="AccelerationEvents"/> and calls <see cref="ClientAccelerationEventsReceived"/>.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
         /// <returns>The typed network message extracted.</returns>
         protected override DevicesSyncMessage OnClientReceived(NetworkMessage netMessage)
         {
             var accelerationMessage = netMessage.ReadMessage<AccelerationEventsMessage>();
-            Accelerations[accelerationMessage.SenderConnectionId] = accelerationMessage;
-            ClientAccelerationReceived.Invoke(accelerationMessage);
+            AccelerationEvents[accelerationMessage.SenderConnectionId] = accelerationMessage;
+            ClientAccelerationEventsReceived.Invoke(accelerationMessage);
             return accelerationMessage;
         }
 
         /// <summary>
-        /// Device client removes the disconnected device from <see cref="Accelerations"/>.
+        /// Device client removes the disconnected device from <see cref="AccelerationEvents"/>.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
-        protected override void OnClientDeviceDisconnectedReceived(DevicesInfoMessage deviceInfoMessage)
+        protected override void OnClientDeviceDisconnectedReceived(DeviceInfoMessage deviceInfoMessage)
         {
-            Accelerations.Remove(deviceInfoMessage.SenderConnectionId);
+            AccelerationEvents.Remove(deviceInfoMessage.SenderConnectionId);
         }
     }
 }

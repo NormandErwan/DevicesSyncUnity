@@ -5,7 +5,7 @@ namespace DevicesSyncUnity.Messages
     /// <summary>
     /// Message that contains device static <see cref="Input"/> and <see cref="Camera.main"/> information.
     /// </summary>
-    public class DevicesInfoMessage : DevicesSyncMessage
+    public class DeviceInfoMessage : DevicesSyncMessage
     {
         // Properties
 

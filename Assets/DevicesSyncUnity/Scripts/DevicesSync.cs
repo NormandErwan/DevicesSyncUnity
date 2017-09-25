@@ -28,7 +28,7 @@ namespace DevicesSyncUnity
     }
 
     /// <summary>
-    /// Synchronize between connected devices with network messages derived from <see cref="DevicesInfoMessage"/>.
+    /// Synchronize between connected devices with network messages derived from <see cref="DeviceInfoMessage"/>.
     /// </summary>
     public abstract class DevicesSync : NetworkBehaviour
     {
@@ -63,7 +63,7 @@ namespace DevicesSyncUnity
         /// <summary>
         /// Called in client side when another device has been disconnected from the server.
         /// </summary>
-        public static event Action<DevicesInfoMessage> ClientDeviceDisconnected = delegate { };
+        public static event Action<DeviceInfoMessage> ClientDeviceDisconnected = delegate { };
 
         // Variables
 
@@ -128,12 +128,12 @@ namespace DevicesSyncUnity
         protected abstract DevicesSyncMessage OnServerReceived(NetworkMessage netMessage);
 
         /// <summary>
-        /// Server sends a <see cref="DevicesInfoMessage"/> message to all device clients to inform another device has disconnected.
+        /// Server sends a <see cref="DeviceInfoMessage"/> message to all device clients to inform another device has disconnected.
         /// </summary>
         /// <param name="netMessage">The disconnection message from the disconnected device client.</param>
         protected static void ServerClientDisconnected(NetworkMessage netMessage)
         {
-            var deviceInfoMessage = new DevicesInfoMessage();
+            var deviceInfoMessage = new DeviceInfoMessage();
             deviceInfoMessage.SenderConnectionId = netMessage.conn.connectionId;
             NetworkServer.SendToAll(Messages.MessageType.DeviceDisconnected, deviceInfoMessage);
         }
@@ -162,7 +162,7 @@ namespace DevicesSyncUnity
         /// <param name="netMessage">The received networking message.</param>
         protected virtual void ClientDeviceDisconnectedReceived(NetworkMessage netMessage)
         {
-            var message = netMessage.ReadMessage<DevicesInfoMessage>();
+            var message = netMessage.ReadMessage<DeviceInfoMessage>();
             OnClientDeviceDisconnectedReceived(message);
             ClientDeviceDisconnected.Invoke(message);
             Utilities.Debug.Log("Client: device client " + message.SenderConnectionId + " disconnected " 
@@ -173,7 +173,7 @@ namespace DevicesSyncUnity
         /// Device client process the disconnection of another device.
         /// </summary>
         /// <param name="deviceInfoMessage">The received networking message.</param>
-        protected abstract void OnClientDeviceDisconnectedReceived(DevicesInfoMessage deviceInfoMessage);
+        protected abstract void OnClientDeviceDisconnectedReceived(DeviceInfoMessage deviceInfoMessage);
 
         /// <summary>
         /// Device client sends a message to server.

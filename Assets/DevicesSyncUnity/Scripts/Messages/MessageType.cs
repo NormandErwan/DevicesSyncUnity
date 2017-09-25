@@ -10,24 +10,26 @@ namespace DevicesSyncUnity.Messages
         // Constants
 
         /// <summary>
-        /// Networking message for communicating <see cref="DevicesInfoMessage"/>.
+        /// Networking message for communicating <see cref="DeviceInfoMessage"/>.
         /// </summary>
-        public const short DeviceInfo = Highest + 1;
+        public static short DeviceInfo { get { return MsgType.Highest + 1; } }
 
         /// <summary>
         /// Networking message used by server for communicating to clients another client has disconnected.
         /// </summary>
-        public const short DeviceDisconnected = Highest + 2;
+        public static short DeviceDisconnected { get { return MsgType.Highest + 2; } }
 
         /// <summary>
         /// Networking message for communicating <see cref="TouchesMessage"/>.
         /// </summary>
-        public const short Touches = Highest + 3;
+        public static short Touches { get { return MsgType.Highest + 3; } }
 
         /// <summary>
         /// Networking message for communicating <see cref="AccelerationEventsMessage"/>.
         /// </summary>
-        public const short Acceleration = Highest + 4;
+        public static short AccelerationEvents { get { return MsgType.Highest + 4; } }
+
+        public static new short Highest { get { return AccelerationEvents; } }
 
         // Methods
 
@@ -36,18 +38,25 @@ namespace DevicesSyncUnity.Messages
         /// </summary>
         public static new string MsgTypeToString(short value)
         {
-            switch (value)
+            if (value == DeviceInfo)
             {
-                case DeviceInfo:
-                    return "DeviceInfo";
-                case DeviceDisconnected:
-                    return "DeviceDisconnected";
-                case Touches:
-                    return "Touches";
-                case Acceleration:
-                    return "Acceleration";
-                default:
-                    return MsgType.MsgTypeToString(value);
+                return "DeviceInfo";
+            }
+            else if (value == DeviceDisconnected)
+            {
+                return "DeviceDisconnected";
+            }
+            else if (value == Touches)
+            {
+                return "Touches";
+            }
+            else if (value == AccelerationEvents)
+            {
+                return "Acceleration";
+            }
+            else
+            {
+                return MsgType.MsgTypeToString(value);
             }
         }
     }

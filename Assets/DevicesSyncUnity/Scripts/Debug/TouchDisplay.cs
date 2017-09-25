@@ -56,7 +56,7 @@ namespace DevicesSyncUnity.Debug
 
         // Methods
 
-        public void UpdateDisplay(DevicesInfoMessage deviceInfo, TouchesMessage touchesMessage, int touchIndex)
+        public void UpdateDisplay(DeviceInfoMessage deviceInfo, TouchesMessage touchesMessage, int touchIndex)
         {
             var touch = touchesMessage.touchesAverage[touchIndex];
             GameObject.name = "Touch " + touch.fingerId;

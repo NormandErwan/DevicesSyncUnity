@@ -40,7 +40,7 @@ namespace DevicesSyncUnity.Debug
         protected Text devicesListText;
         protected SortedDictionary<int, Color> deviceColors = new SortedDictionary<int, Color>();
 
-        protected Dictionary<int, DevicesInfoMessage> devicesInfo = new Dictionary<int, DevicesInfoMessage>();
+        protected Dictionary<int, DeviceInfoMessage> devicesInfo = new Dictionary<int, DeviceInfoMessage>();
         protected Dictionary<int, List<TouchDisplay>> touchesDisplays = new Dictionary<int, List<TouchDisplay>>();
         protected Dictionary<int, GameObject> touchesDisplaysParents = new Dictionary<int, GameObject>();
 
@@ -59,11 +59,11 @@ namespace DevicesSyncUnity.Debug
             }
             if (accelerometerSync != null)
             {
-                accelerometerSync.ClientAccelerationReceived += AccelerometerSync_AccelerationReceived;
+                accelerometerSync.ClientAccelerationEventsReceived += AccelerometerSync_AccelerationReceived;
             }
         }
 
-        protected void DeviceInfoSync_ClientDeviceInfoReceived(DevicesInfoMessage deviceInfoMessages)
+        protected void DeviceInfoSync_ClientDeviceInfoReceived(DeviceInfoMessage deviceInfoMessages)
         {
             float randomColorHue = (goldenRatioConjugate * deviceInfoMessages.SenderConnectionId) % 1;
             var deviceColor = Color.HSVToRGB(randomColorHue, 0.9f, 1f);
@@ -73,7 +73,7 @@ namespace DevicesSyncUnity.Debug
             UpdateDevicesText();
         }
 
-        protected void DeviceInfoSync_ClientDeviceDisconnected(DevicesInfoMessage deviceInfoMessages)
+        protected void DeviceInfoSync_ClientDeviceDisconnected(DeviceInfoMessage deviceInfoMessages)
         {
             deviceColors.Remove(deviceInfoMessages.SenderConnectionId);
             devicesInfo.Remove(deviceInfoMessages.SenderConnectionId);
@@ -88,7 +88,7 @@ namespace DevicesSyncUnity.Debug
 
         protected virtual void TouchesSync_TouchesReceived(TouchesMessage touchesMessage)
         {
-            DevicesInfoMessage deviceInfo = null;
+            DeviceInfoMessage deviceInfo = null;
             if (!devicesInfo.TryGetValue(touchesMessage.SenderConnectionId, out deviceInfo))
             {
                 return;
