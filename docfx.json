@@ -29,14 +29,9 @@
     ],
     "overwrite": [
       {
-        "files": [
-          "api/**"
-        ]
+        "files": [ "api/**" ]
       }
     ],
-    "dest": "docs/",
-    "noLangKeyword": false,
-    "keepFileLink": false,
-    "cleanupCacheHistory": false
+    "dest": "docs/"
   }
 }
