@@ -6,7 +6,8 @@
           "files": [ "DevicesSyncUnity.csproj" ]
         }
       ],
-      "dest": "obj/api"
+      "dest": "obj/api",
+      "filter": "docs/filterConfig.yml"
     }
   ],
   "build": {
@@ -27,11 +28,7 @@
         "files": [ "toc.yml", "index.md", "LICENSE" ]
       }
     ],
-    "overwrite": [
-      {
-        "files": [ "api/**" ]
-      }
-    ],
+    "xref": [ "https://raw.githubusercontent.com/enormand/docfx-unity/master/xrefmap.yml" ],
     "dest": "docs/"
   }
 }
