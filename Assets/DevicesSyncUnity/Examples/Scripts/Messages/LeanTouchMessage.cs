@@ -41,11 +41,11 @@ namespace DevicesSyncUnity.Examples.Messages
             }
         }
 
-        public void RestoreInfo()
+        public void RestoreInfo(LeanTouchInfoMessage leanTouchInfo)
         {
             foreach (var finger in Fingers)
             {
-                finger.RestoreInfo();
+                finger.RestoreInfo(leanTouchInfo);
             }
         }
     }

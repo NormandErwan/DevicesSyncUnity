@@ -36,6 +36,7 @@ namespace DevicesSyncUnity.Examples.Messages
         public Vector2 SwipeScaledDelta;
 
         private LeanFinger leanFinger;
+        private LeanTouchInfoMessage leanTouchInfo;
 
         // Methods
 
@@ -116,22 +117,20 @@ namespace DevicesSyncUnity.Examples.Messages
             return leanFinger.GetScreenDistance(point);
         }
 
-        // TODO: replace LeanTouch.ScalingFactor
-        /*public float GetScaledDistance(Vector2 point)
+        public float GetScaledDistance(Vector2 point)
         {
-            return leanFinger.GetScaledDistance(point);
-        }*/
+            return GetScreenDistance(point) * leanTouchInfo.ScalingFactor;
+        }
 
         public float GetLastScreenDistance(Vector2 point)
         {
             return leanFinger.GetLastScreenDistance(point);
         }
 
-        // TODO: replace LeanTouch.ScalingFactor
-        /*public float GetLastScaledDistance(Vector2 point)
+        public float GetLastScaledDistance(Vector2 point)
         {
-            return leanFinger.GetLastScaledDistance(point);
-        }*/
+            return GetLastScreenDistance(point) * leanTouchInfo.ScalingFactor;
+        }
 
         // TODO: replace LeanTouch.GetCamera
         /*public Vector3 GetStartWorldPosition(float distance, Camera camera = null)
@@ -203,7 +202,7 @@ namespace DevicesSyncUnity.Examples.Messages
             };
         }
 
-        internal void RestoreInfo()
+        internal void RestoreInfo(LeanTouchInfoMessage leanTouchInfo)
         {
             leanFinger = new LeanFinger()
             {
@@ -219,6 +218,7 @@ namespace DevicesSyncUnity.Examples.Messages
                 ScreenPosition = this.ScreenPosition,
                 StartedOverGui = this.StartedOverGui
             };
+            this.leanTouchInfo = leanTouchInfo;
         }
     }
 }

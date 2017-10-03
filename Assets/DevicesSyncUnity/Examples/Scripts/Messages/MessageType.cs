@@ -15,9 +15,14 @@ namespace DevicesSyncUnity.Examples.Messages
         public static new short Smallest { get { return (short)(DevicesSyncUnity.Messages.MessageType.Highest + 1); } }
 
         /// <summary>
+        /// Networking message for communicating <see cref="LeanTouchInfoMessage"/>.
+        /// </summary>
+        public static short LeanTouchInfo { get { return (short)(Smallest + 1); } }
+
+        /// <summary>
         /// Networking message for communicating <see cref="LeanTouchMessage"/>.
         /// </summary>
-        public static short LeanTouch { get { return (short)(Smallest + 1); } }
+        public static short LeanTouch { get { return (short)(Smallest + 2); } }
 
         /// <summary>
         /// See <see cref="DevicesSyncUnity.Messages.MessageType.Highest"/>.
