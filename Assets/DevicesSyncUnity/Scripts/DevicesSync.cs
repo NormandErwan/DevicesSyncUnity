@@ -1,5 +1,6 @@
 ﻿using DevicesSyncUnity.Messages;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
@@ -46,7 +47,7 @@ namespace DevicesSyncUnity
         protected NetworkManager networkManager;
 
         [SerializeField]
-        [Tooltip("Synchronization mode to use between device client and the server.")]
+        [Tooltip("Synchronization mode to use between device clients and the server.")]
         private SyncMode syncMode = SyncMode.SenderAndReceiver;
 
         // Properties
@@ -57,15 +58,14 @@ namespace DevicesSyncUnity
         public NetworkManager NetworkManager { get { return networkManager; } set { networkManager = value; } }
 
         /// <summary>
-        /// Gets or sets the synchronization mode between device client and the server.
+        /// Gets or sets the synchronization mode between device clients and the server.
         /// </summary>
         public SyncMode SyncMode { get { return syncMode; } set { syncMode = value; } }
 
         /// <summary>
-        /// Gets the networking message type <see cref="Messages.MessageType"/> to use for exchange between device
-        /// client and the server.
+        /// Gets the networking message types to use for exchange between device clients and the server.
         /// </summary>
-        protected abstract short MessageType { get; }
+        protected abstract List<short> MessageTypes { get; }
 
         // Events
 
@@ -94,8 +94,11 @@ namespace DevicesSyncUnity
 
             if (isServer)
             {
-                NetworkServer.RegisterHandler(MessageType, ServerMessageReceived);
                 NetworkServer.RegisterHandler(MsgType.Disconnect, ServerClientDisconnected);
+                foreach (var messageType in MessageTypes)
+                {
+                    NetworkServer.RegisterHandler(messageType, ServerMessageReceived);
+                }
             }
 
             var client = NetworkManager.client;
@@ -103,8 +106,11 @@ namespace DevicesSyncUnity
             {
                 if (SyncMode != SyncMode.SenderOnly)
                 {
-                    client.RegisterHandler(MessageType, ClientMessageReceived);
-                    client.RegisterHandler(Messages.MessageType.DeviceDisconnected, ClientDeviceDisconnectedReceived);
+                    client.RegisterHandler(MessageType.DeviceDisconnected, ClientDeviceDisconnectedReceived);
+                    foreach (var messageType in MessageTypes)
+                    {
+                        client.RegisterHandler(messageType, ClientMessageReceived);
+                    }
                 }
 
                 Utilities.Debug.Execute(() => client.RegisterHandler(MsgType.Error, OnError), LogFilter.Error);
@@ -112,7 +118,7 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Server broadcasts any received networking message of type <see cref="MessageType"/> to all device clients.
+        /// Server broadcasts any received networking message of type <see cref="MessageTypes"/> to all device clients.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
         protected virtual void ServerMessageReceived(NetworkMessage netMessage)
@@ -124,7 +130,7 @@ namespace DevicesSyncUnity
             // Send it to all clients
             Utilities.Debug.Log("Server: transfer message (type: " + message.GetType() + ") from device client " 
                 + message.SenderConnectionId + " to all device clients", LogFilter.Debug);
-            NetworkServer.SendToAll(MessageType, message);
+            NetworkServer.SendToAll(netMessage.msgType, message);
         }
 
         /// <summary>
@@ -142,11 +148,11 @@ namespace DevicesSyncUnity
         {
             deviceDisconnectedMessage.SenderConnectionId = netMessage.conn.connectionId;
             Utilities.Debug.Log("Server: device client " + netMessage.conn.connectionId + " disconnected", LogFilter.Debug);
-            NetworkServer.SendToAll(Messages.MessageType.DeviceDisconnected, deviceDisconnectedMessage);
+            NetworkServer.SendToAll(MessageType.DeviceDisconnected, deviceDisconnectedMessage);
         }
 
         /// <summary>
-        /// Device client receives a network message of type <see cref="MessageType"/> from the server.
+        /// Device client receives a network message of type <see cref="MessageTypes"/> from the server.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
         protected virtual void ClientMessageReceived(NetworkMessage netMessage)
@@ -188,7 +194,7 @@ namespace DevicesSyncUnity
         protected virtual void SendToServer(DevicesSyncMessage message)
         {
             Utilities.Debug.Log("Client: sending message (type: " + message.GetType() + ")", LogFilter.Debug);
-            NetworkManager.client.SendByChannel(MessageType, message, channelId);
+            NetworkManager.client.SendByChannel(message.MessageType, message, channelId);
         }
 
         /// <summary>

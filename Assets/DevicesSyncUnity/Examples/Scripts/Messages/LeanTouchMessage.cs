@@ -1,7 +1,6 @@
 ﻿using DevicesSyncUnity.Messages;
 using Lean.Touch;
 using System;
-using UnityEngine;
 
 namespace DevicesSyncUnity.Examples.Messages
 {
@@ -16,6 +15,11 @@ namespace DevicesSyncUnity.Examples.Messages
         /// See <see cref="DevicesSyncMessage.SenderConnectionId"/>.
         /// </summary>
         public override int SenderConnectionId { get { return senderConnectionId; } set { senderConnectionId = value; } }
+
+        /// <summary>
+        /// See <see cref="DevicesSyncMessage.MessageType"/>.
+        /// </summary>
+        public override short MessageType { get { return Messages.MessageType.LeanTouch; } }
 
         // Variables
 

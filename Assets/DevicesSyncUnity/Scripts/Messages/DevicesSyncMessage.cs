@@ -11,5 +11,10 @@ namespace DevicesSyncUnity.Messages
         /// Gets or sets the connection id of the original device client that sent the message.
         /// </summary>
         public abstract int SenderConnectionId { get; set; }
+
+        /// <summary>
+        /// Gets the associated networking message type.
+        /// </summary>
+        public abstract short MessageType { get; }
     }
 }

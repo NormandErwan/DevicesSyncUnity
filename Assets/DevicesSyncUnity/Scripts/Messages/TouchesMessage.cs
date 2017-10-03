@@ -17,6 +17,11 @@ namespace DevicesSyncUnity.Messages
         /// </summary>
         public override int SenderConnectionId { get { return senderConnectionId; } set { senderConnectionId = value; } }
 
+        /// <summary>
+        /// See <see cref="DevicesSyncMessage.MessageType"/>.
+        /// </summary>
+        public override short MessageType { get { return Messages.MessageType.Touches; } }
+
         // Variables
 
         /// <summary>

@@ -52,12 +52,13 @@ namespace DevicesSyncUnity.Examples
         public Dictionary<int, LeanTouchMessage> LeanTouches { get; protected set; }
 
         /// <summary>
-        /// See <see cref="DevicesSync.MessageType"/>.
+        /// See <see cref="DevicesSync.MessageTypes"/>.
         /// </summary>
-        protected override short MessageType { get { return Messages.MessageType.LeanTouch; } }
+        protected override List<short> MessageTypes { get { return messageTypes; } }
 
         // Variables
 
+        protected List<short> messageTypes = new List<short>() { new LeanTouchMessage().MessageType };
         protected LeanTouchMessage leanTouchMessage = new LeanTouchMessage();
 
         // Events

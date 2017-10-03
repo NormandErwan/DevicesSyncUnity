@@ -18,9 +18,9 @@ namespace DevicesSyncUnity
         public Dictionary<int, DeviceInfoMessage> DevicesInfo { get; protected set; }
 
         /// <summary>
-        /// See <see cref="DevicesSync.MessageType"/>.
+        /// See <see cref="DevicesSync.MessageTypes"/>.
         /// </summary>
-        protected override short MessageType { get { return Messages.MessageType.DeviceInfo; } }
+        protected override List<short> MessageTypes { get { return messageTypes; } }
 
         // Events
 
@@ -33,6 +33,10 @@ namespace DevicesSyncUnity
         /// Called on device client when a new <see cref="DeviceInfoMessage"/> is received from another device.
         /// </summary>
         public event Action<DeviceInfoMessage> ClientDeviceInfoReceived = delegate { };
+
+        // Variables
+
+        protected List<short> messageTypes = new List<short>() { new DeviceInfoMessage().MessageType };
 
         // Methods
 
@@ -71,7 +75,7 @@ namespace DevicesSyncUnity
             {
                 Utilities.Debug.Log("Server: transfer " + deviceInfo.Value.GetType() + " from client " 
                     + deviceInfo.Value.SenderConnectionId + " to client " + clientConnectionId, LogFilter.Debug);
-                NetworkServer.SendToClient(clientConnectionId, MessageType, deviceInfo.Value);
+                NetworkServer.SendToClient(clientConnectionId, netMessage.msgType, deviceInfo.Value);
             }
 
             return deviceInfoMessage;

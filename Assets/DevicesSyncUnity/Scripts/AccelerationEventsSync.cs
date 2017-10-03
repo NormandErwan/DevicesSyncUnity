@@ -48,9 +48,9 @@ namespace DevicesSyncUnity
         public Dictionary<int, AccelerationEventsMessage> AccelerationEvents { get; protected set; }
 
         /// <summary>
-        /// See <see cref="DevicesSync.MessageType"/>.
+        /// See <see cref="DevicesSync.MessageTypes"/>.
         /// </summary>
-        protected override short MessageType { get { return Messages.MessageType.AccelerationEvents; } }
+        protected override List<short> MessageTypes { get { return messageTypes; } }
 
         // Events
 
@@ -66,6 +66,7 @@ namespace DevicesSyncUnity
 
         // Variables
 
+        protected List<short> messageTypes = new List<short>() { new AccelerationEventsMessage().MessageType };
         protected AccelerationEventsMessage accelerationEventsMessage = new AccelerationEventsMessage();
         protected bool zeroAccelerationLastMessage = false;
 

@@ -56,9 +56,9 @@ namespace DevicesSyncUnity
         public Dictionary<int, TouchesMessage> Touches { get; protected set; }
 
         /// <summary>
-        /// See <see cref="DevicesSync.MessageType"/>.
+        /// See <see cref="DevicesSync.MessageTypes"/>.
         /// </summary>
-        protected override short MessageType { get { return Messages.MessageType.Touches; } }
+        protected override List<short> MessageTypes { get { return messageTypes; } }
 
         // Events
 
@@ -74,6 +74,7 @@ namespace DevicesSyncUnity
 
         // Variables
 
+        protected List<short> messageTypes = new List<short>() { new TouchesMessage().MessageType };
         protected Stack<TouchInfo[]> previousTouches = new Stack<TouchInfo[]>();
         protected bool noTouchesLastMessage = false;
         private TouchesMessage touchesMessage = new TouchesMessage();
