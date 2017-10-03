@@ -63,7 +63,7 @@ namespace DevicesSyncUnity
         /// <summary>
         /// Gets the default channel to use for sending messages.
         /// </summary>
-        protected virtual int DefaultChannelId { get { return Channels.DefaultUnreliable; } }
+        protected virtual int DefaultChannelId { get { return defaultChannelId; } set { defaultChannelId = value; } }
 
         // Events
 
@@ -75,6 +75,7 @@ namespace DevicesSyncUnity
         // Variables
 
         private DeviceDisconnectedMessage deviceDisconnectedMessage = new DeviceDisconnectedMessage();
+        private int defaultChannelId = Channels.DefaultUnreliable;
 
         // Methods
 
@@ -201,6 +202,13 @@ namespace DevicesSyncUnity
         {
             int channelId = (channelIdOrDefault != null) ? (int)channelIdOrDefault : DefaultChannelId;
             NetworkServer.SendByChannelToAll(message.MessageType, deviceDisconnectedMessage, channelId);
+        }
+
+        protected void SendToClient(int connectionId, DevicesSyncMessage message)
+        {
+            Utilities.Debug.Log("Server: transfer " + message.GetType() + " from client " + message.SenderConnectionId 
+                + " to client " + connectionId, LogFilter.Debug);
+            NetworkServer.SendToClient(connectionId, message.MessageType, message);
         }
 
         /// <summary>

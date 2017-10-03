@@ -107,6 +107,7 @@ namespace DevicesSyncUnity
         protected override DevicesSyncMessage OnServerReceived(NetworkMessage netMessage)
         {
             var accelerationMessage = netMessage.ReadMessage<AccelerationEventsMessage>();
+            AccelerationEvents[accelerationMessage.SenderConnectionId] = accelerationMessage;
             ServerAccelerationEventsReceived.Invoke(accelerationMessage);
             return accelerationMessage;
         }

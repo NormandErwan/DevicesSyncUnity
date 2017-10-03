@@ -73,14 +73,13 @@ namespace DevicesSyncUnity
         protected override DevicesSyncMessage OnServerReceived(NetworkMessage netMessage)
         {
             var deviceInfoMessage = netMessage.ReadMessage<DeviceInfoMessage>();
+            DevicesInfo[deviceInfoMessage.SenderConnectionId] = deviceInfoMessage;
             ServerDeviceInfoReceived.Invoke(deviceInfoMessage);
 
             int clientConnectionId = netMessage.conn.connectionId;
             foreach (var deviceInfo in DevicesInfo)
             {
-                Utilities.Debug.Log("Server: transfer " + deviceInfo.Value.GetType() + " from client " 
-                    + deviceInfo.Value.SenderConnectionId + " to client " + clientConnectionId, LogFilter.Debug);
-                NetworkServer.SendToClient(clientConnectionId, deviceInfoMessage.MessageType, deviceInfo.Value);
+                SendToClient(clientConnectionId, deviceInfo.Value);
             }
 
             return deviceInfoMessage;

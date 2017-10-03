@@ -129,6 +129,7 @@ namespace DevicesSyncUnity
         protected override DevicesSyncMessage OnServerReceived(NetworkMessage netMessage)
         {
             var touchesMessage = netMessage.ReadMessage<TouchesMessage>();
+            Touches[touchesMessage.SenderConnectionId] = touchesMessage;
             ServerTouchesReceived.Invoke(touchesMessage);
             return touchesMessage;
         }
