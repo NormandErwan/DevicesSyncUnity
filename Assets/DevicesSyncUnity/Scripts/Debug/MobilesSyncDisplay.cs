@@ -50,7 +50,7 @@ namespace DevicesSyncUnity.Debug
         {
             canvasRect = displayCanvas.GetComponent<RectTransform>();
 
-            DevicesSync.ClientDeviceDisconnected += DeviceInfoSync_ClientDeviceDisconnected;
+            deviceInfoSync.ClientDeviceDisconnected += DeviceInfoSync_ClientDeviceDisconnected;
             deviceInfoSync.ClientDeviceInfoReceived += DeviceInfoSync_ClientDeviceInfoReceived;
 
             if (touchesSync != null)

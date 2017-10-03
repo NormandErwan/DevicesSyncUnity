@@ -31,6 +31,11 @@ namespace DevicesSyncUnity
         // Properties
 
         /// <summary>
+        /// See <see cref="DevicesSync.MessageTypes"/>.
+        /// </summary>
+        protected override List<short> MessageTypes { get { return messageTypes; } }
+
+        /// <summary>
         /// See <see cref="DevicesSyncInterval.SendingMode"/>.
         /// </summary>
         public override SendingMode SendingMode { get { return sendingMode; } set { sendingMode = value; } }
@@ -46,7 +51,7 @@ namespace DevicesSyncUnity
         public override uint SendingFramesInterval { get { return sendingFramesInterval; } set { sendingFramesInterval = value; } }
 
         /// <summary>
-        /// Gets or sets the 
+        /// Gets or sets the devices' information to use.
         /// </summary>
         public DevicesInfoSync DeviceInfoSync { get { return deviceInfoSync; } set { deviceInfoSync = value; } }
 
@@ -54,11 +59,6 @@ namespace DevicesSyncUnity
         /// Gets latest touches information from currently connected devices.
         /// </summary>
         public Dictionary<int, TouchesMessage> Touches { get; protected set; }
-
-        /// <summary>
-        /// See <see cref="DevicesSync.MessageTypes"/>.
-        /// </summary>
-        protected override List<short> MessageTypes { get { return messageTypes; } }
 
         // Events
 

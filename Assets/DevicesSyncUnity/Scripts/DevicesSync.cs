@@ -33,13 +33,6 @@ namespace DevicesSyncUnity
     /// </summary>
     public abstract class DevicesSync : NetworkBehaviour
     {
-        // Constants
-
-        /// <summary>
-        /// The default channel to use for sending messages.
-        /// </summary>
-        protected const int defaultChannelId = Channels.DefaultUnreliable;
-
         // Editor fields
 
         [SerializeField]
@@ -67,16 +60,21 @@ namespace DevicesSyncUnity
         /// </summary>
         protected abstract List<short> MessageTypes { get; }
 
+        /// <summary>
+        /// Gets the default channel to use for sending messages.
+        /// </summary>
+        protected virtual int DefaultChannelId { get { return Channels.DefaultUnreliable; } }
+
         // Events
 
         /// <summary>
         /// Called in client side when another device has been disconnected from the server.
         /// </summary>
-        public static event Action<DeviceInfoMessage> ClientDeviceDisconnected = delegate { };
+        public event Action<DeviceInfoMessage> ClientDeviceDisconnected = delegate { };
 
         // Variables
 
-        private static DeviceDisconnectedMessage deviceDisconnectedMessage = new DeviceDisconnectedMessage();
+        private DeviceDisconnectedMessage deviceDisconnectedMessage = new DeviceDisconnectedMessage();
 
         // Methods
 
@@ -130,7 +128,7 @@ namespace DevicesSyncUnity
             // Send it to all clients
             Utilities.Debug.Log("Server: transfer message (type: " + message.GetType() + ") from device client " 
                 + message.SenderConnectionId + " to all device clients", LogFilter.Debug);
-            SendToAllClients(message, Channels.DefaultReliable);
+            SendToAllClients(message);
         }
 
         /// <summary>
@@ -144,7 +142,7 @@ namespace DevicesSyncUnity
         /// Server sends a <see cref="DeviceInfoMessage"/> message to all device clients to inform another device has disconnected.
         /// </summary>
         /// <param name="netMessage">The disconnection message from the disconnected device client.</param>
-        protected static void ServerClientDisconnected(NetworkMessage netMessage)
+        protected void ServerClientDisconnected(NetworkMessage netMessage)
         {
             deviceDisconnectedMessage.SenderConnectionId = netMessage.conn.connectionId;
             Utilities.Debug.Log("Server: device client " + netMessage.conn.connectionId + " disconnected", LogFilter.Debug);
@@ -191,14 +189,17 @@ namespace DevicesSyncUnity
         /// Device client sends a message to server.
         /// </summary>
         /// <param name="message">The message to send.</param>
-        protected virtual void SendToServer(DevicesSyncMessage message, int channelId = defaultChannelId)
+        protected virtual void SendToServer(DevicesSyncMessage message, int? channelIdOrDefault = null)
         {
             Utilities.Debug.Log("Client: sending message (type: " + message.GetType() + ")", LogFilter.Debug);
+
+            int channelId = (channelIdOrDefault != null) ? (int)channelIdOrDefault : DefaultChannelId;
             NetworkManager.client.SendByChannel(message.MessageType, message, channelId);
         }
 
-        protected static void SendToAllClients(DevicesSyncMessage message, int channelId = defaultChannelId)
+        protected void SendToAllClients(DevicesSyncMessage message, int? channelIdOrDefault = null)
         {
+            int channelId = (channelIdOrDefault != null) ? (int)channelIdOrDefault : DefaultChannelId;
             NetworkServer.SendByChannelToAll(message.MessageType, deviceDisconnectedMessage, channelId);
         }
 

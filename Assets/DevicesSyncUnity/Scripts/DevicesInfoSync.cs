@@ -13,14 +13,19 @@ namespace DevicesSyncUnity
         // Properties
 
         /// <summary>
-        /// Gets information from currently connected devices.
-        /// </summary>
-        public Dictionary<int, DeviceInfoMessage> DevicesInfo { get; protected set; }
-
-        /// <summary>
         /// See <see cref="DevicesSync.MessageTypes"/>.
         /// </summary>
         protected override List<short> MessageTypes { get { return messageTypes; } }
+
+        /// <summary>
+        /// See <see cref="DevicesSync.DefaultChannelId"/>.
+        /// </summary>
+        protected override int DefaultChannelId { get { return Channels.DefaultReliable; } }
+
+        /// <summary>
+        /// Gets information from currently connected devices.
+        /// </summary>
+        public Dictionary<int, DeviceInfoMessage> DevicesInfo { get; protected set; }
 
         // Events
 

@@ -28,6 +28,11 @@ namespace DevicesSyncUnity
         // Properties
 
         /// <summary>
+        /// See <see cref="DevicesSync.MessageTypes"/>.
+        /// </summary>
+        protected override List<short> MessageTypes { get { return messageTypes; } }
+
+        /// <summary>
         /// See <see cref="DevicesSyncInterval.SendingMode"/>.
         /// </summary>
         public override SendingMode SendingMode { get { return sendingMode; } set { sendingMode = value; } }
@@ -46,11 +51,6 @@ namespace DevicesSyncUnity
         /// Gets latest acceleration events from currently connected devices.
         /// </summary>
         public Dictionary<int, AccelerationEventsMessage> AccelerationEvents { get; protected set; }
-
-        /// <summary>
-        /// See <see cref="DevicesSync.MessageTypes"/>.
-        /// </summary>
-        protected override List<short> MessageTypes { get { return messageTypes; } }
 
         // Events
 
