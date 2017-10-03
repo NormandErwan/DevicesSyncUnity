@@ -75,7 +75,7 @@ namespace DevicesSyncUnity
             {
                 Utilities.Debug.Log("Server: transfer " + deviceInfo.Value.GetType() + " from client " 
                     + deviceInfo.Value.SenderConnectionId + " to client " + clientConnectionId, LogFilter.Debug);
-                NetworkServer.SendToClient(clientConnectionId, netMessage.msgType, deviceInfo.Value);
+                NetworkServer.SendToClient(clientConnectionId, deviceInfoMessage.MessageType, deviceInfo.Value);
             }
 
             return deviceInfoMessage;

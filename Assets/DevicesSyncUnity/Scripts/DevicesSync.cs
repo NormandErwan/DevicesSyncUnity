@@ -36,9 +36,9 @@ namespace DevicesSyncUnity
         // Constants
 
         /// <summary>
-        /// The channel to use for sending messages.
+        /// The default channel to use for sending messages.
         /// </summary>
-        protected static readonly int channelId = Channels.DefaultUnreliable;
+        protected const int defaultChannelId = Channels.DefaultUnreliable;
 
         // Editor fields
 
@@ -76,7 +76,7 @@ namespace DevicesSyncUnity
 
         // Variables
 
-        private static DeviceInfoMessage deviceDisconnectedMessage = new DeviceInfoMessage();
+        private static DeviceDisconnectedMessage deviceDisconnectedMessage = new DeviceDisconnectedMessage();
 
         // Methods
 
@@ -130,7 +130,7 @@ namespace DevicesSyncUnity
             // Send it to all clients
             Utilities.Debug.Log("Server: transfer message (type: " + message.GetType() + ") from device client " 
                 + message.SenderConnectionId + " to all device clients", LogFilter.Debug);
-            NetworkServer.SendToAll(netMessage.msgType, message);
+            SendToAllClients(message, Channels.DefaultReliable);
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace DevicesSyncUnity
         {
             deviceDisconnectedMessage.SenderConnectionId = netMessage.conn.connectionId;
             Utilities.Debug.Log("Server: device client " + netMessage.conn.connectionId + " disconnected", LogFilter.Debug);
-            NetworkServer.SendToAll(MessageType.DeviceDisconnected, deviceDisconnectedMessage);
+            SendToAllClients(deviceDisconnectedMessage, Channels.DefaultReliable);
         }
 
         /// <summary>
@@ -191,10 +191,15 @@ namespace DevicesSyncUnity
         /// Device client sends a message to server.
         /// </summary>
         /// <param name="message">The message to send.</param>
-        protected virtual void SendToServer(DevicesSyncMessage message)
+        protected virtual void SendToServer(DevicesSyncMessage message, int channelId = defaultChannelId)
         {
             Utilities.Debug.Log("Client: sending message (type: " + message.GetType() + ")", LogFilter.Debug);
             NetworkManager.client.SendByChannel(message.MessageType, message, channelId);
+        }
+
+        protected static void SendToAllClients(DevicesSyncMessage message, int channelId = defaultChannelId)
+        {
+            NetworkServer.SendByChannelToAll(message.MessageType, deviceDisconnectedMessage, channelId);
         }
 
         /// <summary>
