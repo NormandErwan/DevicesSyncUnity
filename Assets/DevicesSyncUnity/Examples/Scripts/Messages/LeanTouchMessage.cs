@@ -1,6 +1,7 @@
 ﻿using DevicesSyncUnity.Messages;
 using Lean.Touch;
 using System;
+using System.Collections.Generic;
 
 namespace DevicesSyncUnity.Examples.Messages
 {
@@ -28,17 +29,22 @@ namespace DevicesSyncUnity.Examples.Messages
         /// </summary>
         public int senderConnectionId;
 
+        /// <summary>
+        /// See <see cref="LeanTouch.Fingers"/>
+        /// </summary>
         public LeanFingerInfo[] Fingers;
+
+        /// <summary>
+        /// See <see cref="LeanTouch.InactiveFingers"/>
+        /// </summary>
+        public LeanFingerInfo[] InactiveFingers;
 
         // Methods
 
         public void UpdateInfo()
         {
-            Array.Resize(ref Fingers, LeanTouch.Fingers.Count);
-            for (int i = 0; i < Fingers.Length; i++)
-            {
-                Fingers[i] = LeanTouch.Fingers[i];
-            }
+            UpdateFingersInfo(ref Fingers, LeanTouch.Fingers);
+            UpdateFingersInfo(ref InactiveFingers, LeanTouch.InactiveFingers);
         }
 
         public void RestoreInfo(LeanTouchInfoMessage leanTouchInfo)
@@ -46,6 +52,15 @@ namespace DevicesSyncUnity.Examples.Messages
             foreach (var finger in Fingers)
             {
                 finger.RestoreInfo(leanTouchInfo);
+            }
+        }
+
+        protected void UpdateFingersInfo(ref LeanFingerInfo[] fingers, List<LeanFinger> leanFingers)
+        {
+            Array.Resize(ref fingers, leanFingers.Count);
+            for (int i = 0; i < fingers.Length; i++)
+            {
+                fingers[i] = leanFingers[i];
             }
         }
     }
