@@ -28,7 +28,7 @@ namespace DevicesSyncUnity
     }
 
     /// <summary>
-    /// Synchronize between connected devices with network messages derived from <see cref="DeviceInfoMessage"/>.
+    /// Synchronize between connected devices with network messages derived from <see cref="DevicesSyncMessage"/>.
     /// </summary>
     public abstract class DevicesSync : NetworkBehaviour
     {

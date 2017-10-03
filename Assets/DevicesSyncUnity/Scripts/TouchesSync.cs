@@ -81,7 +81,7 @@ namespace DevicesSyncUnity
         // Methods
 
         /// <summary>
-        /// Initializes properties.
+        /// Initializes the properties.
         /// </summary>
         protected virtual void Awake()
         {

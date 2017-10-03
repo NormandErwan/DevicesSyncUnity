@@ -3,7 +3,7 @@
 namespace DevicesSyncUnity.Messages
 {
     /// <summary>
-    /// Copy of an <see cref="AccelerationEvent"/> structure, usable for network messages.
+    /// Copy of the <see cref="AccelerationEvent"/> structure, usable for network messages.
     /// </summary>
     public class AccelerationEventInfo
     {

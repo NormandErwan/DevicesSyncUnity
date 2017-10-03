@@ -3,7 +3,7 @@
 namespace DevicesSyncUnity.Messages
 {
     /// <summary>
-    /// Copy of a <see cref="Touch"/> structure, usable for network messages.
+    /// Copy of the <see cref="Touch"/> structure, usable for network messages.
     /// </summary>
     public class TouchInfo
     {

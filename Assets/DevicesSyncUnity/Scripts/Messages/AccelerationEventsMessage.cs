@@ -45,7 +45,7 @@ namespace DevicesSyncUnity.Messages
             int index = 0;
             while (index < Input.accelerationEventCount)
             {
-                // TODO: check if the order of stacked events if correct
+                // TODO: check if the order of stacked events is correct
                 accelerationEvents[index + previousLength] = Input.GetAccelerationEvent(index);
                 index++;
             }
