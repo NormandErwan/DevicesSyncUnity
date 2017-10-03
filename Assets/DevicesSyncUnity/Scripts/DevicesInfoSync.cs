@@ -13,11 +13,6 @@ namespace DevicesSyncUnity
         // Properties
 
         /// <summary>
-        /// See <see cref="DevicesSync.MessageTypes"/>.
-        /// </summary>
-        protected override List<short> MessageTypes { get { return messageTypes; } }
-
-        /// <summary>
         /// See <see cref="DevicesSync.DefaultChannelId"/>.
         /// </summary>
         protected override int DefaultChannelId { get { return Channels.DefaultReliable; } }
@@ -41,15 +36,18 @@ namespace DevicesSyncUnity
 
         // Variables
 
-        protected List<short> messageTypes = new List<short>() { new DeviceInfoMessage().MessageType };
+        protected DeviceInfoMessage deviceInfoMessage = new DeviceInfoMessage();
 
         // Methods
 
         /// <summary>
         /// Initializes properties.
         /// </summary>
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
+            MessageTypes.Add(deviceInfoMessage.MessageType);
             DevicesInfo = new Dictionary<int, DeviceInfoMessage>();
         }
 
@@ -60,7 +58,6 @@ namespace DevicesSyncUnity
         {
             base.Start();
 
-            var deviceInfoMessage = new DeviceInfoMessage();
             deviceInfoMessage.UpdateInfo();
             SendToServer(deviceInfoMessage);
         }

@@ -34,11 +34,6 @@ namespace DevicesSyncUnity.Examples
         // Properties
 
         /// <summary>
-        /// See <see cref="DevicesSync.MessageTypes"/>.
-        /// </summary>
-        protected override List<short> MessageTypes { get { return messageTypes; } }
-
-        /// <summary>
         /// See <see cref="DevicesSyncInterval.SendingMode"/>.
         /// </summary>
         public override SendingMode SendingMode { get { return sendingMode; } set { sendingMode = value; } }
@@ -94,20 +89,21 @@ namespace DevicesSyncUnity.Examples
 
         protected LeanTouchMessage leanTouchMessage = new LeanTouchMessage();
         protected LeanTouchInfoMessage leanTouchInfoMessage = new LeanTouchInfoMessage();
-        protected List<short> messageTypes = new List<short>();
 
         // Methods
 
         /// <summary>
         /// Initializes the properties.
         /// </summary>
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             LeanTouchInfo = new Dictionary<int, LeanTouchInfoMessage>();
             LeanTouches = new Dictionary<int, LeanTouchMessage>();
 
-            messageTypes.Add(leanTouchMessage.MessageType);
-            messageTypes.Add(leanTouchInfoMessage.MessageType);
+            MessageTypes.Add(leanTouchMessage.MessageType);
+            MessageTypes.Add(leanTouchInfoMessage.MessageType);
         }
 
         /// <summary>

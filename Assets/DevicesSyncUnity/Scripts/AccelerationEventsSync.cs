@@ -28,11 +28,6 @@ namespace DevicesSyncUnity
         // Properties
 
         /// <summary>
-        /// See <see cref="DevicesSync.MessageTypes"/>.
-        /// </summary>
-        protected override List<short> MessageTypes { get { return messageTypes; } }
-
-        /// <summary>
         /// See <see cref="DevicesSyncInterval.SendingMode"/>.
         /// </summary>
         public override SendingMode SendingMode { get { return sendingMode; } set { sendingMode = value; } }
@@ -66,7 +61,6 @@ namespace DevicesSyncUnity
 
         // Variables
 
-        protected List<short> messageTypes = new List<short>() { new AccelerationEventsMessage().MessageType };
         protected AccelerationEventsMessage accelerationEventsMessage = new AccelerationEventsMessage();
         protected bool zeroAccelerationLastMessage = false;
 
@@ -75,8 +69,11 @@ namespace DevicesSyncUnity
         /// <summary>
         /// Initializes properties.
         /// </summary>
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
+            MessageTypes.Add(accelerationEventsMessage.MessageType);
             AccelerationEvents = new Dictionary<int, AccelerationEventsMessage>();
         }
 

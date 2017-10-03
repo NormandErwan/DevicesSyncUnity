@@ -56,14 +56,14 @@ namespace DevicesSyncUnity
         public SyncMode SyncMode { get { return syncMode; } set { syncMode = value; } }
 
         /// <summary>
-        /// Gets the networking message types to use for exchange between device clients and the server.
-        /// </summary>
-        protected abstract List<short> MessageTypes { get; }
-
-        /// <summary>
         /// Gets the default channel to use for sending messages.
         /// </summary>
         protected virtual int DefaultChannelId { get { return defaultChannelId; } set { defaultChannelId = value; } }
+
+        /// <summary>
+        /// Gets the networking message types to use for exchange between device clients and the server.
+        /// </summary>
+        protected List<short> MessageTypes { get; set; }
 
         // Events
 
@@ -78,6 +78,14 @@ namespace DevicesSyncUnity
         private int defaultChannelId = Channels.DefaultUnreliable;
 
         // Methods
+
+        /// <summary>
+        /// Initializes the properties.
+        /// </summary>
+        protected virtual void Awake()
+        {
+            MessageTypes = new List<short>();
+        }
 
         /// <summary>
         /// Configure the device client and the server to send and receive networking messsages.

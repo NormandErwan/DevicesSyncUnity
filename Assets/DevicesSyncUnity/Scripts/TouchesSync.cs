@@ -31,11 +31,6 @@ namespace DevicesSyncUnity
         // Properties
 
         /// <summary>
-        /// See <see cref="DevicesSync.MessageTypes"/>.
-        /// </summary>
-        protected override List<short> MessageTypes { get { return messageTypes; } }
-
-        /// <summary>
         /// See <see cref="DevicesSyncInterval.SendingMode"/>.
         /// </summary>
         public override SendingMode SendingMode { get { return sendingMode; } set { sendingMode = value; } }
@@ -74,7 +69,6 @@ namespace DevicesSyncUnity
 
         // Variables
 
-        protected List<short> messageTypes = new List<short>() { new TouchesMessage().MessageType };
         protected Stack<TouchInfo[]> previousTouches = new Stack<TouchInfo[]>();
         protected bool noTouchesLastMessage = false;
         private TouchesMessage touchesMessage = new TouchesMessage();
@@ -84,8 +78,11 @@ namespace DevicesSyncUnity
         /// <summary>
         /// Initializes the properties.
         /// </summary>
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
+            MessageTypes.Add(touchesMessage.MessageType);
             Touches = new Dictionary<int, TouchesMessage>();
         }
 
