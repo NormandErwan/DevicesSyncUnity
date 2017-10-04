@@ -8,9 +8,6 @@ using UnityEngine.Networking;
 
 namespace DevicesSyncUnity.Examples
 {
-    /// <summary>
-    /// Synchronize acceleration events between devices with <see cref="AccelerationEventsMessage"/>.
-    /// </summary>
     public class LeanTouchSync : DevicesSyncInterval
     {
         // Editor fields

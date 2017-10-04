@@ -31,7 +31,7 @@ namespace DevicesSyncUnity.Messages
         public static short Touches { get { return (short)(Smallest + 2); } }
 
         /// <summary>
-        /// Networking message for communicating <see cref="AccelerationEventsMessage"/>.
+        /// Networking message for communicating <see cref="AccelerationMessage"/>.
         /// </summary>
         public static short AccelerationEvents { get { return (short)(Smallest + 3); } }
 

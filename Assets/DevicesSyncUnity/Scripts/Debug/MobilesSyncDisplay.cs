@@ -28,7 +28,7 @@ namespace DevicesSyncUnity.Debug
         protected TouchesSync touchesSync;
 
         [SerializeField]
-        protected AccelerationEventsSync accelerometerSync;
+        protected AccelerationSync accelerometerSync;
 
         [SerializeField]
         protected Canvas displayCanvas;
@@ -136,7 +136,7 @@ namespace DevicesSyncUnity.Debug
             }
         }
 
-        protected virtual void AccelerometerSync_AccelerationReceived(AccelerationEventsMessage accelerometerMessage)
+        protected virtual void AccelerometerSync_AccelerationReceived(AccelerationMessage accelerometerMessage)
         {
             // TODO
         }

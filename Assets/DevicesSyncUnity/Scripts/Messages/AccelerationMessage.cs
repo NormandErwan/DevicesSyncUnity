@@ -6,7 +6,7 @@ namespace DevicesSyncUnity.Messages
     /// <summary>
     /// Message that contains device static <see cref="Input"/> and <see cref="Camera.main"/> information.
     /// </summary>
-    public class AccelerationEventsMessage : DevicesSyncMessage
+    public class AccelerationMessage : DevicesSyncMessage
     {
         // Properties
 
@@ -38,7 +38,7 @@ namespace DevicesSyncUnity.Messages
 
         // Methods
 
-        public AccelerationEventsMessage() : base()
+        public AccelerationMessage() : base()
         {
             AccelerationEvents = new Queue<AccelerationEventInfo>();
         }

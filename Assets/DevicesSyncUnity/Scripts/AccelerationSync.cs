@@ -6,32 +6,32 @@ using UnityEngine.Networking;
 namespace DevicesSyncUnity
 {
     /// <summary>
-    /// Synchronize acceleration events between devices with <see cref="AccelerationEventsMessage"/>.
+    /// Synchronize acceleration events between devices with <see cref="AccelerationMessage"/>.
     /// </summary>
-    public class AccelerationEventsSync : DevicesSyncInterval
+    public class AccelerationSync : DevicesSyncInterval
     {
         // Properties
 
         /// <summary>
         /// Gets latest acceleration events from currently connected devices.
         /// </summary>
-        public Dictionary<int, AccelerationEventsMessage> AccelerationEvents { get; protected set; }
+        public Dictionary<int, AccelerationMessage> AccelerationEvents { get; protected set; }
 
         // Events
 
         /// <summary>
-        /// Called on server when a new <see cref="AccelerationEventsMessage"/> is received from device.
+        /// Called on server when a new <see cref="AccelerationMessage"/> is received from device.
         /// </summary>
-        public event Action<AccelerationEventsMessage> ServerAccelerationEventsReceived = delegate { };
+        public event Action<AccelerationMessage> ServerAccelerationEventsReceived = delegate { };
 
         /// <summary>
-        /// Called on device client when a new <see cref="AccelerationEventsMessage"/> is received from another device.
+        /// Called on device client when a new <see cref="AccelerationMessage"/> is received from another device.
         /// </summary>
-        public event Action<AccelerationEventsMessage> ClientAccelerationEventsReceived = delegate { };
+        public event Action<AccelerationMessage> ClientAccelerationEventsReceived = delegate { };
 
         // Variables
 
-        protected AccelerationEventsMessage accelerationEventsMessage = new AccelerationEventsMessage();
+        protected AccelerationMessage accelerationEventsMessage = new AccelerationMessage();
         protected bool zeroAccelerationLatestMessage = false;
 
         // Methods
@@ -43,7 +43,7 @@ namespace DevicesSyncUnity
         {
             base.Awake();
 
-            AccelerationEvents = new Dictionary<int, AccelerationEventsMessage>();
+            AccelerationEvents = new Dictionary<int, AccelerationMessage>();
             MessageTypes.Add(accelerationEventsMessage.MessageType);
         }
 
@@ -70,7 +70,7 @@ namespace DevicesSyncUnity
         /// <returns>The typed network message extracted.</returns>
         protected override DevicesSyncMessage OnServerMessageReceived(NetworkMessage netMessage)
         {
-            var accelerationMessage = netMessage.ReadMessage<AccelerationEventsMessage>();
+            var accelerationMessage = netMessage.ReadMessage<AccelerationMessage>();
             AccelerationEvents[accelerationMessage.SenderConnectionId] = accelerationMessage;
             ServerAccelerationEventsReceived.Invoke(accelerationMessage);
             return accelerationMessage;
@@ -83,7 +83,7 @@ namespace DevicesSyncUnity
         /// <returns>The typed network message extracted.</returns>
         protected override DevicesSyncMessage OnClientMessageReceived(NetworkMessage netMessage)
         {
-            var accelerationMessage = netMessage.ReadMessage<AccelerationEventsMessage>();
+            var accelerationMessage = netMessage.ReadMessage<AccelerationMessage>();
             AccelerationEvents[accelerationMessage.SenderConnectionId] = accelerationMessage;
             ClientAccelerationEventsReceived.Invoke(accelerationMessage);
             return accelerationMessage;

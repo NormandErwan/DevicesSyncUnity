@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 namespace DevicesSyncUnity
 {
     /// <summary>
-    /// Synchronize touches information between devices with <see cref="AccelerationEventsMessage"/>.
+    /// Synchronize touches information between devices with <see cref="AccelerationMessage"/>.
     /// </summary>
     public class TouchesSync : DevicesSyncInterval
     {
