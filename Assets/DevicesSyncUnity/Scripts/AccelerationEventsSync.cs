@@ -32,7 +32,7 @@ namespace DevicesSyncUnity
         // Variables
 
         protected AccelerationEventsMessage accelerationEventsMessage = new AccelerationEventsMessage();
-        protected bool zeroAccelerationLastMessage = false;
+        protected bool zeroAccelerationLatestMessage = false;
 
         // Methods
 
@@ -56,14 +56,11 @@ namespace DevicesSyncUnity
         {
             accelerationEventsMessage.UpdateInfo();
 
-            bool zeroAcceleration  = (accelerationEventsMessage.accelerationEvents.Length == 0 
-                || accelerationEventsMessage.accelerationEvents[0].acceleration.sqrMagnitude == 0f);
-            if (sendToServerThisFrame && !(zeroAcceleration && zeroAccelerationLastMessage))
+            if (sendToServerThisFrame && accelerationEventsMessage.AccelerationEvents.Count != 0)
             {
+                accelerationEventsMessage.PrepareSending();
                 SendToServer(accelerationEventsMessage);
-                accelerationEventsMessage.Reset();
             }
-            zeroAccelerationLastMessage = zeroAcceleration;
         }
 
         /// <summary>

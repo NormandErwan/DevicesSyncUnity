@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace DevicesSyncUnity.Messages
@@ -20,6 +20,8 @@ namespace DevicesSyncUnity.Messages
         /// </summary>
         public override short MessageType { get { return Messages.MessageType.AccelerationEvents; } }
 
+        public virtual Queue<AccelerationEventInfo> AccelerationEvents { get; protected set; }
+
         // Variables
 
         /// <summary>
@@ -32,28 +34,38 @@ namespace DevicesSyncUnity.Messages
         /// </summary>
         public AccelerationEventInfo[] accelerationEvents;
 
+        private float? latestAccelerationMagnitude = null;
+
         // Methods
 
-        public void Reset()
+        public AccelerationEventsMessage() : base()
         {
-            Array.Resize(ref accelerationEvents, 0);
+            AccelerationEvents = new Queue<AccelerationEventInfo>();
         }
 
         /// <summary>
-        /// Adds the current accelerations events to <see cref="accelerationEvents"/>.
+        /// Enqueue the current accelerations events if its acceleration is different from the previous one.
         /// </summary>
         public void UpdateInfo()
         {
-            int previousLength = (accelerationEvents != null) ? accelerationEvents.Length : 0;
-            Array.Resize(ref accelerationEvents, previousLength + Input.accelerationEventCount);
-
-            int index = 0;
-            while (index < Input.accelerationEventCount)
+            for (int index = 0; index < Input.accelerationEventCount; index++)
             {
-                // TODO: check if the order of stacked events is correct
-                accelerationEvents[index + previousLength] = Input.GetAccelerationEvent(index);
-                index++;
+                var accEvent = Input.GetAccelerationEvent(index);
+                if (accEvent.acceleration.sqrMagnitude != latestAccelerationMagnitude)
+                {
+                    AccelerationEvents.Enqueue(accEvent);
+                    latestAccelerationMagnitude = accEvent.acceleration.sqrMagnitude;
+                }
             }
+        }
+
+        /// <summary>
+        /// Sets <see cref="accelerationEvents"/> with the acceleration events queue.
+        /// </summary>
+        public void PrepareSending()
+        {
+            accelerationEvents = AccelerationEvents.ToArray();
+            AccelerationEvents.Clear();
         }
     }
 }
