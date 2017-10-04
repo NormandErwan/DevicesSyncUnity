@@ -66,9 +66,17 @@ namespace DevicesSyncUnity
         /// <returns>The typed network message extracted.</returns>
         protected override DevicesSyncMessage OnServerMessageReceived(NetworkMessage netMessage)
         {
+            // Get the information of the new device client
             var deviceInfoMessage = netMessage.ReadMessage<DeviceInfoMessage>();
-            DevicesInfo[deviceInfoMessage.SenderConnectionId] = deviceInfoMessage;
             ServerDeviceInfoReceived.Invoke(deviceInfoMessage);
+
+            // Send to new device client information from all the currently connected devices
+            foreach (var deviceInfo in DevicesInfo)
+            {
+                SendToClient(deviceInfoMessage.SenderConnectionId, deviceInfo.Value);
+            }
+
+            DevicesInfo[deviceInfoMessage.SenderConnectionId] = deviceInfoMessage;
             return deviceInfoMessage;
         }
 

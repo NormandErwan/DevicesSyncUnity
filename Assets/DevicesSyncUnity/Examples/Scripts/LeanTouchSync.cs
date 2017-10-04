@@ -112,15 +112,24 @@ namespace DevicesSyncUnity.Examples
         {
             if (netMessage.msgType == leanTouchMessage.MessageType)
             {
+                // Get LeanTouch frame information
                 var leanTouchReceived = netMessage.ReadMessage<LeanTouchMessage>();
                 ServerLeanTouchReceived.Invoke(leanTouchReceived);
                 return leanTouchReceived;
             }
             else if (netMessage.msgType == leanTouchInfoMessage.MessageType)
             {
+                // Get LeanTouch static information
                 var leanTouchInfoReceived = netMessage.ReadMessage<LeanTouchInfoMessage>();
-                LeanTouchInfo[leanTouchInfoReceived.SenderConnectionId] = leanTouchInfoReceived;
                 ServerLeanTouchInfoReceived.Invoke(leanTouchInfoReceived);
+
+                // Send to new device client the LeanTouch static information from other connected devices
+                foreach (var leanTouchInfo in LeanTouchInfo)
+                {
+                    SendToClient(leanTouchInfoReceived.SenderConnectionId, leanTouchInfo.Value);
+                }
+
+                LeanTouchInfo[leanTouchInfoReceived.SenderConnectionId] = leanTouchInfoReceived;
                 return leanTouchInfoReceived;
             }
             else
