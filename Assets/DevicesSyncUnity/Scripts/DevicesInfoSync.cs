@@ -13,11 +13,6 @@ namespace DevicesSyncUnity
         // Properties
 
         /// <summary>
-        /// See <see cref="DevicesSync.DefaultChannelId"/>.
-        /// </summary>
-        protected override int DefaultChannelId { get { return Channels.DefaultReliable; } }
-
-        /// <summary>
         /// Gets information from currently connected devices.
         /// </summary>
         public Dictionary<int, DeviceInfoMessage> DevicesInfo { get; protected set; }
@@ -49,6 +44,8 @@ namespace DevicesSyncUnity
 
             MessageTypes.Add(deviceInfoMessage.MessageType);
             DevicesInfo = new Dictionary<int, DeviceInfoMessage>();
+
+            DefaultChannelId = Channels.DefaultReliable;
         }
 
         /// <summary>
@@ -72,13 +69,6 @@ namespace DevicesSyncUnity
             var deviceInfoMessage = netMessage.ReadMessage<DeviceInfoMessage>();
             DevicesInfo[deviceInfoMessage.SenderConnectionId] = deviceInfoMessage;
             ServerDeviceInfoReceived.Invoke(deviceInfoMessage);
-
-            int clientConnectionId = netMessage.conn.connectionId;
-            foreach (var deviceInfo in DevicesInfo)
-            {
-                SendToClient(clientConnectionId, deviceInfo.Value);
-            }
-
             return deviceInfoMessage;
         }
 
