@@ -130,7 +130,6 @@ namespace DevicesSyncUnity
         protected virtual void ServerMessageReceived(NetworkMessage netMessage)
         {
             var message = OnServerReceived(netMessage);
-            message.SenderConnectionId = netMessage.conn.connectionId;
             SendToAllClients(message);
         }
 
@@ -196,6 +195,7 @@ namespace DevicesSyncUnity
             Utilities.Debug.Log("Client: sending message (type: " + message.GetType() + ")", LogFilter.Debug);
 
             int channelId = (channelIdOrDefault != null) ? (int)channelIdOrDefault : DefaultChannelId;
+            message.SenderConnectionId = NetworkManager.client.connection.connectionId;
             NetworkManager.client.SendByChannel(message.MessageType, message, channelId);
         }
 
