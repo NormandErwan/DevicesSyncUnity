@@ -108,7 +108,7 @@ namespace DevicesSyncUnity.Examples
             }
         }
 
-        protected override DevicesSyncMessage OnServerReceived(NetworkMessage netMessage)
+        protected override DevicesSyncMessage OnServerMessageReceived(NetworkMessage netMessage)
         {
             if (netMessage.msgType == leanTouchMessage.MessageType)
             {
@@ -135,7 +135,7 @@ namespace DevicesSyncUnity.Examples
             }
         }
 
-        protected override DevicesSyncMessage OnClientReceived(NetworkMessage netMessage)
+        protected override DevicesSyncMessage OnClientMessageReceived(NetworkMessage netMessage)
         {
             if (netMessage.msgType == leanTouchMessage.MessageType)
             {

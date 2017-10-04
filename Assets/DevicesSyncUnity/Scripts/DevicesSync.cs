@@ -129,7 +129,7 @@ namespace DevicesSyncUnity
         /// <param name="netMessage">The received networking message.</param>
         protected virtual void ServerMessageReceived(NetworkMessage netMessage)
         {
-            var message = OnServerReceived(netMessage);
+            var message = OnServerMessageReceived(netMessage);
             SendToAllClients(message);
         }
 
@@ -138,7 +138,7 @@ namespace DevicesSyncUnity
         /// </summary>
         /// <param name="netMessage">The message received by the server.</param>
         /// <returns>The typed network message extracted.</returns>
-        protected abstract DevicesSyncMessage OnServerReceived(NetworkMessage netMessage);
+        protected abstract DevicesSyncMessage OnServerMessageReceived(NetworkMessage netMessage);
 
         /// <summary>
         /// Server sends a <see cref="DeviceInfoMessage"/> message to all device clients to inform another device has disconnected.
@@ -156,7 +156,7 @@ namespace DevicesSyncUnity
         /// <param name="netMessage">The received networking message.</param>
         protected virtual void ClientMessageReceived(NetworkMessage netMessage)
         {
-            var message = OnClientReceived(netMessage);
+            var message = OnClientMessageReceived(netMessage);
             Utilities.Debug.Log("Client: received message (type: " + message.GetType() + ") from device client " 
                 + message.SenderConnectionId, LogFilter.Debug);
         }
@@ -166,7 +166,7 @@ namespace DevicesSyncUnity
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
         /// <returns>The typed network message extracted.</returns>
-        protected abstract DevicesSyncMessage OnClientReceived(NetworkMessage netMessage);
+        protected abstract DevicesSyncMessage OnClientMessageReceived(NetworkMessage netMessage);
 
         /// <summary>
         /// Device client receives message from server that another device has disconnected.

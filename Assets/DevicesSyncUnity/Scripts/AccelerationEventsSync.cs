@@ -71,7 +71,7 @@ namespace DevicesSyncUnity
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
         /// <returns>The typed network message extracted.</returns>
-        protected override DevicesSyncMessage OnServerReceived(NetworkMessage netMessage)
+        protected override DevicesSyncMessage OnServerMessageReceived(NetworkMessage netMessage)
         {
             var accelerationMessage = netMessage.ReadMessage<AccelerationEventsMessage>();
             AccelerationEvents[accelerationMessage.SenderConnectionId] = accelerationMessage;
@@ -84,7 +84,7 @@ namespace DevicesSyncUnity
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
         /// <returns>The typed network message extracted.</returns>
-        protected override DevicesSyncMessage OnClientReceived(NetworkMessage netMessage)
+        protected override DevicesSyncMessage OnClientMessageReceived(NetworkMessage netMessage)
         {
             var accelerationMessage = netMessage.ReadMessage<AccelerationEventsMessage>();
             AccelerationEvents[accelerationMessage.SenderConnectionId] = accelerationMessage;
