@@ -157,8 +157,11 @@ namespace DevicesSyncUnity
         protected virtual void ClientMessageReceived(NetworkMessage netMessage)
         {
             var message = OnClientMessageReceived(netMessage);
-            Utilities.Debug.Log("Client: received message (type: " + message.GetType() + ") from device client " 
-                + message.SenderConnectionId, LogFilter.Debug);
+            if (message != null)
+            {
+                Utilities.Debug.Log("Client: received message (type: " + message.GetType() + ") from device client "
+                    + message.SenderConnectionId, LogFilter.Debug);
+            }
         }
 
         /// <summary>
@@ -175,9 +178,12 @@ namespace DevicesSyncUnity
         protected virtual void ClientDeviceDisconnectedReceived(NetworkMessage netMessage)
         {
             var message = netMessage.ReadMessage<DeviceInfoMessage>();
-            OnClientDeviceDisconnectedReceived(message);
-            ClientDeviceDisconnected.Invoke(message);
-            Utilities.Debug.Log("Client: device client " + message.SenderConnectionId + " disconnected", LogFilter.Debug);
+            if (message != null)
+            {
+                OnClientDeviceDisconnectedReceived(message);
+                ClientDeviceDisconnected.Invoke(message);
+                Utilities.Debug.Log("Client: device client " + message.SenderConnectionId + " disconnected", LogFilter.Debug);
+            }
         }
 
         /// <summary>

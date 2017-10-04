@@ -58,7 +58,16 @@ namespace DevicesSyncUnity
         /// </summary>
         public float SendingTimeInterval { get; set; }
 
+        /// <summary>
+        /// Gets or sets if the sending coroutine <see cref="SendToServerWithInterval"/> will be started when the
+        /// NetworkClient will be ready.
+        /// </summary>
         public bool AutoStartSending { get { return autoStartSending; } set { autoStartSending = value; } }
+
+        /// <summary>
+        /// Gets if the sending coroutine <see cref="SendToServerWithInterval"/> is started.
+        /// </summary>
+        public bool SendingIsStarted { get; protected set; }
 
         // Variables
 
@@ -72,14 +81,14 @@ namespace DevicesSyncUnity
         /// </summary>
         public void StartSending()
         {
-            if (NetworkManager.client != null && isClient && SyncMode != SyncMode.ReceiverOnly)
+            if (NetworkManager.client != null)
             {
                 StartCoroutine(SendToServerWithInterval());
+                SendingIsStarted = true;
             }
             else
             {
-                throw new System.Exception("Unable to start the sending: the client in NetworkManager is not ready or"
-                    + " the SyncMode is configured to ReceiverOnly.");
+                throw new System.Exception("Unable to start the sending: there is no NetworkClient.");
             }
         }
 
@@ -90,7 +99,7 @@ namespace DevicesSyncUnity
         {
             base.Start();
 
-            if (AutoStartSending)
+            if (SyncMode != SyncMode.ReceiverOnly && isClient && AutoStartSending)
             {
                 StartSending();
             }

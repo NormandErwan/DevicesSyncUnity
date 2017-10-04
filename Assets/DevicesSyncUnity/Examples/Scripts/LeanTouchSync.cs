@@ -92,11 +92,6 @@ namespace DevicesSyncUnity.Examples
 
             leanTouchInfoMessage.UpdateInfo();
             SendToServer(leanTouchInfoMessage, Channels.DefaultReliable);
-
-            if (initialAutoStartSending)
-            {
-                StartSending();
-            }
         }
 
         protected override void OnSendToServerIntervalIteration(bool sendToServerThisFrame)
@@ -142,29 +137,33 @@ namespace DevicesSyncUnity.Examples
         {
             if (netMessage.msgType == leanTouchMessage.MessageType)
             {
+                // Get LeanTouch frame information
                 var leanTouchReceived = netMessage.ReadMessage<LeanTouchMessage>();
-                int senderId = leanTouchReceived.SenderConnectionId;
-                if (LeanTouchInfo.ContainsKey(senderId))
-                {
-                    leanTouchReceived.RestoreInfo(LeanTouchInfo[leanTouchReceived.SenderConnectionId]);
+                leanTouchReceived.RestoreInfo(LeanTouchInfo[leanTouchReceived.SenderConnectionId]);
 
-                    LeanTouches[leanTouchReceived.SenderConnectionId] = leanTouchReceived;
-                    ServerLeanTouchReceived.Invoke(leanTouchReceived);
-                    return leanTouchReceived;
-                }
+                LeanTouches[leanTouchReceived.SenderConnectionId] = leanTouchReceived;
+                ServerLeanTouchReceived.Invoke(leanTouchReceived);
+                return leanTouchReceived;
             }
             else if (netMessage.msgType == leanTouchInfoMessage.MessageType)
             {
+                // Get LeanTouch static information
                 var leanTouchInfoReceived = netMessage.ReadMessage<LeanTouchInfoMessage>();
                 LeanTouchInfo[leanTouchInfoReceived.SenderConnectionId] = leanTouchInfoReceived;
                 ClientLeanTouchInfoReceived.Invoke(leanTouchInfoReceived);
+
+                // Starts sending LeanTouch frame information as the server has transmited current device's LeanTouch static information
+                if (SyncMode != SyncMode.ReceiverOnly && isClient && initialAutoStartSending && !SendingIsStarted)
+                {
+                    StartSending();
+                }
+
                 return leanTouchInfoReceived;
             }
             else
             {
-                // TODO: throw exception?
+                return null; // TODO: throw exception?
             }
-            return null;
         }
 
         protected override void OnClientDeviceDisconnectedReceived(DeviceInfoMessage deviceInfoMessage)
