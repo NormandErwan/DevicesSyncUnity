@@ -205,7 +205,7 @@ namespace DevicesSyncUnity
                 + message.SenderConnectionId + " to all device clients", LogFilter.Debug);
 
             int channelId = (channelIdOrDefault != null) ? (int)channelIdOrDefault : DefaultChannelId;
-            NetworkServer.SendByChannelToAll(message.MessageType, deviceDisconnectedMessage, channelId);
+            NetworkServer.SendByChannelToAll(message.MessageType, message, channelId);
         }
 
         protected void SendToClient(int connectionId, DevicesSyncMessage message)
