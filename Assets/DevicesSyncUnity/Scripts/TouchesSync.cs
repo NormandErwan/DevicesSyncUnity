@@ -14,36 +14,10 @@ namespace DevicesSyncUnity
         // Editor fields
 
         [SerializeField]
-        [Tooltip("Interval mode to use to send regularly messages.")]
-        private SendingMode sendingMode = SendingMode.FramesInterval;
-
-        [SerializeField]
-        [Tooltip("The number of frame to use between each message in FramesInterval mode.")]
-        private float sendingTimeInterval = 0.1f;
-
-        [SerializeField]
-        [Tooltip("The time in seconds to use between each message in TimeInterval mode.")]
-        private uint sendingFramesInterval = 1;
-
-        [SerializeField]
+        [Tooltip("The devices' information to use.")]
         private DevicesInfoSync deviceInfoSync;
 
         // Properties
-
-        /// <summary>
-        /// See <see cref="DevicesSyncInterval.SendingMode"/>.
-        /// </summary>
-        public override SendingMode SendingMode { get { return sendingMode; } set { sendingMode = value; } }
-
-        /// <summary>
-        /// See <see cref="DevicesSyncInterval.SendingTimeInterval"/>.
-        /// </summary>
-        public override float SendingTimeInterval { get { return sendingTimeInterval; } set { sendingTimeInterval = value; } }
-
-        /// <summary>
-        /// See <see cref="DevicesSyncInterval.SendingFramesInterval"/>.
-        /// </summary>
-        public override uint SendingFramesInterval { get { return sendingFramesInterval; } set { sendingFramesInterval = value; } }
 
         /// <summary>
         /// Gets or sets the devices' information to use.
@@ -51,7 +25,7 @@ namespace DevicesSyncUnity
         public DevicesInfoSync DeviceInfoSync { get { return deviceInfoSync; } set { deviceInfoSync = value; } }
 
         /// <summary>
-        /// Gets latest touches information from currently connected devices.
+        /// Gets the latest touches information from currently connected devices.
         /// </summary>
         public Dictionary<int, TouchesMessage> Touches { get; protected set; }
 
@@ -82,8 +56,8 @@ namespace DevicesSyncUnity
         {
             base.Awake();
 
-            MessageTypes.Add(touchesMessage.MessageType);
             Touches = new Dictionary<int, TouchesMessage>();
+            MessageTypes.Add(touchesMessage.MessageType);
         }
 
         /// <summary>

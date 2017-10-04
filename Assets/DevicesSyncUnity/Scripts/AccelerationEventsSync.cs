@@ -1,7 +1,6 @@
 ﻿using DevicesSyncUnity.Messages;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Networking;
 
 namespace DevicesSyncUnity
@@ -11,36 +10,7 @@ namespace DevicesSyncUnity
     /// </summary>
     public class AccelerationEventsSync : DevicesSyncInterval
     {
-        // Editor fields
-
-        [SerializeField]
-        [Tooltip("Interval mode to use to send regularly messages.")]
-        private SendingMode sendingMode = SendingMode.TimeInterval;
-
-        [SerializeField]
-        [Tooltip("The number of frame to use between each message in FramesInterval mode.")]
-        private float sendingTimeInterval = 0.1f;
-
-        [SerializeField]
-        [Tooltip("The time in seconds to use between each message in TimeInterval mode.")]
-        private uint sendingFramesInterval = 2;
-
         // Properties
-
-        /// <summary>
-        /// See <see cref="DevicesSyncInterval.SendingMode"/>.
-        /// </summary>
-        public override SendingMode SendingMode { get { return sendingMode; } set { sendingMode = value; } }
-
-        /// <summary>
-        /// See <see cref="DevicesSyncInterval.SendingTimeInterval"/>.
-        /// </summary>
-        public override float SendingTimeInterval { get { return sendingTimeInterval; } set { sendingTimeInterval = value; } }
-
-        /// <summary>
-        /// See <see cref="DevicesSyncInterval.SendingFramesInterval"/>.
-        /// </summary>
-        public override uint SendingFramesInterval { get { return sendingFramesInterval; } set { sendingFramesInterval = value; } }
 
         /// <summary>
         /// Gets latest acceleration events from currently connected devices.
@@ -73,8 +43,8 @@ namespace DevicesSyncUnity
         {
             base.Awake();
 
-            MessageTypes.Add(accelerationEventsMessage.MessageType);
             AccelerationEvents = new Dictionary<int, AccelerationEventsMessage>();
+            MessageTypes.Add(accelerationEventsMessage.MessageType);
         }
 
         /// <summary>

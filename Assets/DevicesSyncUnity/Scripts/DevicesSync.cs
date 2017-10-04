@@ -88,15 +88,14 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Configure the device client and the server to send and receive networking messsages.
+        /// Configures the device client and the server to send and receive networking messsages.
         /// </summary>
         protected virtual void Start()
         {
             NetworkManager = NetworkManager.singleton;
             if (NetworkManager == null)
             {
-                UnityEngine.Debug.LogError("There is no NetworkManager in the scene");
-                return;
+                throw new Exception("There is no NetworkManager in the scene");
             }
 
             if (isServer)
@@ -130,13 +129,8 @@ namespace DevicesSyncUnity
         /// <param name="netMessage">The received networking message.</param>
         protected virtual void ServerMessageReceived(NetworkMessage netMessage)
         {
-            // Configure the messages
             var message = OnServerReceived(netMessage);
             message.SenderConnectionId = netMessage.conn.connectionId;
-
-            // Send it to all clients
-            Utilities.Debug.Log("Server: transfer message (type: " + message.GetType() + ") from device client " 
-                + message.SenderConnectionId + " to all device clients", LogFilter.Debug);
             SendToAllClients(message);
         }
 
@@ -154,7 +148,6 @@ namespace DevicesSyncUnity
         protected void ServerClientDisconnected(NetworkMessage netMessage)
         {
             deviceDisconnectedMessage.SenderConnectionId = netMessage.conn.connectionId;
-            Utilities.Debug.Log("Server: device client " + netMessage.conn.connectionId + " disconnected", LogFilter.Debug);
             SendToAllClients(deviceDisconnectedMessage, Channels.DefaultReliable);
         }
 
@@ -208,6 +201,9 @@ namespace DevicesSyncUnity
 
         protected void SendToAllClients(DevicesSyncMessage message, int? channelIdOrDefault = null)
         {
+            Utilities.Debug.Log("Server: transfer message (type: " + message.GetType() + ") from device client "
+                + message.SenderConnectionId + " to all device clients", LogFilter.Debug);
+
             int channelId = (channelIdOrDefault != null) ? (int)channelIdOrDefault : DefaultChannelId;
             NetworkServer.SendByChannelToAll(message.MessageType, deviceDisconnectedMessage, channelId);
         }

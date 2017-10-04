@@ -16,37 +16,10 @@ namespace DevicesSyncUnity.Examples
         // Editor fields
 
         [SerializeField]
-        [Tooltip("Interval mode to use to send regularly messages.")]
-        private SendingMode sendingMode = SendingMode.TimeInterval;
-
-        [SerializeField]
-        [Tooltip("The number of frame to use between each message in FramesInterval mode.")]
-        private float sendingTimeInterval = 0.1f;
-
-        [SerializeField]
-        [Tooltip("The time in seconds to use between each message in TimeInterval mode.")]
-        private uint sendingFramesInterval = 1;
-
-        [SerializeField]
         [Tooltip("The LeanTouch instance to synchronize with other devices.")]
         private LeanTouch leanTouch;
 
         // Properties
-
-        /// <summary>
-        /// See <see cref="DevicesSyncInterval.SendingMode"/>.
-        /// </summary>
-        public override SendingMode SendingMode { get { return sendingMode; } set { sendingMode = value; } }
-
-        /// <summary>
-        /// See <see cref="DevicesSyncInterval.SendingTimeInterval"/>.
-        /// </summary>
-        public override float SendingTimeInterval { get { return sendingTimeInterval; } set { sendingTimeInterval = value; } }
-
-        /// <summary>
-        /// See <see cref="DevicesSyncInterval.SendingFramesInterval"/>.
-        /// </summary>
-        public override uint SendingFramesInterval { get { return sendingFramesInterval; } set { sendingFramesInterval = value; } }
 
         /// <summary>
         /// Gets or sets the LeanTouch instance to synchronize with other devices.
@@ -89,6 +62,7 @@ namespace DevicesSyncUnity.Examples
 
         protected LeanTouchMessage leanTouchMessage = new LeanTouchMessage();
         protected LeanTouchInfoMessage leanTouchInfoMessage = new LeanTouchInfoMessage();
+        protected bool initialAutoStartSending;
 
         // Methods
 
@@ -99,11 +73,14 @@ namespace DevicesSyncUnity.Examples
         {
             base.Awake();
 
+            initialAutoStartSending = AutoStartSending;
+            AutoStartSending = false;
+
             LeanTouchInfo = new Dictionary<int, LeanTouchInfoMessage>();
             LeanTouches = new Dictionary<int, LeanTouchMessage>();
 
-            MessageTypes.Add(leanTouchMessage.MessageType);
             MessageTypes.Add(leanTouchInfoMessage.MessageType);
+            MessageTypes.Add(leanTouchMessage.MessageType);
         }
 
         /// <summary>
@@ -115,6 +92,11 @@ namespace DevicesSyncUnity.Examples
 
             leanTouchInfoMessage.UpdateInfo();
             SendToServer(leanTouchInfoMessage, Channels.DefaultReliable);
+
+            if (initialAutoStartSending)
+            {
+                StartSending();
+            }
         }
 
         protected override void OnSendToServerIntervalIteration(bool sendToServerThisFrame)
@@ -158,11 +140,15 @@ namespace DevicesSyncUnity.Examples
             if (netMessage.msgType == leanTouchMessage.MessageType)
             {
                 var leanTouchReceived = netMessage.ReadMessage<LeanTouchMessage>();
-                leanTouchReceived.RestoreInfo(LeanTouchInfo[leanTouchReceived.SenderConnectionId]);
+                int senderId = leanTouchReceived.SenderConnectionId;
+                if (LeanTouchInfo.ContainsKey(senderId))
+                {
+                    leanTouchReceived.RestoreInfo(LeanTouchInfo[leanTouchReceived.SenderConnectionId]);
 
-                LeanTouches[leanTouchReceived.SenderConnectionId] = leanTouchReceived;
-                ServerLeanTouchReceived.Invoke(leanTouchReceived);
-                return leanTouchReceived;
+                    LeanTouches[leanTouchReceived.SenderConnectionId] = leanTouchReceived;
+                    ServerLeanTouchReceived.Invoke(leanTouchReceived);
+                    return leanTouchReceived;
+                }
             }
             else if (netMessage.msgType == leanTouchInfoMessage.MessageType)
             {
@@ -173,8 +159,9 @@ namespace DevicesSyncUnity.Examples
             }
             else
             {
-                return null; // TODO: throw exception?
+                // TODO: throw exception?
             }
+            return null;
         }
 
         protected override void OnClientDeviceDisconnectedReceived(DeviceInfoMessage deviceInfoMessage)

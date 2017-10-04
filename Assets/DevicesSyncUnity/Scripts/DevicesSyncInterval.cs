@@ -24,22 +24,41 @@ namespace DevicesSyncUnity
     /// </summary>
     public abstract class DevicesSyncInterval : DevicesSync
     {
+        // Editor fields
+
+        [SerializeField]
+        [Tooltip("Interval mode to use to send regularly messages.")]
+        private SendingMode sendingMode = SendingMode.FramesInterval;
+
+        [SerializeField]
+        [Tooltip("The number of frame to use between each message in FramesInterval mode.")]
+        private float sendingTimeInterval = 0.1f;
+
+        [SerializeField]
+        [Tooltip("The time in seconds to use between each message in TimeInterval mode.")]
+        private uint sendingFramesInterval = 1;
+
+        [SerializeField]
+        private bool autoStartSending = true;
+
         // Properties
 
         /// <summary>
         /// Gets or sets the interval mode to send regularly messages.
         /// </summary>
-        public abstract SendingMode SendingMode { get; set; }
+        public SendingMode SendingMode { get; set; }
 
         /// <summary>
         /// Gets or sets the number of frame between each message in <see cref="SendingMode.FramesInterval"/> mode.
         /// </summary>
-        public abstract uint SendingFramesInterval { get; set; }
+        public uint SendingFramesInterval { get; set; }
 
         /// <summary>
         /// Gets or sets the time in seconds between each message in <see cref="SendingMode.TimeInterval"/> mode.
         /// </summary>
-        public abstract float SendingTimeInterval { get; set; }
+        public float SendingTimeInterval { get; set; }
+
+        public bool AutoStartSending { get { return autoStartSending; } set { autoStartSending = value; } }
 
         // Variables
 
@@ -49,19 +68,37 @@ namespace DevicesSyncUnity
         // Methods
 
         /// <summary>
-        /// Starts
+        /// Starts the sending coroutine <see cref="SendToServerWithInterval"/>.
         /// </summary>
-        protected override void Start()
+        public void StartSending()
         {
-            base.Start();
             if (NetworkManager.client != null && isClient && SyncMode != SyncMode.ReceiverOnly)
             {
                 StartCoroutine(SendToServerWithInterval());
             }
+            else
+            {
+                throw new System.Exception("Unable to start the sending: the client in NetworkManager is not ready or"
+                    + " the SyncMode is configured to ReceiverOnly.");
+            }
         }
 
         /// <summary>
-        /// Counts frames or elapsed time each frame and calls <see cref="OnSendToServerIntervalIteration(bool)"/>.
+        /// Starts the sending if <see cref="AutoStartSending"/> is true.
+        /// </summary>
+        protected override void Start()
+        {
+            base.Start();
+
+            if (AutoStartSending)
+            {
+                StartSending();
+            }
+        }
+
+        /// <summary>
+        /// Updates interval counter each frame with elapsed frames or elapsed time and calls
+        /// <see cref="OnSendToServerIntervalIteration(bool)"/>.
         /// </summary>
         protected virtual IEnumerator SendToServerWithInterval()
         {
@@ -92,9 +129,9 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Updates future message and sends to server if the interval counter is over.
+        /// Updates future message to server and sends it if interval counter is over.
         /// </summary>
-        /// <param name="shouldSendThisFrame">If the interval counter is over this frame.</param>
+        /// <param name="shouldSendThisFrame">If interval counter is over this frame.</param>
         protected abstract void OnSendToServerIntervalIteration(bool shouldSendThisFrame);
     }
 }
