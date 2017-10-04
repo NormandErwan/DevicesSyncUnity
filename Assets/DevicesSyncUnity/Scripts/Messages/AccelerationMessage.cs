@@ -34,7 +34,17 @@ namespace DevicesSyncUnity.Messages
         /// </summary>
         public AccelerationEventInfo[] accelerationEvents;
 
-        private float? latestAccelerationMagnitude = null;
+        /// <summary>
+        /// Sum of <see cref="Input.acceleration"/>.
+        /// </summary>
+        public Vector3 acceleration = Vector3.zero;
+
+        /// <summary>
+        /// Sum of <see cref="Time.deltaTime"/>.
+        /// </summary>
+        public float TimeDeltaTime;
+
+        private float? latestAccEventAccelerationMagnitude = null;
 
         // Methods
 
@@ -51,21 +61,26 @@ namespace DevicesSyncUnity.Messages
             for (int index = 0; index < Input.accelerationEventCount; index++)
             {
                 var accEvent = Input.GetAccelerationEvent(index);
-                if (accEvent.acceleration.sqrMagnitude != latestAccelerationMagnitude)
+                if (accEvent.acceleration.sqrMagnitude != latestAccEventAccelerationMagnitude)
                 {
                     AccelerationEvents.Enqueue(accEvent);
-                    latestAccelerationMagnitude = accEvent.acceleration.sqrMagnitude;
+                    latestAccEventAccelerationMagnitude = accEvent.acceleration.sqrMagnitude;
                 }
             }
+            accelerationEvents = AccelerationEvents.ToArray();
+
+            acceleration += Input.acceleration;
+            TimeDeltaTime += Time.deltaTime;
         }
 
         /// <summary>
-        /// Sets <see cref="accelerationEvents"/> with the acceleration events queue.
+        /// Reset the properties.
         /// </summary>
-        public void PrepareSending()
+        public void Reset()
         {
-            accelerationEvents = AccelerationEvents.ToArray();
             AccelerationEvents.Clear();
+            acceleration = Vector3.zero;
+            TimeDeltaTime = 0;
         }
     }
 }
