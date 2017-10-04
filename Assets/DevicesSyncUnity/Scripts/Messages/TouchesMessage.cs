@@ -5,7 +5,7 @@ using UnityEngine;
 namespace DevicesSyncUnity.Messages
 {
     /// <summary>
-    /// Message that contains device touches information from latest frame, and touches average information from
+    /// Message that contains device touches information from current frame, and touches average information from
     /// previous frames.
     /// </summary>
     public class TouchesMessage : DevicesSyncMessage

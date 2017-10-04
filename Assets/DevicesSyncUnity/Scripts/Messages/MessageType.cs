@@ -36,9 +36,14 @@ namespace DevicesSyncUnity.Messages
         public static short AccelerationEvents { get { return (short)(Smallest + 3); } }
 
         /// <summary>
+        /// Networking message for communicating <see cref="DeviceOrientationMessage"/>.
+        /// </summary>
+        public static short DeviceOrientation { get { return (short)(Smallest + 4); } }
+
+        /// <summary>
         /// The highest value of this serie of networking message ids. Additional ids must be above this value.
         /// </summary>
-        public static new short Highest { get { return AccelerationEvents; } }
+        public static new short Highest { get { return DeviceOrientation; } }
 
         // Variables
 

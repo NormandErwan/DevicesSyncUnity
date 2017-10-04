@@ -20,6 +20,7 @@ namespace DevicesSyncUnity.Debug
             this.canvasRect = canvasRect;
             this.deviceColor = deviceColor;
 
+            // TODO: prefab
             GameObject = parent.AddChild("");
             rect = GameObject.AddComponent<RectTransform>();
             image = GameObject.AddComponent<Image>();

@@ -28,7 +28,7 @@ namespace DevicesSyncUnity.Debug
         protected TouchesSync touchesSync;
 
         [SerializeField]
-        protected AccelerationSync accelerometerSync;
+        protected AccelerationSync accelerationSync;
 
         [SerializeField]
         protected Canvas displayCanvas;
@@ -55,11 +55,11 @@ namespace DevicesSyncUnity.Debug
 
             if (touchesSync != null)
             {
-                touchesSync.ClientTouchesReceived += TouchesSync_TouchesReceived;
+                touchesSync.ClientTouchesReceived += TouchesSync_ClientTouchesReceived;
             }
-            if (accelerometerSync != null)
+            if (accelerationSync != null)
             {
-                accelerometerSync.ClientAccelerationEventsReceived += AccelerometerSync_AccelerationReceived;
+                accelerationSync.ClientAccelerationMessageReceived += AccelereationSync_ClientAccelerationMessageReceived;
             }
         }
 
@@ -86,7 +86,7 @@ namespace DevicesSyncUnity.Debug
             }
         }
 
-        protected virtual void TouchesSync_TouchesReceived(TouchesMessage touchesMessage)
+        protected virtual void TouchesSync_ClientTouchesReceived(TouchesMessage touchesMessage)
         {
             DeviceInfoMessage deviceInfo = null;
             if (!devicesInfo.TryGetValue(touchesMessage.SenderConnectionId, out deviceInfo))
@@ -136,7 +136,7 @@ namespace DevicesSyncUnity.Debug
             }
         }
 
-        protected virtual void AccelerometerSync_AccelerationReceived(AccelerationMessage accelerometerMessage)
+        protected virtual void AccelereationSync_ClientAccelerationMessageReceived(AccelerationMessage accelerometerMessage)
         {
             // TODO
         }
@@ -163,6 +163,7 @@ namespace DevicesSyncUnity.Debug
             }
         }
 
+        // TODO: prefab
         protected void UpdateDevicesText()
         {
             // Initialize if needed
