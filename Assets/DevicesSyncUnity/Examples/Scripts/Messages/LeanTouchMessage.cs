@@ -2,6 +2,7 @@
 using Lean.Touch;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DevicesSyncUnity.Examples.Messages
 {
@@ -191,6 +192,12 @@ namespace DevicesSyncUnity.Examples.Messages
             {
                 finger.Restore(leanTouchInfo);
             }
+        }
+
+        public override string ToString()
+        {
+            var fingers = Fingers.Select(finger => finger.Index.ToString()).ToArray();
+            return "LeanTouchMessage (Fingers: [" + string.Join(", ", fingers) + "])";
         }
     }
 }

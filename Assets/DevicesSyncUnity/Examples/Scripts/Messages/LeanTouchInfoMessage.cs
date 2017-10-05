@@ -63,7 +63,7 @@ namespace DevicesSyncUnity.Examples.Messages
         /// <summary>
         /// Updates the public variables with current instance of <see cref="LeanTouch"/>.
         /// </summary>
-        public void UpdateInfo()
+        public void Update()
         {
             CurrentTapThreshold = LeanTouch.CurrentTapThreshold;
             CurrentSwipeThreshold = LeanTouch.CurrentSwipeThreshold;
@@ -75,7 +75,7 @@ namespace DevicesSyncUnity.Examples.Messages
         /// <summary>
         /// Sets properties from the public variables.
         /// </summary>
-        public void RestoreInfo()
+        public void Restore()
         {
             CurrentGuiLayers = new LayerMask()
             {

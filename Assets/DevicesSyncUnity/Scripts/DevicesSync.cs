@@ -162,13 +162,13 @@ namespace DevicesSyncUnity
             var message = OnClientMessageReceived(netMessage);
             if (message != null)
             {
-                Utilities.Debug.Log("Client: received message (type: " + message.GetType() + ") from device client "
-                    + message.SenderConnectionId, LogFilter.Debug);
+                Utilities.Debug.Log("Client: received message from device client " + message.SenderConnectionId
+                    + ": " + message, LogFilter.Info);
             }
             else
             {
-                Utilities.Debug.LogWarning("OnClientMessageReceived has returned null instead of returning a"
-                    + " DevicesSyncMessage read from the received NetworkMessage");
+                Utilities.Debug.LogWarning("OnClientMessageReceived has returned null instead of returning a "
+                    + "DevicesSyncMessage read from the received NetworkMessage");
             }
         }
 
@@ -190,7 +190,7 @@ namespace DevicesSyncUnity
             {
                 OnClientDeviceDisconnectedReceived(message);
                 ClientDeviceDisconnected.Invoke(message);
-                Utilities.Debug.Log("Client: device client " + message.SenderConnectionId + " disconnected", LogFilter.Debug);
+                Utilities.Debug.Log("Client: device client " + message.SenderConnectionId + " disconnected", LogFilter.Info);
             }
         }
 
@@ -206,7 +206,7 @@ namespace DevicesSyncUnity
         /// <param name="message">The message to send.</param>
         protected virtual void SendToServer(DevicesSyncMessage message, int? channelIdOrDefault = null)
         {
-            Utilities.Debug.Log("Client: sending message (type: " + message.GetType() + ")", LogFilter.Debug);
+            Utilities.Debug.Log("Client: sending message: " + message, LogFilter.Info);
 
             int channelId = (channelIdOrDefault != null) ? (int)channelIdOrDefault : DefaultChannelId;
             message.SenderConnectionId = NetworkManager.client.connection.connectionId;
@@ -215,8 +215,8 @@ namespace DevicesSyncUnity
 
         protected void SendToAllClients(DevicesSyncMessage message, int? channelIdOrDefault = null)
         {
-            Utilities.Debug.Log("Server: transfer message (type: " + message.GetType() + ") from device client "
-                + message.SenderConnectionId + " to all device clients", LogFilter.Debug);
+            Utilities.Debug.Log("Server: transfer message from device client " + message.SenderConnectionId + " to all "
+                + "device clients: " + message, LogFilter.Info);
 
             int channelId = (channelIdOrDefault != null) ? (int)channelIdOrDefault : DefaultChannelId;
             NetworkServer.SendByChannelToAll(message.MessageType, message, channelId);
@@ -224,8 +224,8 @@ namespace DevicesSyncUnity
 
         protected void SendToClient(int connectionId, DevicesSyncMessage message)
         {
-            Utilities.Debug.Log("Server: transfer " + message.GetType() + " from client " + message.SenderConnectionId 
-                + " to client " + connectionId, LogFilter.Debug);
+            Utilities.Debug.Log("Server: transfer message from device client " + message.SenderConnectionId 
+                + " to device client " + connectionId + ": " + message, LogFilter.Info);
             NetworkServer.SendToClient(connectionId, message.MessageType, message);
         }
 

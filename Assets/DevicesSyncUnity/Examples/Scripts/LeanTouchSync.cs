@@ -91,6 +91,15 @@ namespace DevicesSyncUnity.Examples
 
             MessageTypes.Add(leanTouchInfoMessage.MessageType);
             MessageTypes.Add(leanTouchMessage.MessageType);
+
+            if (LogFilter.logInfo)
+            {
+                OnFingerDown  += (clientId, finger) => { Utilities.Debug.Log("LeanTouchSync: finger " + finger.Index + " down on client " + clientId, LogFilter.Info); };
+                OnFingerSet   += (clientId, finger) => { Utilities.Debug.Log("LeanTouchSync: finger " + finger.Index + " set on client " + clientId, LogFilter.Info); };
+                OnFingerUp    += (clientId, finger) => { Utilities.Debug.Log("LeanTouchSync: finger " + finger.Index + " up on client " + clientId, LogFilter.Info); };
+                OnFingerTap   += (clientId, finger) => { Utilities.Debug.Log("LeanTouchSync: finger " + finger.Index + " tap on client " + clientId, LogFilter.Info); };
+                OnFingerSwipe += (clientId, finger) => { Utilities.Debug.Log("LeanTouchSync: finger " + finger.Index + " swipe on client " + clientId, LogFilter.Info); };
+            }
         }
 
         /// <summary>
@@ -102,7 +111,7 @@ namespace DevicesSyncUnity.Examples
 
             leanTouchMessage.SetCapturingEvents(true);
 
-            leanTouchInfoMessage.UpdateInfo();
+            leanTouchInfoMessage.Update();
             SendToServer(leanTouchInfoMessage, Channels.DefaultReliable);
         }
 
@@ -216,26 +225,30 @@ namespace DevicesSyncUnity.Examples
         {
             var leanTouchMessage = netMessage.ReadMessage<LeanTouchMessage>();
             leanTouchMessage.Restore(LeanTouchesInfo[leanTouchMessage.SenderConnectionId]);
+
             LeanTouches[leanTouchMessage.SenderConnectionId] = leanTouchMessage;
-
-            var fingerEvents = new List<Tuple<LeanFingerInfo[], Action<int, LeanFingerInfo>>>
-            {
-                new Tuple<LeanFingerInfo[], Action<int, LeanFingerInfo>>(leanTouchMessage.FingersDown, OnFingerDown),
-                new Tuple<LeanFingerInfo[], Action<int, LeanFingerInfo>>(leanTouchMessage.FingersSet, OnFingerSet),
-                new Tuple<LeanFingerInfo[], Action<int, LeanFingerInfo>>(leanTouchMessage.FingersUp, OnFingerUp),
-                new Tuple<LeanFingerInfo[], Action<int, LeanFingerInfo>>(leanTouchMessage.FingersTap, OnFingerTap),
-                new Tuple<LeanFingerInfo[], Action<int, LeanFingerInfo>>(leanTouchMessage.FingersSwipe, OnFingerSwipe)
-            };
-
             LeanTouchReceived.Invoke(leanTouchMessage);
-            foreach (var fingerEvent in fingerEvents)
+
+            if (leanTouchMessage.Fingers.Length > 0)
             {
-                foreach (var finger in fingerEvent.Item1)
+                var fingerEvents = new List<Tuple<LeanFingerInfo[], Action<int, LeanFingerInfo>>>
                 {
-                    fingerEvent.Item2.Invoke(leanTouchMessage.SenderConnectionId, finger);
+                    new Tuple<LeanFingerInfo[], Action<int, LeanFingerInfo>>(leanTouchMessage.FingersDown, OnFingerDown),
+                    new Tuple<LeanFingerInfo[], Action<int, LeanFingerInfo>>(leanTouchMessage.FingersSet, OnFingerSet),
+                    new Tuple<LeanFingerInfo[], Action<int, LeanFingerInfo>>(leanTouchMessage.FingersUp, OnFingerUp),
+                    new Tuple<LeanFingerInfo[], Action<int, LeanFingerInfo>>(leanTouchMessage.FingersTap, OnFingerTap),
+                    new Tuple<LeanFingerInfo[], Action<int, LeanFingerInfo>>(leanTouchMessage.FingersSwipe, OnFingerSwipe)
+                };
+
+                foreach (var fingerEvent in fingerEvents)
+                {
+                    foreach (var finger in fingerEvent.Item1)
+                    {
+                        fingerEvent.Item2.Invoke(leanTouchMessage.SenderConnectionId, finger);
+                    }
                 }
+                OnGesture.Invoke(leanTouchMessage.SenderConnectionId, new List<LeanFingerInfo>(leanTouchMessage.Gestures));
             }
-            OnGesture.Invoke(leanTouchMessage.SenderConnectionId, new List<LeanFingerInfo>(leanTouchMessage.Gestures));
 
             return leanTouchMessage;
         }
