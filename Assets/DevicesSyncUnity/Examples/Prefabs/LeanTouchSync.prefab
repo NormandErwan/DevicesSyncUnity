@@ -82,7 +82,7 @@ MonoBehaviour:
   sendingMode: 0
   sendingTimeInterval: 0.1
   sendingFramesInterval: 1
-  leanTouch: {fileID: 114548344596974420}
+  autoStartSending: 1
 --- !u!114 &114826517716184662
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -52,10 +52,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf326d1fd25267478f762e267225243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkManager: {fileID: 0}
   syncMode: 0
   sendingMode: 1
   sendingTimeInterval: 0.1
   sendingFramesInterval: 1
+  autoStartSending: 1
   deviceInfoSync: {fileID: 0}
 --- !u!114 &114353422023325442
 MonoBehaviour:

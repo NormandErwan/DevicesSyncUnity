@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114001150157462114}
   - component: {fileID: 114679396622708986}
   m_Layer: 0
-  m_Name: AccelerationEventsSync
+  m_Name: AccelerationSync
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,6 +52,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9620b8bf4dac19b468b013c16c14adbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkManager: {fileID: 0}
+  syncMode: 0
+  sendingMode: 1
+  sendingTimeInterval: 0.1
+  sendingFramesInterval: 1
+  autoStartSending: 1
 --- !u!114 &114679396622708986
 MonoBehaviour:
   m_ObjectHideFlags: 1
