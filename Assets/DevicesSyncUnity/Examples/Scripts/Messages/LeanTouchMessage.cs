@@ -16,36 +16,18 @@ namespace DevicesSyncUnity.Examples.Messages
         /// </summary>
         protected abstract class LeanTouchEventCapture<T> where T : class
         {
-            public Action<T> LeanTouchEvent { get; set; }
+            public Action<T> CapturingAction { get; protected set; }
             public Queue<LeanFingerInfo> CapturedEventsQueue { get; protected set; }
 
-            protected Action<T> CapturingAction;
-            protected bool capturingEvents = false;
-
-            public LeanTouchEventCapture(Action<T> leanTouchEvent)
+            public LeanTouchEventCapture()
             {
-                LeanTouchEvent = leanTouchEvent;
                 CapturedEventsQueue = new Queue<LeanFingerInfo>();
-            }
-
-            public void SetCapturingEvents(bool value)
-            {
-                if (value && !capturingEvents)
-                {
-                    capturingEvents = true;
-                    LeanTouchEvent += CapturingAction;
-                }
-                else if (!value && capturingEvents)
-                {
-                    capturingEvents = false;
-                    LeanTouchEvent -= CapturingAction;
-                }
             }
         }
 
         protected class LeanTouchFingerEventCapture : LeanTouchEventCapture<LeanFinger>
         {
-            public LeanTouchFingerEventCapture(Action<LeanFinger> leanTouchEvent) : base(leanTouchEvent)
+            public LeanTouchFingerEventCapture() : base()
             {
                 CapturingAction = leanFinger => CapturedEventsQueue.Enqueue(leanFinger);
             }
@@ -53,7 +35,7 @@ namespace DevicesSyncUnity.Examples.Messages
 
         protected class LeanTouchGestureEventCapture : LeanTouchEventCapture<List<LeanFinger>>
         {
-            public LeanTouchGestureEventCapture(Action<List<LeanFinger>> leanTouchEvent) : base(leanTouchEvent)
+            public LeanTouchGestureEventCapture() : base()
             {
                 CapturingAction = leanFingers => leanFingers.ForEach(leanFinger => CapturedEventsQueue.Enqueue(leanFinger));
             }
@@ -120,32 +102,41 @@ namespace DevicesSyncUnity.Examples.Messages
 
         private Queue<LeanFingerInfo> fingers = new Queue<LeanFingerInfo>();
         private Queue<LeanFingerInfo> inactiveFingers = new Queue<LeanFingerInfo>();
-        private List<LeanTouchFingerEventCapture> fingerEvents;
-        private LeanTouchGestureEventCapture gestureEvent;
+        private bool capturingEvents = false;
+        private LeanTouchFingerEventCapture onFingerDown = new LeanTouchFingerEventCapture();
+        private LeanTouchFingerEventCapture onFingerSet = new LeanTouchFingerEventCapture();
+        private LeanTouchFingerEventCapture onFingerUp = new LeanTouchFingerEventCapture();
+        private LeanTouchFingerEventCapture onFingerTap = new LeanTouchFingerEventCapture();
+        private LeanTouchFingerEventCapture onFingerSwipe = new LeanTouchFingerEventCapture();
+        private LeanTouchGestureEventCapture onGesture = new LeanTouchGestureEventCapture();
 
         // Methods
-
-        /// <summary>
-        /// Initializes the capturing event functions.
-        /// </summary>
-        public LeanTouchMessage()
-        {
-            fingerEvents = new List<LeanTouchFingerEventCapture>();
-            foreach (var leanTouchEvent in new Action<LeanFinger>[] { LeanTouch.OnFingerDown, LeanTouch.OnFingerSet,
-                LeanTouch.OnFingerUp, LeanTouch.OnFingerTap, LeanTouch.OnFingerSwipe })
-            {
-                fingerEvents.Add(new LeanTouchFingerEventCapture(leanTouchEvent));
-            }
-            gestureEvent = new LeanTouchGestureEventCapture(LeanTouch.OnGesture);
-        }
 
         /// <summary>
         /// Sets if capturing all <see cref="LeanTouch"/> events.
         /// </summary>
         public void SetCapturingEvents(bool value)
         {
-            fingerEvents.ForEach(fingerEvent => fingerEvent.SetCapturingEvents(value));
-            gestureEvent.SetCapturingEvents(value);
+            if (value && !capturingEvents)
+            {
+                capturingEvents = true;
+                LeanTouch.OnFingerDown += onFingerDown.CapturingAction;
+                LeanTouch.OnFingerSet += onFingerSet.CapturingAction;
+                LeanTouch.OnFingerUp += onFingerUp.CapturingAction;
+                LeanTouch.OnFingerTap += onFingerTap.CapturingAction;
+                LeanTouch.OnFingerSwipe += onFingerSwipe.CapturingAction;
+                LeanTouch.OnGesture += onGesture.CapturingAction;
+            }
+            else if (!value && capturingEvents)
+            {
+                capturingEvents = false;
+                LeanTouch.OnFingerDown -= onFingerDown.CapturingAction;
+                LeanTouch.OnFingerSet -= onFingerSet.CapturingAction;
+                LeanTouch.OnFingerUp -= onFingerUp.CapturingAction;
+                LeanTouch.OnFingerTap -= onFingerTap.CapturingAction;
+                LeanTouch.OnFingerSwipe -= onFingerSwipe.CapturingAction;
+                LeanTouch.OnGesture -= onGesture.CapturingAction;
+            }
         }
 
         /// <summary>
@@ -159,16 +150,12 @@ namespace DevicesSyncUnity.Examples.Messages
             Fingers = fingers.ToArray();
             InactiveFingers = inactiveFingers.ToArray();
 
-            foreach (var fingerEvent in fingerEvents)
-            {
-                var gesturesArray = fingerEvent.CapturedEventsQueue.ToArray();
-                if      (fingerEvent.LeanTouchEvent == LeanTouch.OnFingerDown)  { FingersDown = gesturesArray; }
-                else if (fingerEvent.LeanTouchEvent == LeanTouch.OnFingerSet)   { FingersSet = gesturesArray; }
-                else if (fingerEvent.LeanTouchEvent == LeanTouch.OnFingerUp)    { FingersUp = gesturesArray; }
-                else if (fingerEvent.LeanTouchEvent == LeanTouch.OnFingerTap)   { FingersTap = gesturesArray; }
-                else if (fingerEvent.LeanTouchEvent == LeanTouch.OnFingerSwipe) { FingersSwipe = gesturesArray; }
-            }
-            Gestures = gestureEvent.CapturedEventsQueue.ToArray();
+            FingersDown = onFingerDown.CapturedEventsQueue.ToArray();
+            FingersSet = onFingerSet.CapturedEventsQueue.ToArray();
+            FingersUp = onFingerUp.CapturedEventsQueue.ToArray();
+            FingersTap = onFingerTap.CapturedEventsQueue.ToArray();
+            FingersSwipe = onFingerSwipe.CapturedEventsQueue.ToArray();
+            Gestures = onGesture.CapturedEventsQueue.ToArray();
         }
 
         /// <summary>
@@ -178,8 +165,12 @@ namespace DevicesSyncUnity.Examples.Messages
         {
             fingers.Clear();
             inactiveFingers.Clear();
-            fingerEvents.ForEach(fingerEvent => fingerEvent.CapturedEventsQueue.Clear());
-            gestureEvent.CapturedEventsQueue.Clear();
+            onFingerDown.CapturedEventsQueue.Clear();
+            onFingerSet.CapturedEventsQueue.Clear();
+            onFingerUp.CapturedEventsQueue.Clear();
+            onFingerTap.CapturedEventsQueue.Clear();
+            onFingerSwipe.CapturedEventsQueue.Clear();
+            onGesture.CapturedEventsQueue.Clear();
         }
 
         /// <summary>
