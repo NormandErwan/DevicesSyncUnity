@@ -19,6 +19,15 @@ namespace DevicesSyncUnity.Utilities
         }
 
         /// <summary>
+        /// Logs an warning message if the level of logging is greater or equal to <see cref="LogFilter.Warn"/>.
+        /// </summary>
+        /// <param name="message">The warning message to log.</param>
+        public static void LogWarning(string message)
+        {
+            Execute(() => UnityEngine.Debug.LogWarning(message), LogFilter.Warn);
+        }
+
+        /// <summary>
         /// Logs an error message if the level of logging is greater or equal to <see cref="LogFilter.Error"/>.
         /// </summary>
         /// <param name="message">The error message to log.</param>

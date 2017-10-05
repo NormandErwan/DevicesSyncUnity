@@ -162,6 +162,11 @@ namespace DevicesSyncUnity
                 Utilities.Debug.Log("Client: received message (type: " + message.GetType() + ") from device client "
                     + message.SenderConnectionId, LogFilter.Debug);
             }
+            else
+            {
+                Utilities.Debug.LogWarning("OnClientMessageReceived has returned null instead of returning a"
+                    + " DevicesSyncMessage read from the received NetworkMessage");
+            }
         }
 
         /// <summary>
