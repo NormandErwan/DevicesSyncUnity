@@ -39,12 +39,21 @@ namespace DevicesSyncUnity.Examples.Messages
         /// </summary>
         public LeanFingerInfo[] InactiveFingers;
 
+        private Queue<LeanFingerInfo> fingersQueue = new Queue<LeanFingerInfo>();
+        private Queue<LeanFingerInfo> inactiveFingersQueue = new Queue<LeanFingerInfo>();
+
         // Methods
 
         public void UpdateInfo()
         {
-            UpdateFingersInfo(ref Fingers, LeanTouch.Fingers);
-            UpdateFingersInfo(ref InactiveFingers, LeanTouch.InactiveFingers);
+            Fingers = GetFingersInfo(LeanTouch.Fingers, fingersQueue);
+            InactiveFingers = GetFingersInfo(LeanTouch.InactiveFingers, inactiveFingersQueue);
+        }
+
+        public void Reset()
+        {
+            fingersQueue.Clear();
+            inactiveFingersQueue.Clear();
         }
 
         public void RestoreInfo(LeanTouchInfoMessage leanTouchInfo)
@@ -55,13 +64,13 @@ namespace DevicesSyncUnity.Examples.Messages
             }
         }
 
-        protected void UpdateFingersInfo(ref LeanFingerInfo[] fingers, List<LeanFinger> leanFingers)
+        protected LeanFingerInfo[] GetFingersInfo(List<LeanFinger> leanFingers, Queue<LeanFingerInfo> fingersQueue)
         {
-            Array.Resize(ref fingers, leanFingers.Count);
-            for (int i = 0; i < fingers.Length; i++)
+            foreach (var finger in leanFingers)
             {
-                fingers[i] = leanFingers[i];
+                fingersQueue.Enqueue(finger);
             }
+            return fingersQueue.ToArray();
         }
     }
 }
