@@ -66,9 +66,10 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Updates a and sends it if required.
+        /// Updates a <see cref="AccelerationMessage"/> and a <see cref="DeviceOrientationMessage"/> and sends them if
+        /// required and there are not empty.
         /// </summary>
-        /// <param name="sendToServerThisFrame">If the acceleration message should be sent this frame.</param>
+        /// <param name="sendToServerThisFrame">If the messages should be sent this frame.</param>
         protected override void OnSendToServerIntervalIteration(bool sendToServerThisFrame)
         {
             accelerationMessage.UpdateInfo();
@@ -118,7 +119,7 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Device client updates <see cref="Accelerations"/> or <see cref="DeviceOrientations"/> and invokes
+        /// Updates <see cref="Accelerations"/> or <see cref="DeviceOrientations"/> and invokes
         /// <see cref="ClientAccelerationMessageReceived"/> or <see cref="ClientDeviceOrientationMessageReceived"/>.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
@@ -146,7 +147,7 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Device client removes the disconnected device from <see cref="Accelerations"/> and <see cref="DeviceOrientations"/>.
+        /// Removes the disconnected device from <see cref="Accelerations"/> and <see cref="DeviceOrientations"/>.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
         protected override void OnClientDeviceDisconnectedReceived(DeviceInfoMessage deviceInfoMessage)

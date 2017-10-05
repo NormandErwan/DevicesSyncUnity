@@ -202,7 +202,7 @@ namespace DevicesSyncUnity.Examples.Messages
             };
         }
 
-        internal void RestoreInfo(LeanTouchInfoMessage leanTouchInfo)
+        internal void Restore(LeanTouchInfoMessage leanTouchInfo)
         {
             leanFinger = new LeanFinger()
             {
