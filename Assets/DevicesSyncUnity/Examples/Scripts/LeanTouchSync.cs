@@ -44,9 +44,10 @@ namespace DevicesSyncUnity.Examples
 
         // Variables
 
-        protected LeanTouchMessage leanTouchMessage = new LeanTouchMessage();
-        protected LeanTouchInfoMessage leanTouchInfoMessage = new LeanTouchInfoMessage();
         protected bool initialAutoStartSending;
+        protected LeanTouchInfoMessage leanTouchInfoMessage = new LeanTouchInfoMessage();
+        protected LeanTouchMessage leanTouchMessage = new LeanTouchMessage();
+        protected bool lastLeanTouchMessageEmpty = false;
 
         // Methods
 
@@ -68,7 +69,7 @@ namespace DevicesSyncUnity.Examples
         }
 
         /// <summary>
-        /// Sends LeanTouch static information to server when connected.
+        /// Sends a <see cref="LeanTouchInfoMessage"/> to server.
         /// </summary>
         protected override void Start()
         {
@@ -80,10 +81,16 @@ namespace DevicesSyncUnity.Examples
 
         protected override void OnSendToServerIntervalIteration(bool sendToServerThisFrame)
         {
+            leanTouchMessage.UpdateInfo();
             if (sendToServerThisFrame)
             {
-                leanTouchMessage.UpdateInfo();
-                SendToServer(leanTouchMessage);
+                bool emptyLeanTouchMessage = leanTouchMessage.Fingers.Length == 0;
+                if (!emptyLeanTouchMessage || !lastLeanTouchMessageEmpty)
+                {
+                    SendToServer(leanTouchMessage);
+                    leanTouchMessage.Reset();
+                }
+                lastLeanTouchMessageEmpty = emptyLeanTouchMessage;
             }
         }
 
@@ -92,24 +99,24 @@ namespace DevicesSyncUnity.Examples
             if (netMessage.msgType == leanTouchMessage.MessageType)
             {
                 // Get LeanTouch frame information
-                var leanTouchReceived = netMessage.ReadMessage<LeanTouchMessage>();
-                ServerLeanTouchReceived.Invoke(leanTouchReceived);
-                return leanTouchReceived;
+                var leanTouchMessage = netMessage.ReadMessage<LeanTouchMessage>();
+                ServerLeanTouchReceived.Invoke(leanTouchMessage);
+                return leanTouchMessage;
             }
             else if (netMessage.msgType == leanTouchInfoMessage.MessageType)
             {
                 // Get LeanTouch static information
-                var leanTouchInfoReceived = netMessage.ReadMessage<LeanTouchInfoMessage>();
-                ServerLeanTouchInfoReceived.Invoke(leanTouchInfoReceived);
+                var leanTouchInfoMessage = netMessage.ReadMessage<LeanTouchInfoMessage>();
+                ServerLeanTouchInfoReceived.Invoke(leanTouchInfoMessage);
 
                 // Send to new device client the LeanTouch static information from other connected devices
                 foreach (var leanTouchInfo in LeanTouchInfo)
                 {
-                    SendToClient(leanTouchInfoReceived.SenderConnectionId, leanTouchInfo.Value);
+                    SendToClient(leanTouchInfoMessage.SenderConnectionId, leanTouchInfo.Value);
                 }
 
-                LeanTouchInfo[leanTouchInfoReceived.SenderConnectionId] = leanTouchInfoReceived;
-                return leanTouchInfoReceived;
+                LeanTouchInfo[leanTouchInfoMessage.SenderConnectionId] = leanTouchInfoMessage;
+                return leanTouchInfoMessage;
             }
             else
             {
@@ -122,19 +129,19 @@ namespace DevicesSyncUnity.Examples
             if (netMessage.msgType == leanTouchMessage.MessageType)
             {
                 // Get LeanTouch frame information
-                var leanTouchReceived = netMessage.ReadMessage<LeanTouchMessage>();
-                leanTouchReceived.RestoreInfo(LeanTouchInfo[leanTouchReceived.SenderConnectionId]);
+                var leanTouchMessage = netMessage.ReadMessage<LeanTouchMessage>();
+                leanTouchMessage.RestoreInfo(LeanTouchInfo[leanTouchMessage.SenderConnectionId]);
 
-                LeanTouches[leanTouchReceived.SenderConnectionId] = leanTouchReceived;
-                ServerLeanTouchReceived.Invoke(leanTouchReceived);
-                return leanTouchReceived;
+                LeanTouches[leanTouchMessage.SenderConnectionId] = leanTouchMessage;
+                ServerLeanTouchReceived.Invoke(leanTouchMessage);
+                return leanTouchMessage;
             }
             else if (netMessage.msgType == leanTouchInfoMessage.MessageType)
             {
                 // Get LeanTouch static information
-                var leanTouchInfoReceived = netMessage.ReadMessage<LeanTouchInfoMessage>();
-                LeanTouchInfo[leanTouchInfoReceived.SenderConnectionId] = leanTouchInfoReceived;
-                ClientLeanTouchInfoReceived.Invoke(leanTouchInfoReceived);
+                var leanTouchInfoMessage = netMessage.ReadMessage<LeanTouchInfoMessage>();
+                LeanTouchInfo[leanTouchInfoMessage.SenderConnectionId] = leanTouchInfoMessage;
+                ClientLeanTouchInfoReceived.Invoke(leanTouchInfoMessage);
 
                 // Starts sending LeanTouch frame information as the server has transmited current device's LeanTouch static information
                 if (SyncMode != SyncMode.ReceiverOnly && isClient && initialAutoStartSending && !SendingIsStarted)
@@ -142,7 +149,7 @@ namespace DevicesSyncUnity.Examples
                     StartSending();
                 }
 
-                return leanTouchInfoReceived;
+                return leanTouchInfoMessage;
             }
             else
             {
