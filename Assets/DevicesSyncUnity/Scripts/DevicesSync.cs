@@ -119,7 +119,10 @@ namespace DevicesSyncUnity
                     }
                 }
 
-                Utilities.Debug.Execute(() => client.RegisterHandler(MsgType.Error, OnError), LogFilter.Error);
+                if (LogFilter.logError)
+                {
+                    client.RegisterHandler(MsgType.Error, OnError);
+                }
             }
         }
 

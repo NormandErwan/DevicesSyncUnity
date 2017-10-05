@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine.Networking;
+﻿using UnityEngine.Networking;
 
 namespace DevicesSyncUnity.Utilities
 {
@@ -15,7 +14,10 @@ namespace DevicesSyncUnity.Utilities
         /// <param name="minLogLevel">The minimum logging level to match to display the message in the Unity console.</param>
         public static void Log(string message, int minLogLevel)
         {
-            Execute(() => UnityEngine.Debug.Log(message), minLogLevel);
+            if (minLogLevel >= LogFilter.currentLogLevel)
+            {
+                UnityEngine.Debug.Log(message);
+            }
         }
 
         /// <summary>
@@ -24,7 +26,10 @@ namespace DevicesSyncUnity.Utilities
         /// <param name="message">The warning message to log.</param>
         public static void LogWarning(string message)
         {
-            Execute(() => UnityEngine.Debug.LogWarning(message), LogFilter.Warn);
+            if (LogFilter.logWarn)
+            {
+                UnityEngine.Debug.LogWarning(message);
+            }
         }
 
         /// <summary>
@@ -33,19 +38,9 @@ namespace DevicesSyncUnity.Utilities
         /// <param name="message">The error message to log.</param>
         public static void LogError(string message)
         {
-            Execute(() => UnityEngine.Debug.LogError(message), LogFilter.Error);
-        }
-
-        /// <summary>
-        /// Executes an action if there is a minimum logging level.
-        /// </summary>
-        /// <param name="action">The action to execute.</param>
-        /// <param name="minLogLevel">The minimum logging level to match to display the message in the Unity console.</param>
-        public static void Execute(Action action, int minLogLevel)
-        {
-            if (LogFilter.currentLogLevel <= minLogLevel)
+            if (LogFilter.logError)
             {
-                action();
+                UnityEngine.Debug.LogError(message);
             }
         }
     }
