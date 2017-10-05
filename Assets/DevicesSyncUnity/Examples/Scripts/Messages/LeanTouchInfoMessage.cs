@@ -24,7 +24,7 @@ namespace DevicesSyncUnity.Examples.Messages
         /// <summary>
         /// Copy of <see cref="LeanTouch.CurrentGuiLayers"/>.
         /// </summary>
-        public LayerMask CurrentGuiLayers { get { return currentGuiLayers; } }
+        public LayerMask CurrentGuiLayers { get; protected set; }
 
         // Variables
 
@@ -49,7 +49,7 @@ namespace DevicesSyncUnity.Examples.Messages
         public int CurrentReferenceDpi;
 
         /// <summary>
-        /// Copy of <see cref="LeanTouch.CurrentGuiLayers"/>'s value.
+        /// Value of <see cref="CurrentGuiLayers"/>.
         /// </summary>
         public int CurrentGuiLayersValue;
 
@@ -57,8 +57,6 @@ namespace DevicesSyncUnity.Examples.Messages
         /// Copy of <see cref="LeanTouch.ScalingFactor"/>.
         /// </summary>
         public float ScalingFactor;
-
-        private LayerMask currentGuiLayers;
 
         // Methods
 
@@ -74,9 +72,12 @@ namespace DevicesSyncUnity.Examples.Messages
             ScalingFactor = LeanTouch.ScalingFactor;
         }
 
+        /// <summary>
+        /// Sets properties from the public variables.
+        /// </summary>
         public void RestoreInfo()
         {
-            currentGuiLayers = new LayerMask()
+            CurrentGuiLayers = new LayerMask()
             {
                 value = CurrentGuiLayersValue
             };

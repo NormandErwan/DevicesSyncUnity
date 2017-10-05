@@ -1,27 +1,14 @@
 ﻿using DevicesSyncUnity.Examples.Messages;
 using DevicesSyncUnity.Messages;
-using Lean.Touch;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Networking;
 
 namespace DevicesSyncUnity.Examples
 {
     public class LeanTouchSync : DevicesSyncInterval
     {
-        // Editor fields
-
-        [SerializeField]
-        [Tooltip("The LeanTouch instance to synchronize with other devices.")]
-        private LeanTouch leanTouch;
-
         // Properties
-
-        /// <summary>
-        /// Gets or sets the LeanTouch instance to synchronize with other devices.
-        /// </summary>
-        public LeanTouch LeanTouch { get { return leanTouch; } set { leanTouch = value; } }
 
         /// <summary>
         /// Gets LeanTouch static information from currently connected devices.
@@ -126,7 +113,7 @@ namespace DevicesSyncUnity.Examples
             }
             else
             {
-                return null; // TODO: throw exception?
+                return null;
             }
         }
 
@@ -159,7 +146,7 @@ namespace DevicesSyncUnity.Examples
             }
             else
             {
-                return null; // TODO: throw exception?
+                return null;
             }
         }
 
