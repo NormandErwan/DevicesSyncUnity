@@ -30,30 +30,53 @@ namespace DevicesSyncUnity.Examples.Messages
         public int senderConnectionId;
 
         /// <summary>
-        /// See <see cref="LeanTouch.Fingers"/>
+        /// Copy of <see cref="LeanTouch.Fingers"/>.
         /// </summary>
         public LeanFingerInfo[] Fingers;
 
         /// <summary>
-        /// See <see cref="LeanTouch.InactiveFingers"/>
+        /// Copy of <see cref="LeanTouch.InactiveFingers"/>.
         /// </summary>
         public LeanFingerInfo[] InactiveFingers;
 
-        private Queue<LeanFingerInfo> fingersQueue = new Queue<LeanFingerInfo>();
-        private Queue<LeanFingerInfo> inactiveFingersQueue = new Queue<LeanFingerInfo>();
+        /// <summary>
+        /// List of <see cref="LeanTouch.OnFingerDown"/> captured since the latest <see cref="Reset"/>.
+        /// </summary>
+        public LeanFingerInfo[] FingersDown;
+
+        private Queue<LeanFingerInfo> fingers = new Queue<LeanFingerInfo>();
+        private Queue<LeanFingerInfo> inactiveFingers = new Queue<LeanFingerInfo>();
+        private bool capturingEvents = false;
+        private Queue<LeanFingerInfo> fingersDown = new Queue<LeanFingerInfo>();
 
         // Methods
 
+        public void SetCapturingEvents(bool value)
+        {
+            if (value && !capturingEvents)
+            {
+                capturingEvents = true;
+                LeanTouch.OnFingerDown += LeanTouch_OnFingerDown;
+            }
+            else if (!value && capturingEvents)
+            {
+                capturingEvents = false;
+                LeanTouch.OnFingerDown -= LeanTouch_OnFingerDown;
+            }
+        }
+
         public void UpdateInfo()
         {
-            Fingers = GetFingersInfo(LeanTouch.Fingers, fingersQueue);
-            InactiveFingers = GetFingersInfo(LeanTouch.InactiveFingers, inactiveFingersQueue);
+            Fingers = GetFingersInfo(LeanTouch.Fingers, fingers);
+            InactiveFingers = GetFingersInfo(LeanTouch.InactiveFingers, inactiveFingers);
+            FingersDown = fingersDown.ToArray();
         }
 
         public void Reset()
         {
-            fingersQueue.Clear();
-            inactiveFingersQueue.Clear();
+            fingers.Clear();
+            inactiveFingers.Clear();
+            fingersDown.Clear();
         }
 
         public void RestoreInfo(LeanTouchInfoMessage leanTouchInfo)
@@ -62,6 +85,11 @@ namespace DevicesSyncUnity.Examples.Messages
             {
                 finger.RestoreInfo(leanTouchInfo);
             }
+        }
+
+        protected void LeanTouch_OnFingerDown(LeanFinger leanFinger)
+        {
+            fingersDown.Enqueue(leanFinger);
         }
 
         protected LeanFingerInfo[] GetFingersInfo(List<LeanFinger> leanFingers, Queue<LeanFingerInfo> fingersQueue)

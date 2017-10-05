@@ -23,24 +23,19 @@ namespace DevicesSyncUnity.Examples
         // Events
 
         /// <summary>
-        /// Called on server when a new <see cref="LeanTouchInfoMessage"/> is received from device.
+        /// Called on server and device client when a <see cref="LeanTouchInfoMessage"/> is received.
         /// </summary>
-        public event Action<LeanTouchInfoMessage> ServerLeanTouchInfoReceived = delegate { };
+        public event Action<LeanTouchInfoMessage> LeanTouchInfoReceived = delegate { };
 
         /// <summary>
-        /// Called on device client when a new <see cref="LeanTouchInfoMessage"/> is received from another device.
+        /// Called on server and device client when a <see cref="LeanTouchMessage"/> is received.
         /// </summary>
-        public event Action<LeanTouchInfoMessage> ClientLeanTouchInfoReceived = delegate { };
+        public event Action<LeanTouchMessage> LeanTouchReceived = delegate { };
 
         /// <summary>
-        /// Called on server when a new <see cref="LeanTouchMessage"/> is received from device.
+        /// Called on server and device client for every <see cref="LeanTouchMessage.FingersDown"/> when received.
         /// </summary>
-        public event Action<LeanTouchMessage> ServerLeanTouchReceived = delegate { };
-
-        /// <summary>
-        /// Called on device client when a new <see cref="LeanTouchMessage"/> is received from another device.
-        /// </summary>
-        public event Action<LeanTouchMessage> ClientLeanTouchReceived = delegate { };
+        public event Action<int, LeanFingerInfo> OnFingerDown = delegate { };
 
         // Variables
 
@@ -75,15 +70,24 @@ namespace DevicesSyncUnity.Examples
         {
             base.Start();
 
+            leanTouchMessage.SetCapturingEvents(true);
+
             leanTouchInfoMessage.UpdateInfo();
             SendToServer(leanTouchInfoMessage, Channels.DefaultReliable);
         }
 
+        public override void OnNetworkDestroy()
+        {
+            base.OnNetworkDestroy();
+            leanTouchMessage.SetCapturingEvents(false);
+        }
+
         protected override void OnSendToServerIntervalIteration(bool sendToServerThisFrame)
         {
-            leanTouchMessage.UpdateInfo();
             if (sendToServerThisFrame)
             {
+                leanTouchMessage.UpdateInfo();
+
                 bool emptyLeanTouchMessage = leanTouchMessage.Fingers.Length == 0;
                 if (!emptyLeanTouchMessage || !lastLeanTouchMessageEmpty)
                 {
@@ -98,24 +102,18 @@ namespace DevicesSyncUnity.Examples
         {
             if (netMessage.msgType == leanTouchMessage.MessageType)
             {
-                // Get LeanTouch frame information
-                var leanTouchMessage = netMessage.ReadMessage<LeanTouchMessage>();
-                ServerLeanTouchReceived.Invoke(leanTouchMessage);
-                return leanTouchMessage;
+                return ProcessLeanTouchMessage(netMessage);
             }
             else if (netMessage.msgType == leanTouchInfoMessage.MessageType)
             {
-                // Get LeanTouch static information
                 var leanTouchInfoMessage = netMessage.ReadMessage<LeanTouchInfoMessage>();
-                ServerLeanTouchInfoReceived.Invoke(leanTouchInfoMessage);
-
-                // Send to new device client the LeanTouch static information from other connected devices
                 foreach (var leanTouchInfo in LeanTouchInfo)
                 {
                     SendToClient(leanTouchInfoMessage.SenderConnectionId, leanTouchInfo.Value);
                 }
 
                 LeanTouchInfo[leanTouchInfoMessage.SenderConnectionId] = leanTouchInfoMessage;
+                LeanTouchInfoReceived.Invoke(leanTouchInfoMessage);
                 return leanTouchInfoMessage;
             }
             else
@@ -128,25 +126,17 @@ namespace DevicesSyncUnity.Examples
         {
             if (netMessage.msgType == leanTouchMessage.MessageType)
             {
-                // Get LeanTouch frame information
-                var leanTouchMessage = netMessage.ReadMessage<LeanTouchMessage>();
-                leanTouchMessage.RestoreInfo(LeanTouchInfo[leanTouchMessage.SenderConnectionId]);
-
-                LeanTouches[leanTouchMessage.SenderConnectionId] = leanTouchMessage;
-                ServerLeanTouchReceived.Invoke(leanTouchMessage);
-                return leanTouchMessage;
+                return ProcessLeanTouchMessage(netMessage);
             }
             else if (netMessage.msgType == leanTouchInfoMessage.MessageType)
             {
-                // Get LeanTouch static information
                 var leanTouchInfoMessage = netMessage.ReadMessage<LeanTouchInfoMessage>();
                 LeanTouchInfo[leanTouchInfoMessage.SenderConnectionId] = leanTouchInfoMessage;
-                ClientLeanTouchInfoReceived.Invoke(leanTouchInfoMessage);
-
-                // Starts sending LeanTouch frame information as the server has transmited current device's LeanTouch static information
+                LeanTouchInfoReceived.Invoke(leanTouchInfoMessage);
+                
                 if (SyncMode != SyncMode.ReceiverOnly && isClient && initialAutoStartSending && !SendingIsStarted)
                 {
-                    StartSending();
+                    StartSending(); // Starts sending LeanTouchMessage as the server has received LeanTouchInfoMessage
                 }
 
                 return leanTouchInfoMessage;
@@ -161,6 +151,22 @@ namespace DevicesSyncUnity.Examples
         {
             LeanTouchInfo.Remove(deviceInfoMessage.SenderConnectionId);
             LeanTouches.Remove(deviceInfoMessage.SenderConnectionId);
+        }
+
+        protected virtual LeanTouchMessage ProcessLeanTouchMessage(NetworkMessage netMessage)
+        {
+            var leanTouchMessage = netMessage.ReadMessage<LeanTouchMessage>();
+            leanTouchMessage.RestoreInfo(LeanTouchInfo[leanTouchMessage.SenderConnectionId]);
+
+            LeanTouches[leanTouchMessage.SenderConnectionId] = leanTouchMessage;
+            LeanTouchReceived.Invoke(leanTouchMessage);
+
+            foreach (var fingerDown in leanTouchMessage.FingersDown)
+            {
+                OnFingerDown.Invoke(leanTouchMessage.SenderConnectionId, fingerDown);
+            }
+
+            return leanTouchMessage;
         }
     }
 }
