@@ -7,7 +7,7 @@ using System.Linq;
 namespace DevicesSyncUnity.Examples.Messages
 {
     /// <summary>
-    /// Message that contains device static <see cref="Input"/> and <see cref="Camera.main"/> information.
+    /// Message that contains device LeanTouch's fingers and events information from current and previous frames.
     /// </summary>
     public class LeanTouchMessage : DevicesSyncMessage
     {

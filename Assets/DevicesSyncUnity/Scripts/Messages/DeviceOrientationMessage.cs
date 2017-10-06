@@ -4,7 +4,7 @@ using UnityEngine;
 namespace DevicesSyncUnity.Messages
 {
     /// <summary>
-    /// Message that contains device orientation from current and previous frames.
+    /// Message that contains device orientations from current and previous frames.
     /// </summary>
     public class DeviceOrientationMessage : DevicesSyncMessage
     {
@@ -45,7 +45,7 @@ namespace DevicesSyncUnity.Messages
         /// <summary>
         /// Enqueues the current device orientation if it's different from the previous frame's one.
         /// </summary>
-        public void UpdateInfo()
+        public void Update()
         {
             int deviceOrientationValue = (int)Input.deviceOrientation;
             if (deviceOrientationValue != latestDeviceOrientation)
@@ -67,7 +67,7 @@ namespace DevicesSyncUnity.Messages
         /// <summary>
         /// Populate <see cref="deviceOrientations"/> from <see cref="deviceOrientationValues"/>.
         /// </summary>
-        public void RestoreInfo()
+        public void Restore()
         {
             deviceOrientations = new Queue<DeviceOrientation>(deviceOrientationValues.Length);
             for (int i = 0; i < deviceOrientationValues.Length; i++)

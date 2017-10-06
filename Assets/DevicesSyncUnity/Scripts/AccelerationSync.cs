@@ -13,36 +13,26 @@ namespace DevicesSyncUnity
         // Properties
 
         /// <summary>
-        /// Gets latest acceleration and acceleration events from currently connected devices.
+        /// Gets latest accelerations and acceleration events from currently connected devices.
         /// </summary>
         public Dictionary<int, AccelerationMessage> Accelerations { get; protected set; }
 
         /// <summary>
-        /// Gets latest device orientation from currently connected devices.
+        /// Gets latest device orientations from currently connected devices.
         /// </summary>
         public Dictionary<int, DeviceOrientationMessage> DeviceOrientations { get; protected set; }
 
         // Events
 
         /// <summary>
-        /// Called on server when a new <see cref="AccelerationMessage"/> is received from device.
+        /// Called on server and on device client when a new <see cref="AccelerationMessage"/> is received.
         /// </summary>
-        public event Action<AccelerationMessage> ServerAccelerationMessageReceived = delegate { };
+        public event Action<AccelerationMessage> AccelerationMessageReceived = delegate { };
 
         /// <summary>
-        /// Called on device client when a new <see cref="AccelerationMessage"/> is received from another device.
+        /// Called on server and on device client when a new <see cref="DeviceOrientationMessage"/> is received.
         /// </summary>
-        public event Action<AccelerationMessage> ClientAccelerationMessageReceived = delegate { };
-
-        /// <summary>
-        /// Called on server when a new <see cref="DeviceOrientationMessage"/> is received from device.
-        /// </summary>
-        public event Action<DeviceOrientationMessage> ServerDeviceOrientationMessageReceived = delegate { };
-
-        /// <summary>
-        /// Called on device client when a new <see cref="DeviceOrientationMessage"/> is received from another device.
-        /// </summary>
-        public event Action<DeviceOrientationMessage> ClientDeviceOrientationMessageReceived = delegate { };
+        public event Action<DeviceOrientationMessage> DeviceOrientationMessageReceived = delegate { };
 
         // Variables
 
@@ -72,8 +62,8 @@ namespace DevicesSyncUnity
         /// <param name="sendToServerThisFrame">If the messages should be sent this frame.</param>
         protected override void OnSendToServerIntervalIteration(bool sendToServerThisFrame)
         {
-            accelerationMessage.UpdateInfo();
-            deviceOrientationMessage.UpdateInfo();
+            accelerationMessage.Update();
+            deviceOrientationMessage.Update();
 
             if (sendToServerThisFrame)
             {
@@ -92,58 +82,19 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Server invokes <see cref="ServerAccelerationMessageReceived"/> or <see cref="ServerDeviceOrientationMessageReceived"/>. 
+        /// Calls <see cref="ProcessMessageReceived(NetworkMessage)"/>.
         /// </summary>
-        /// <param name="netMessage">The received networking message.</param>
-        /// <returns>The typed network message extracted.</returns>
         protected override DevicesSyncMessage OnServerMessageReceived(NetworkMessage netMessage)
         {
-            if (netMessage.msgType == accelerationMessage.MessageType)
-            {
-                var accelerationMessage = netMessage.ReadMessage<AccelerationMessage>();
-                Accelerations[accelerationMessage.SenderConnectionId] = accelerationMessage;
-                ServerAccelerationMessageReceived.Invoke(accelerationMessage);
-                return accelerationMessage;
-            }
-            else if (netMessage.msgType == deviceOrientationMessage.MessageType)
-            {
-                var deviceOrientationMessage = netMessage.ReadMessage<DeviceOrientationMessage>();
-                DeviceOrientations[deviceOrientationMessage.SenderConnectionId] = deviceOrientationMessage;
-                ServerDeviceOrientationMessageReceived.Invoke(deviceOrientationMessage);
-                return deviceOrientationMessage;
-            }
-            else
-            {
-                return null;
-            }
+            return ProcessMessageReceived(netMessage);
         }
 
         /// <summary>
-        /// Updates <see cref="Accelerations"/> or <see cref="DeviceOrientations"/> and invokes
-        /// <see cref="ClientAccelerationMessageReceived"/> or <see cref="ClientDeviceOrientationMessageReceived"/>.
+        /// Calls <see cref="ProcessMessageReceived(NetworkMessage)"/>.
         /// </summary>
-        /// <param name="netMessage">The received networking message.</param>
-        /// <returns>The typed network message extracted.</returns>
         protected override DevicesSyncMessage OnClientMessageReceived(NetworkMessage netMessage)
         {
-            if (netMessage.msgType == accelerationMessage.MessageType)
-            {
-                var accelerationMessage = netMessage.ReadMessage<AccelerationMessage>();
-                Accelerations[accelerationMessage.SenderConnectionId] = accelerationMessage;
-                ClientAccelerationMessageReceived.Invoke(accelerationMessage);
-                return accelerationMessage;
-            }
-            else if (netMessage.msgType == deviceOrientationMessage.MessageType)
-            {
-                var deviceOrientationMessage = netMessage.ReadMessage<DeviceOrientationMessage>();
-                DeviceOrientations[deviceOrientationMessage.SenderConnectionId] = deviceOrientationMessage;
-                ClientDeviceOrientationMessageReceived.Invoke(deviceOrientationMessage);
-                return deviceOrientationMessage;
-            }
-            else
-            {
-                return null;
-            }
+            return ProcessMessageReceived(netMessage);
         }
 
         /// <summary>
@@ -154,6 +105,34 @@ namespace DevicesSyncUnity
         {
             Accelerations.Remove(deviceInfoMessage.SenderConnectionId);
             DeviceOrientations.Remove(deviceInfoMessage.SenderConnectionId);
+        }
+
+        /// <summary>
+        /// Updates <see cref="Accelerations"/> or <see cref="DeviceOrientations"/> and invokes
+        /// <see cref="AccelerationMessageReceived"/> or <see cref="DeviceOrientationMessageReceived"/>.
+        /// </summary>
+        /// <param name="netMessage">The received networking message.</param>
+        /// <returns>The typed network message extracted.</returns>
+        protected virtual DevicesSyncMessage ProcessMessageReceived(NetworkMessage netMessage)
+        {
+            if (netMessage.msgType == accelerationMessage.MessageType)
+            {
+                var accelerationMessage = netMessage.ReadMessage<AccelerationMessage>();
+                Accelerations[accelerationMessage.SenderConnectionId] = accelerationMessage;
+                AccelerationMessageReceived.Invoke(accelerationMessage);
+                return accelerationMessage;
+            }
+            else if (netMessage.msgType == deviceOrientationMessage.MessageType)
+            {
+                var deviceOrientationMessage = netMessage.ReadMessage<DeviceOrientationMessage>();
+                DeviceOrientations[deviceOrientationMessage.SenderConnectionId] = deviceOrientationMessage;
+                DeviceOrientationMessageReceived.Invoke(deviceOrientationMessage);
+                return deviceOrientationMessage;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace DevicesSyncUnity.Messages
 {
     /// <summary>
-    /// Message that contains device's acceleration and acceleration events from current and previous frame.
+    /// Message that contains device's accelerations and acceleration events from current and previous frames.
     /// </summary>
     public class AccelerationMessage : DevicesSyncMessage
     {
@@ -50,7 +50,7 @@ namespace DevicesSyncUnity.Messages
         /// <summary>
         /// Enqueues the current accelerations events if there are differents from the previous frame.
         /// </summary>
-        public void UpdateInfo()
+        public void Update()
         {
             for (int index = 0; index < Input.accelerationEventCount; index++)
             {

@@ -59,7 +59,7 @@ namespace DevicesSyncUnity.Debug
             }
             if (accelerationSync != null)
             {
-                accelerationSync.ClientAccelerationMessageReceived += AccelereationSync_ClientAccelerationMessageReceived;
+                accelerationSync.AccelerationMessageReceived += AccelereationSync_ClientAccelerationMessageReceived;
             }
         }
 
