@@ -162,13 +162,19 @@ namespace DevicesSyncUnity
             var message = OnClientMessageReceived(netMessage);
             if (message != null)
             {
-                Utilities.Debug.Log("Client: received message from device client " + message.SenderConnectionId
-                    + ": " + message, LogFilter.Info);
+                if (LogFilter.logInfo)
+                {
+                    UnityEngine.Debug.Log("Client: received message from device client " + message.SenderConnectionId
+                    + ": " + message);
+                }
             }
             else
             {
-                Utilities.Debug.LogWarning("OnClientMessageReceived has returned null instead of returning a "
+                if (LogFilter.logWarn)
+                {
+                    UnityEngine.Debug.Log("OnClientMessageReceived has returned null instead of returning a "
                     + "DevicesSyncMessage read from the received NetworkMessage");
+                }
             }
         }
 
@@ -190,7 +196,10 @@ namespace DevicesSyncUnity
             {
                 OnClientDeviceDisconnectedReceived(message);
                 ClientDeviceDisconnected.Invoke(message);
-                Utilities.Debug.Log("Client: device client " + message.SenderConnectionId + " disconnected", LogFilter.Info);
+                if (LogFilter.logInfo)
+                {
+                    UnityEngine.Debug.Log("Client: device client " + message.SenderConnectionId + " disconnected");
+                }
             }
         }
 
@@ -206,7 +215,10 @@ namespace DevicesSyncUnity
         /// <param name="message">The message to send.</param>
         protected virtual void SendToServer(DevicesSyncMessage message, int? channelIdOrDefault = null)
         {
-            Utilities.Debug.Log("Client: sending message: " + message, LogFilter.Info);
+            if (LogFilter.logInfo)
+            {
+                UnityEngine.Debug.Log("Client: sending message: " + message);
+            }
 
             int channelId = (channelIdOrDefault != null) ? (int)channelIdOrDefault : DefaultChannelId;
             message.SenderConnectionId = NetworkManager.client.connection.connectionId;
@@ -215,8 +227,11 @@ namespace DevicesSyncUnity
 
         protected void SendToAllClients(DevicesSyncMessage message, int? channelIdOrDefault = null)
         {
-            Utilities.Debug.Log("Server: transfer message from device client " + message.SenderConnectionId + " to all "
-                + "device clients: " + message, LogFilter.Info);
+            if (LogFilter.logInfo)
+            {
+                UnityEngine.Debug.Log("Server: transfer message from device client " + message.SenderConnectionId 
+                    + " to all " + "device clients: " + message);
+            }
 
             int channelId = (channelIdOrDefault != null) ? (int)channelIdOrDefault : DefaultChannelId;
             NetworkServer.SendByChannelToAll(message.MessageType, message, channelId);
@@ -224,8 +239,11 @@ namespace DevicesSyncUnity
 
         protected void SendToClient(int connectionId, DevicesSyncMessage message)
         {
-            Utilities.Debug.Log("Server: transfer message from device client " + message.SenderConnectionId 
-                + " to device client " + connectionId + ": " + message, LogFilter.Info);
+            if (LogFilter.logInfo)
+            {
+                UnityEngine.Debug.Log("Server: transfer message from device client " + message.SenderConnectionId 
+                    + " to device client " + connectionId + ": " + message);
+            }
             NetworkServer.SendToClient(connectionId, message.MessageType, message);
         }
 
@@ -236,7 +254,7 @@ namespace DevicesSyncUnity
         protected virtual void OnError(NetworkMessage netMessage)
         {
             var errorMessage = netMessage.ReadMessage<ErrorMessage>();
-            Utilities.Debug.LogError("Error: " + errorMessage.errorCode);
+            UnityEngine.Debug.LogError("Error: " + errorMessage.errorCode);
         }
     }
 }

@@ -28,32 +28,32 @@ namespace DevicesSyncUnity.Examples
         // Events
 
         /// <summary>
-        /// Called on server and device client when a <see cref="LeanTouchInfoMessage"/> is received.
+        /// Called on server and on device client when a <see cref="LeanTouchInfoMessage"/> is received.
         /// </summary>
         public event Action<LeanTouchInfoMessage> LeanTouchInfoReceived = delegate { };
 
         /// <summary>
-        /// Called on server and device client when a <see cref="LeanTouchMessage"/> is received.
+        /// Called on server and on device client when a <see cref="LeanTouchMessage"/> is received.
         /// </summary>
         public event Action<LeanTouchMessage> LeanTouchReceived = delegate { };
 
         /// <summary>
-        /// Called on server and device client for every <see cref="LeanTouchMessage.FingersDown"/> in a received message.
+        /// Called on server and on device client for every <see cref="LeanTouchMessage.FingersDown"/> in a received message.
         /// </summary>
         public event Action<int, LeanFingerInfo> OnFingerDown = delegate { };
 
         /// <summary>
-        /// Called on server and device client for every <see cref="LeanTouchMessage.FingersSet"/> in a received message.
+        /// Called on server and on device client for every <see cref="LeanTouchMessage.FingersSet"/> in a received message.
         /// </summary>
         public event Action<int, LeanFingerInfo> OnFingerSet = delegate { };
 
         /// <summary>
-        /// Called on server and device client for every <see cref="LeanTouchMessage.FingersUp"/> in a received message.
+        /// Called on server and on device client for every <see cref="LeanTouchMessage.FingersUp"/> in a received message.
         /// </summary>
         public event Action<int, LeanFingerInfo> OnFingerUp = delegate { };
 
         /// <summary>
-        /// Called on server and device client for every <see cref="LeanTouchMessage.FingersTap"/> in a received message.
+        /// Called on server and on device client for every <see cref="LeanTouchMessage.FingersTap"/> in a received message.
         /// </summary>
         public event Action<int, LeanFingerInfo> OnFingerTap = delegate { };
 
@@ -94,11 +94,11 @@ namespace DevicesSyncUnity.Examples
 
             if (LogFilter.logInfo)
             {
-                OnFingerDown  += (clientId, finger) => { Utilities.Debug.Log("LeanTouchSync: finger " + finger.Index + " down on client " + clientId, LogFilter.Info); };
-                OnFingerSet   += (clientId, finger) => { Utilities.Debug.Log("LeanTouchSync: finger " + finger.Index + " set on client " + clientId, LogFilter.Info); };
-                OnFingerUp    += (clientId, finger) => { Utilities.Debug.Log("LeanTouchSync: finger " + finger.Index + " up on client " + clientId, LogFilter.Info); };
-                OnFingerTap   += (clientId, finger) => { Utilities.Debug.Log("LeanTouchSync: finger " + finger.Index + " tap on client " + clientId, LogFilter.Info); };
-                OnFingerSwipe += (clientId, finger) => { Utilities.Debug.Log("LeanTouchSync: finger " + finger.Index + " swipe on client " + clientId, LogFilter.Info); };
+                OnFingerDown  += (clientId, finger) => { UnityEngine.Debug.Log("LeanTouchSync: finger " + finger.Index + " down on client " + clientId); };
+                OnFingerSet   += (clientId, finger) => { UnityEngine.Debug.Log("LeanTouchSync: finger " + finger.Index + " set on client " + clientId); };
+                OnFingerUp    += (clientId, finger) => { UnityEngine.Debug.Log("LeanTouchSync: finger " + finger.Index + " up on client " + clientId); };
+                OnFingerTap   += (clientId, finger) => { UnityEngine.Debug.Log("LeanTouchSync: finger " + finger.Index + " tap on client " + clientId); };
+                OnFingerSwipe += (clientId, finger) => { UnityEngine.Debug.Log("LeanTouchSync: finger " + finger.Index + " swipe on client " + clientId); };
             }
         }
 
