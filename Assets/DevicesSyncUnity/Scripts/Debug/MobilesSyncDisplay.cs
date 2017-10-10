@@ -55,7 +55,7 @@ namespace DevicesSyncUnity.Debug
 
             if (touchesSync != null)
             {
-                touchesSync.ClientTouchesReceived += TouchesSync_ClientTouchesReceived;
+                touchesSync.TouchesReceived += TouchesSync_ClientTouchesReceived;
             }
             if (accelerationSync != null)
             {
@@ -99,7 +99,7 @@ namespace DevicesSyncUnity.Debug
             GameObject touchDisplaysParent;
             if (!touchesDisplays.TryGetValue(touchesMessage.SenderConnectionId, out touchDisplays))
             {
-                touchDisplays = new List<TouchDisplay>(touchesMessage.touchesAverage.Length);
+                touchDisplays = new List<TouchDisplay>(touchesMessage.touches.Length);
                 touchesDisplays.Add(touchesMessage.SenderConnectionId, touchDisplays);
 
                 touchDisplaysParent = displayCanvas.gameObject.AddChild("Device " + touchesMessage.SenderConnectionId + " touches");
@@ -119,7 +119,7 @@ namespace DevicesSyncUnity.Debug
 
             // Display the touches
             var deviceColor = deviceColors[touchesMessage.SenderConnectionId];
-            for (int i = 0; i < touchesMessage.touchesAverage.Length; i++)
+            for (int i = 0; i < touchesMessage.touches.Length; i++)
             {
                 TouchDisplay touchDisplay;
                 if (touchDisplays.Count <= i)

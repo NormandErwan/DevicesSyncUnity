@@ -32,18 +32,12 @@ namespace DevicesSyncUnity
         // Events
 
         /// <summary>
-        /// Called on server when a new <see cref="TouchesMessage"/> is received from device.
+        /// Called on server and on device client when a <see cref="TouchesMessage"/> is received.
         /// </summary>
-        public event Action<TouchesMessage> ServerTouchesReceived = delegate { };
-
-        /// <summary>
-        /// Called on device client when a new <see cref="TouchesMessage"/> is received from another device.
-        /// </summary>
-        public event Action<TouchesMessage> ClientTouchesReceived = delegate { };
+        public event Action<TouchesMessage> TouchesReceived = delegate { };
 
         // Variables
 
-        protected Stack<TouchInfo[]> previousTouches = new Stack<TouchInfo[]>();
         protected bool noTouchesLastMessage = false;
         private TouchesMessage touchesMessage = new TouchesMessage();
         protected bool initialAutoStartSending;
@@ -84,55 +78,34 @@ namespace DevicesSyncUnity
         /// <param name="sendToServerThisFrame">If the touches information should be sent this frame.</param>
         protected override void OnSendToServerIntervalIteration(bool sendToServerThisFrame)
         {
-            touchesMessage.UpdateInfo();
+            touchesMessage.Update();
 
-            if (!sendToServerThisFrame)
+            if (sendToServerThisFrame)
             {
-                // Stack with previous frames touches
-                if (touchesMessage.touches.Length > 0)
-                {
-                    previousTouches.Push(touchesMessage.touches);
-                }
-            }
-            else
-            {
-                // Calculate touches average and send if necessary
-                touchesMessage.SetTouchesAverage(previousTouches);
-                previousTouches.Clear();
-
-                bool noTouches = (touchesMessage.touchesAverage.Length == 0);
+                bool noTouches = (touchesMessage.touches.Length == 0);
                 if (!noTouches || !noTouchesLastMessage)
                 {
                     SendToServer(touchesMessage);
+                    touchesMessage.Reset();
                 }
                 noTouchesLastMessage = noTouches;
             }
         }
 
         /// <summary>
-        /// Server invokes <see cref="ServerTouchesReceived"/>. 
+        /// Calls <see cref="ProcessMessageReceived(NetworkMessage)"/>.
         /// </summary>
-        /// <param name="netMessage">The received networking message.</param>
-        /// <returns>The typed network message extracted.</returns>
         protected override DevicesSyncMessage OnServerMessageReceived(NetworkMessage netMessage)
         {
-            var touchesMessage = netMessage.ReadMessage<TouchesMessage>();
-            Touches[touchesMessage.SenderConnectionId] = touchesMessage;
-            ServerTouchesReceived.Invoke(touchesMessage);
-            return touchesMessage;
+            return ProcessMessageReceived(netMessage);
         }
 
         /// <summary>
-        /// Device client updates <see cref="Touches"/> and calls <see cref="ClientTouchesReceived"/>.
+        /// Calls <see cref="ProcessMessageReceived(NetworkMessage)"/>.
         /// </summary>
-        /// <param name="netMessage">The received networking message.</param>
-        /// <returns>The typed network message extracted.</returns>
         protected override DevicesSyncMessage OnClientMessageReceived(NetworkMessage netMessage)
         {
-            var touchesMessage = netMessage.ReadMessage<TouchesMessage>();
-            Touches[touchesMessage.SenderConnectionId] = touchesMessage;
-            ClientTouchesReceived.Invoke(touchesMessage);
-            return touchesMessage;
+            return ProcessMessageReceived(netMessage);
         }
 
         /// <summary>
@@ -151,6 +124,19 @@ namespace DevicesSyncUnity
         {
             StartSending();
             DeviceInfoSync.ClientDeviceInfoReceived -= DeviceInfoSync_ClientDeviceInfoReceived;
+        }
+
+        /// <summary>
+        /// Device client updates <see cref="Touches"/> and calls <see cref="TouchesReceived"/>.
+        /// </summary>
+        /// <param name="netMessage">The received networking message.</param>
+        /// <returns>The typed network message extracted.</returns>
+        protected TouchesMessage ProcessMessageReceived(NetworkMessage netMessage)
+        {
+            var touchesMessage = netMessage.ReadMessage<TouchesMessage>();
+            Touches[touchesMessage.SenderConnectionId] = touchesMessage;
+            TouchesReceived.Invoke(touchesMessage);
+            return touchesMessage;
         }
     }
 }
