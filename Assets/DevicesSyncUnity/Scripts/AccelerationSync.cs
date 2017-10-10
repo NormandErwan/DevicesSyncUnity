@@ -101,10 +101,10 @@ namespace DevicesSyncUnity
         /// Removes the disconnected device from <see cref="Accelerations"/> and <see cref="DeviceOrientations"/>.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
-        protected override void OnClientDeviceDisconnectedReceived(DeviceInfoMessage deviceInfoMessage)
+        protected override void OnClientDeviceDisconnectedReceived(DeviceDisconnectedMessage deviceDisconnectedMessage)
         {
-            Accelerations.Remove(deviceInfoMessage.SenderConnectionId);
-            DeviceOrientations.Remove(deviceInfoMessage.SenderConnectionId);
+            Accelerations.Remove(deviceDisconnectedMessage.SenderConnectionId);
+            DeviceOrientations.Remove(deviceDisconnectedMessage.SenderConnectionId);
         }
 
         /// <summary>

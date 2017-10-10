@@ -59,7 +59,7 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Subscribes to <see cref="DevicesInfoSync.ClientDeviceInfoReceived"/>.
+        /// Subscribes to <see cref="TouchesSync.ClientDeviceInfoReceived"/>.
         /// </summary>
         protected override void Start()
         {
@@ -67,7 +67,7 @@ namespace DevicesSyncUnity
 
             if (SyncMode != SyncMode.ReceiverOnly && initialAutoStartSending && isClient)
             {
-                DeviceInfoSync.ClientDeviceInfoReceived += DeviceInfoSync_ClientDeviceInfoReceived;
+                DeviceInfoSync.DeviceInfoReceived += DeviceInfoSync_ClientDeviceInfoReceived;
             }
         }
 
@@ -112,9 +112,9 @@ namespace DevicesSyncUnity
         /// Device client removes the disconnected device from <see cref="Touches"/>.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
-        protected override void OnClientDeviceDisconnectedReceived(DeviceInfoMessage deviceInfoMessage)
+        protected override void OnClientDeviceDisconnectedReceived(DeviceDisconnectedMessage deviceDisconnectedMessage)
         {
-            Touches.Remove(deviceInfoMessage.SenderConnectionId);
+            Touches.Remove(deviceDisconnectedMessage.SenderConnectionId);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace DevicesSyncUnity
         protected virtual void DeviceInfoSync_ClientDeviceInfoReceived(DeviceInfoMessage message)
         {
             StartSending();
-            DeviceInfoSync.ClientDeviceInfoReceived -= DeviceInfoSync_ClientDeviceInfoReceived;
+            DeviceInfoSync.DeviceInfoReceived -= DeviceInfoSync_ClientDeviceInfoReceived;
         }
 
         /// <summary>

@@ -20,14 +20,9 @@ namespace DevicesSyncUnity
         // Events
 
         /// <summary>
-        /// Called on server when a new <see cref="DeviceInfoMessage"/> is received from device.
+        /// Called on server and on device client when a new <see cref="DeviceInfoMessage"/> is received.
         /// </summary>
-        public event Action<DeviceInfoMessage> ServerDeviceInfoReceived = delegate { };
-
-        /// <summary>
-        /// Called on device client when a new <see cref="DeviceInfoMessage"/> is received from another device.
-        /// </summary>
-        public event Action<DeviceInfoMessage> ClientDeviceInfoReceived = delegate { };
+        public event Action<DeviceInfoMessage> DeviceInfoReceived = delegate { };
 
         // Variables
 
@@ -68,7 +63,7 @@ namespace DevicesSyncUnity
         {
             // Get the information of the new device client
             var deviceInfoMessage = netMessage.ReadMessage<DeviceInfoMessage>();
-            ServerDeviceInfoReceived.Invoke(deviceInfoMessage);
+            DeviceInfoReceived.Invoke(deviceInfoMessage);
 
             // Send to new device client information from all the currently connected devices
             foreach (var deviceInfo in DevicesInfo)
@@ -81,7 +76,7 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Device client updates <see cref="DevicesInfo"/> and calls <see cref="ClientDeviceInfoReceived"/>.
+        /// Device client updates <see cref="DevicesInfo"/> and calls <see cref="DeviceInfoReceived"/>.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
         /// <returns>The typed network message extracted.</returns>
@@ -89,7 +84,7 @@ namespace DevicesSyncUnity
         {
             var deviceInfoMessage = netMessage.ReadMessage<DeviceInfoMessage>();
             DevicesInfo[deviceInfoMessage.SenderConnectionId] = deviceInfoMessage;
-            ClientDeviceInfoReceived.Invoke(deviceInfoMessage);
+            DeviceInfoReceived.Invoke(deviceInfoMessage);
             return deviceInfoMessage;
         }
 
@@ -97,9 +92,9 @@ namespace DevicesSyncUnity
         /// Device client removes the disconnected device from <see cref="DevicesInfo"/>.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
-        protected override void OnClientDeviceDisconnectedReceived(DeviceInfoMessage deviceInfoMessage)
+        protected override void OnClientDeviceDisconnectedReceived(DeviceDisconnectedMessage deviceDisconnectedMessage)
         {
-            DevicesInfo.Remove(deviceInfoMessage.SenderConnectionId);
+            DevicesInfo.Remove(deviceDisconnectedMessage.SenderConnectionId);
         }
     }
 }

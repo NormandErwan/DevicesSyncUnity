@@ -40,7 +40,6 @@ namespace DevicesSyncUnity.Debug
         protected Text devicesListText;
         protected SortedDictionary<int, Color> deviceColors = new SortedDictionary<int, Color>();
 
-        protected Dictionary<int, DeviceInfoMessage> devicesInfo = new Dictionary<int, DeviceInfoMessage>();
         protected Dictionary<int, List<TouchDisplay>> touchesDisplays = new Dictionary<int, List<TouchDisplay>>();
         protected Dictionary<int, GameObject> touchesDisplaysParents = new Dictionary<int, GameObject>();
 
@@ -50,8 +49,8 @@ namespace DevicesSyncUnity.Debug
         {
             canvasRect = displayCanvas.GetComponent<RectTransform>();
 
-            deviceInfoSync.ClientDeviceDisconnected += DeviceInfoSync_ClientDeviceDisconnected;
-            deviceInfoSync.ClientDeviceInfoReceived += DeviceInfoSync_ClientDeviceInfoReceived;
+            DevicesSync.DeviceDisconnected += DevicesSync_DeviceDisconnected;
+            deviceInfoSync.DeviceInfoReceived += DeviceInfoSync_DeviceInfoReceived;
 
             if (touchesSync != null)
             {
@@ -63,24 +62,36 @@ namespace DevicesSyncUnity.Debug
             }
         }
 
-        protected void DeviceInfoSync_ClientDeviceInfoReceived(DeviceInfoMessage deviceInfoMessages)
+        protected virtual void OnDestroy()
         {
-            float randomColorHue = (goldenRatioConjugate * deviceInfoMessages.SenderConnectionId) % 1;
-            var deviceColor = Color.HSVToRGB(randomColorHue, 0.9f, 1f);
-            deviceColors[deviceInfoMessages.SenderConnectionId] = deviceColor;
+            DevicesSync.DeviceDisconnected -= DevicesSync_DeviceDisconnected;
+            deviceInfoSync.DeviceInfoReceived -= DeviceInfoSync_DeviceInfoReceived;
 
-            devicesInfo[deviceInfoMessages.SenderConnectionId] = deviceInfoMessages;
+            if (touchesSync != null)
+            {
+                touchesSync.TouchesReceived -= TouchesSync_ClientTouchesReceived;
+            }
+            if (accelerationSync != null)
+            {
+                accelerationSync.AccelerationMessageReceived -= AccelereationSync_ClientAccelerationMessageReceived;
+            }
+        }
+
+        protected void DeviceInfoSync_DeviceInfoReceived(DeviceInfoMessage deviceInfoMessage)
+        {
+            float randomColorHue = (goldenRatioConjugate * deviceInfoMessage.SenderConnectionId) % 1;
+            var deviceColor = Color.HSVToRGB(randomColorHue, 0.9f, 1f);
+            deviceColors[deviceInfoMessage.SenderConnectionId] = deviceColor;
             UpdateDevicesText();
         }
 
-        protected void DeviceInfoSync_ClientDeviceDisconnected(DeviceInfoMessage deviceInfoMessages)
+        protected void DevicesSync_DeviceDisconnected(DeviceDisconnectedMessage deviceDisconnectedMessage)
         {
-            deviceColors.Remove(deviceInfoMessages.SenderConnectionId);
-            devicesInfo.Remove(deviceInfoMessages.SenderConnectionId);
+            deviceColors.Remove(deviceDisconnectedMessage.SenderConnectionId);
             UpdateDevicesText();
 
             GameObject touchDisplaysParent;
-            if (touchesDisplaysParents.TryGetValue(deviceInfoMessages.SenderConnectionId, out touchDisplaysParent))
+            if (touchesDisplaysParents.TryGetValue(deviceDisconnectedMessage.SenderConnectionId, out touchDisplaysParent))
             {
                 touchDisplaysParent.SetActive(false);
             }
@@ -88,12 +99,6 @@ namespace DevicesSyncUnity.Debug
 
         protected virtual void TouchesSync_ClientTouchesReceived(TouchesMessage touchesMessage)
         {
-            DeviceInfoMessage deviceInfo = null;
-            if (!devicesInfo.TryGetValue(touchesMessage.SenderConnectionId, out deviceInfo))
-            {
-                return;
-            }
-
             // Get or create the touch displays associated with the sender
             List<TouchDisplay> touchDisplays;
             GameObject touchDisplaysParent;
@@ -132,7 +137,7 @@ namespace DevicesSyncUnity.Debug
                     touchDisplay = touchDisplays[i];
                     touchDisplay.GameObject.SetActive(true);
                 }
-                touchDisplay.UpdateDisplay(deviceInfo, touchesMessage, i);
+                touchDisplay.UpdateDisplay(touchesMessage, i);
             }
         }
 

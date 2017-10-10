@@ -211,10 +211,10 @@ namespace DevicesSyncUnity.Examples
         /// Removes the disconnected device from <see cref="LeanTouchesInfo"/> and <see cref="LeanTouches"/>.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
-        protected override void OnClientDeviceDisconnectedReceived(DeviceInfoMessage deviceInfoMessage)
+        protected override void OnClientDeviceDisconnectedReceived(DeviceDisconnectedMessage deviceDisconnectedMessage)
         {
-            LeanTouchesInfo.Remove(deviceInfoMessage.SenderConnectionId);
-            LeanTouches.Remove(deviceInfoMessage.SenderConnectionId);
+            LeanTouchesInfo.Remove(deviceDisconnectedMessage.SenderConnectionId);
+            LeanTouches.Remove(deviceDisconnectedMessage.SenderConnectionId);
         }
 
         /// <summary>
