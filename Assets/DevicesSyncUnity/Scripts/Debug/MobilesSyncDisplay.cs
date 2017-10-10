@@ -85,13 +85,13 @@ namespace DevicesSyncUnity.Debug
             UpdateDevicesText();
         }
 
-        protected void DevicesSync_DeviceDisconnected(DeviceDisconnectedMessage deviceDisconnectedMessage)
+        protected void DevicesSync_DeviceDisconnected(int deviceId)
         {
-            deviceColors.Remove(deviceDisconnectedMessage.SenderConnectionId);
+            deviceColors.Remove(deviceId);
             UpdateDevicesText();
 
             GameObject touchDisplaysParent;
-            if (touchesDisplaysParents.TryGetValue(deviceDisconnectedMessage.SenderConnectionId, out touchDisplaysParent))
+            if (touchesDisplaysParents.TryGetValue(deviceId, out touchDisplaysParent))
             {
                 touchDisplaysParent.SetActive(false);
             }

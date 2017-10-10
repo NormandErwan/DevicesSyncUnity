@@ -91,10 +91,10 @@ namespace DevicesSyncUnity
         /// <summary>
         /// Device client removes the disconnected device from <see cref="DevicesInfo"/>.
         /// </summary>
-        /// <param name="netMessage">The received networking message.</param>
-        protected override void OnClientDeviceDisconnectedReceived(DeviceDisconnectedMessage deviceDisconnectedMessage)
+        /// <param name="deviceId">The id of the disconnected device.</param>
+        protected override void OnClientDeviceDisconnected(int deviceId)
         {
-            DevicesInfo.Remove(deviceDisconnectedMessage.SenderConnectionId);
+            DevicesInfo.Remove(deviceId);
         }
     }
 }

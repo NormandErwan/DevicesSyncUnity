@@ -56,6 +56,11 @@ namespace DevicesSyncUnity
         public SyncMode SyncMode { get { return syncMode; } set { syncMode = value; } }
 
         /// <summary>
+        /// Gets the list of ids of currently connected devices to the server.
+        /// </summary>
+        public List<int> ConnectedDeviceIds { get; protected set; }
+
+        /// <summary>
         /// Gets the default channel to use for sending messages.
         /// </summary>
         protected virtual int DefaultChannelId { get { return defaultChannelId; } set { defaultChannelId = value; } }
@@ -65,18 +70,21 @@ namespace DevicesSyncUnity
         /// </summary>
         protected List<short> MessageTypes { get; set; }
 
-        // TODO: connected devices
-
         // Events
 
         /// <summary>
-        /// Called in client side when another device has been disconnected from the server.
+        /// Called when a device has connected to the server.
         /// </summary>
-        public static event Action<DeviceDisconnectedMessage> DeviceDisconnected = delegate { };
+        public static event Action<int> DeviceConnected = delegate { };
+
+        /// <summary>
+        /// Called when a device has been disconnected from the server.
+        /// </summary>
+        public static event Action<int> DeviceDisconnected = delegate { };
 
         // Variables
 
-        private static Action<DeviceDisconnectedMessage> onClientDeviceDisconnectedReceivedList = delegate { };
+        private static Action<int> onClientDeviceDisconnected = delegate { };
         private DeviceDisconnectedMessage deviceDisconnectedMessage = new DeviceDisconnectedMessage();
         private int defaultChannelId = Channels.DefaultUnreliable;
 
@@ -87,13 +95,14 @@ namespace DevicesSyncUnity
         /// </summary>
         protected virtual void Awake()
         {
+            ConnectedDeviceIds = new List<int>();
             MessageTypes = new List<short>();
-            onClientDeviceDisconnectedReceivedList += OnClientDeviceDisconnectedReceived;
+            onClientDeviceDisconnected += OnClientDeviceDisconnected;
         }
 
         protected virtual void OnDestroy()
         {
-            onClientDeviceDisconnectedReceivedList -= OnClientDeviceDisconnectedReceived;
+            onClientDeviceDisconnected -= OnClientDeviceDisconnected;
         }
 
         /// <summary>
@@ -142,7 +151,34 @@ namespace DevicesSyncUnity
         protected virtual void ServerMessageReceived(NetworkMessage netMessage)
         {
             var message = OnServerMessageReceived(netMessage);
-            SendToAllClients(message);
+            if (message != null)
+            {
+                if (!ConnectedDeviceIds.Contains(message.SenderConnectionId))
+                {
+                    if (LogFilter.logInfo)
+                    {
+                        UnityEngine.Debug.Log("Server: device client " + message.SenderConnectionId + " has connected");
+                    }
+
+                    ConnectedDeviceIds.Add(message.SenderConnectionId);
+                    ConnectedDeviceIds.Sort();
+
+                    if (isClient)
+                    {
+                        OnClientDeviceConnected(message.SenderConnectionId);
+                    }
+                    DeviceConnected.Invoke(message.SenderConnectionId);
+                }
+                SendToAllClients(message);
+            }
+            else
+            {
+                if (LogFilter.logWarn)
+                {
+                    UnityEngine.Debug.Log("OnServerMessageReceived has returned null instead of returning a "
+                    + "DevicesSyncMessage read from the received NetworkMessage");
+                }
+            }
         }
 
         /// <summary>
@@ -158,10 +194,19 @@ namespace DevicesSyncUnity
         /// <param name="netMessage">The disconnection message from the disconnected device client.</param>
         protected void ServerClientDisconnected(NetworkMessage netMessage)
         {
-            deviceDisconnectedMessage.SenderConnectionId = netMessage.conn.connectionId;
-            // TODO: only if a connected device, send to client
-            DeviceDisconnected.Invoke(deviceDisconnectedMessage);
-            SendToAllClients(deviceDisconnectedMessage, Channels.DefaultReliable);
+            var connectionId = netMessage.conn.connectionId;
+            if (ConnectedDeviceIds.Contains(connectionId))
+            {
+                if (LogFilter.logInfo)
+                {
+                    UnityEngine.Debug.Log("Server: device client " + connectionId + " has disconnected");
+                }
+                ConnectedDeviceIds.Remove(connectionId);
+
+                deviceDisconnectedMessage.SenderConnectionId = connectionId;
+                DeviceDisconnected.Invoke(deviceDisconnectedMessage.SenderConnectionId);
+                SendToAllClients(deviceDisconnectedMessage, Channels.DefaultReliable);
+            }
         }
 
         /// <summary>
@@ -173,6 +218,19 @@ namespace DevicesSyncUnity
             var message = OnClientMessageReceived(netMessage);
             if (message != null)
             {
+                if (!ConnectedDeviceIds.Contains(message.SenderConnectionId))
+                {
+                    if (LogFilter.logInfo)
+                    {
+                        UnityEngine.Debug.Log("Client: device client " + message.SenderConnectionId + " has connected");
+                    }
+
+                    ConnectedDeviceIds.Add(message.SenderConnectionId);
+                    ConnectedDeviceIds.Sort();
+                    OnClientDeviceConnected(message.SenderConnectionId);
+                    DeviceConnected.Invoke(message.SenderConnectionId);
+                }
+
                 if (LogFilter.logInfo)
                 {
                     UnityEngine.Debug.Log("Client: received message from device client " + message.SenderConnectionId
@@ -197,6 +255,18 @@ namespace DevicesSyncUnity
         protected abstract DevicesSyncMessage OnClientMessageReceived(NetworkMessage netMessage);
 
         /// <summary>
+        /// Device client process the connection of another device.
+        /// </summary>
+        /// <param name="deviceId">The id of the new connected device.</param>
+        protected virtual void OnClientDeviceConnected(int deviceId)
+        {
+            if (!ConnectedDeviceIds.Contains(deviceId))
+            {
+                ConnectedDeviceIds.Add(deviceId);
+            }
+        }
+
+        /// <summary>
         /// Device client receives message from server that another device has disconnected.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
@@ -205,18 +275,24 @@ namespace DevicesSyncUnity
             var message = netMessage.ReadMessage<DeviceDisconnectedMessage>();
             if (LogFilter.logInfo)
             {
-                UnityEngine.Debug.Log("Client: device client " + message.SenderConnectionId + " disconnected");
+                UnityEngine.Debug.Log("Client: device client " + message.SenderConnectionId + " has disconnected");
             }
 
-            onClientDeviceDisconnectedReceivedList.Invoke(message);
-            DeviceDisconnected.Invoke(message);
+            onClientDeviceDisconnected.Invoke(message.SenderConnectionId);
+            DeviceDisconnected.Invoke(message.SenderConnectionId);
         }
 
         /// <summary>
         /// Device client process the disconnection of another device.
         /// </summary>
-        /// <param name="deviceInfoMessage">The received networking message.</param>
-        protected abstract void OnClientDeviceDisconnectedReceived(DeviceDisconnectedMessage deviceInfoMessage);
+        /// <param name="deviceId">The id of the disconnected device.</param>
+        protected virtual void OnClientDeviceDisconnected(int deviceId)
+        {
+            if (ConnectedDeviceIds.Contains(deviceId))
+            {
+                ConnectedDeviceIds.Remove(deviceId);
+            }
+        }
 
         /// <summary>
         /// Device client sends a message to server.
