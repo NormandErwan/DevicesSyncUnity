@@ -71,5 +71,13 @@ namespace DevicesSyncUnity.Messages
             touch.radiusVariance = touchMessage.radiusVariance;
             return touch;
         }
+
+        internal void Restore(DeviceInfoMessage deviceInfo)
+        {
+            Vector2 scaleVector = new Vector2(Screen.width / (float)deviceInfo.screenWidth, Screen.height / (float)deviceInfo.screenHeight);
+            position = Vector2.Scale(scaleVector, position);
+            rawPosition = Vector2.Scale(scaleVector, position);
+            deltaPosition = Vector2.Scale(scaleVector, position);
+        }
     }
 }

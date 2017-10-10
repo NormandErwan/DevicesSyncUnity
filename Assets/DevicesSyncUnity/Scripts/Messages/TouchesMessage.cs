@@ -58,5 +58,13 @@ namespace DevicesSyncUnity.Messages
             touches = null;
             touchesQueue.Clear();
         }
+
+        public void Restore(DeviceInfoMessage deviceInfo)
+        {
+            foreach (var touch in touches)
+            {
+                touch.Restore(deviceInfo);
+            }
+        }
     }
 }

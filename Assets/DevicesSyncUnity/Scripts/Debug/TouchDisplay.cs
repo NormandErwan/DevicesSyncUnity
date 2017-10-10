@@ -57,7 +57,7 @@ namespace DevicesSyncUnity.Debug
 
         // Methods
 
-        public void UpdateDisplay(DeviceInfoMessage deviceInfo, TouchesMessage touchesMessage, int touchIndex)
+        public void UpdateDisplay(TouchesMessage touchesMessage, int touchIndex)
         {
             var touch = touchesMessage.touches[touchIndex];
             GameObject.name = "Touch " + touch.fingerId;
@@ -70,7 +70,7 @@ namespace DevicesSyncUnity.Debug
             }
 
             Vector2 touchPosition = Vector2.Scale(touch.position, canvasRect.rect.size);
-            touchPosition = new Vector2(touchPosition.x / deviceInfo.cameraPixelWidth, touchPosition.y / deviceInfo.cameraPixelHeight);
+            touchPosition = new Vector2(touchPosition.x / Screen.width, touchPosition.y / Screen.height);
 
             // Display the touch
             rect.anchorMin = rect.anchorMax = rect.pivot = Vector2.zero;
@@ -84,6 +84,7 @@ namespace DevicesSyncUnity.Debug
             infoText.text += "Phase: " + touch.phase + "\n";
             infoText.text += "Tap Count: " + touch.tapCount + "\t";
             infoText.text += "Type: " + touch.type + "\n";
+            infoText.text += "Position: " + touch.position + "\n";
         }
     }
 }

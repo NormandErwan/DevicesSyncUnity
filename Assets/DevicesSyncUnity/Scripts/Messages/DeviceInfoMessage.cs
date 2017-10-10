@@ -42,27 +42,27 @@ namespace DevicesSyncUnity.Messages
         public bool touchPressureSupported;
 
         /// <summary>
-        /// Copy of main camera's <see cref="Camera.pixelHeight"/>.
+        /// Copy of main camera's <see cref="Screen.height"/>.
         /// </summary>
-        public int cameraPixelHeight;
+        public int screenHeight;
 
         /// <summary>
-        /// Copy of main camera's <see cref="Camera.pixelWidth"/>.
+        /// Copy of main camera's <see cref="Screen.width"/>.
         /// </summary>
-        public int cameraPixelWidth;
+        public int screenWidth;
 
         // Methods
 
         /// <summary>
-        /// Updates the public variables with device <see cref="Input"/> and <see cref="Camera.main"/> information.
+        /// Updates the public variables with device <see cref="Input"/> and <see cref="Screen"/> information.
         /// </summary>
         public void UpdateInfo()
         {
             multiTouchEnabled = Input.multiTouchEnabled;
             stylusTouchSupported = Input.stylusTouchSupported;
             touchPressureSupported = Input.touchPressureSupported;
-            cameraPixelHeight = Camera.main.pixelHeight;
-            cameraPixelWidth = Camera.main.pixelWidth;
+            screenHeight = Screen.height;
+            screenWidth = Screen.width;
         }
     }
 }
