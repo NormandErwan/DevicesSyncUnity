@@ -3,6 +3,7 @@ using DevicesSyncUnity.Messages;
 using DevicesSyncUnity.Utilities;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace DevicesSyncUnity.Examples
@@ -13,7 +14,18 @@ namespace DevicesSyncUnity.Examples
     /// </summary>
     public class LeanTouchSync : DevicesSyncInterval
     {
+        // Editor fields
+
+        [SerializeField]
+        [Tooltip("The devices' static information to use.")]
+        private DevicesInfoSync deviceInfoSync;
+
         // Properties
+
+        /// <summary>
+        /// Gets or sets the devices' static information to use.
+        /// </summary>
+        public DevicesInfoSync DeviceInfoSync { get { return deviceInfoSync; } set { deviceInfoSync = value; } }
 
         /// <summary>
         /// Gets LeanTouch static information from currently connected devices.
@@ -70,6 +82,7 @@ namespace DevicesSyncUnity.Examples
         // Variables
 
         protected bool initialAutoStartSending;
+        protected bool devicesInfoOrLeanTouchInfoReceived = false;
         protected LeanTouchInfoMessage leanTouchInfoMessage = new LeanTouchInfoMessage();
         protected LeanTouchMessage leanTouchMessage = new LeanTouchMessage();
         protected bool lastLeanTouchMessageEmpty = false;
@@ -113,6 +126,11 @@ namespace DevicesSyncUnity.Examples
 
             leanTouchInfoMessage.Update();
             SendToServer(leanTouchInfoMessage, Channels.DefaultReliable);
+
+            if (SyncMode != SyncMode.ReceiverOnly && initialAutoStartSending && isClient)
+            {
+                DeviceInfoSync.DeviceInfoReceived += DeviceInfoSync_DeviceInfoReceived;
+            }
         }
 
         /// <summary>
@@ -194,10 +212,11 @@ namespace DevicesSyncUnity.Examples
                 LeanTouchesInfo[leanTouchInfoMessage.SenderConnectionId] = leanTouchInfoMessage;
                 LeanTouchInfoReceived.Invoke(leanTouchInfoMessage);
                 
-                if (SyncMode != SyncMode.ReceiverOnly && isClient && initialAutoStartSending && !SendingIsStarted)
+                if (SyncMode != SyncMode.ReceiverOnly && isClient && initialAutoStartSending && !SendingIsStarted && devicesInfoOrLeanTouchInfoReceived)
                 {
                     StartSending();
                 }
+                devicesInfoOrLeanTouchInfoReceived = true;
 
                 return leanTouchInfoMessage;
             }
@@ -224,9 +243,10 @@ namespace DevicesSyncUnity.Examples
         protected virtual LeanTouchMessage ProcessLeanTouchMessage(NetworkMessage netMessage)
         {
             var leanTouchMessage = netMessage.ReadMessage<LeanTouchMessage>();
-            leanTouchMessage.Restore(LeanTouchesInfo[leanTouchMessage.SenderConnectionId]);
+            int senderDeviceId = leanTouchMessage.SenderConnectionId;
+            leanTouchMessage.Restore(DeviceInfoSync.DevicesInfo[senderDeviceId], LeanTouchesInfo[senderDeviceId]);
 
-            LeanTouches[leanTouchMessage.SenderConnectionId] = leanTouchMessage;
+            LeanTouches[senderDeviceId] = leanTouchMessage;
             LeanTouchReceived.Invoke(leanTouchMessage);
 
             if (leanTouchMessage.Fingers.Length > 0)
@@ -244,13 +264,23 @@ namespace DevicesSyncUnity.Examples
                 {
                     foreach (var finger in fingerEvent.Item1)
                     {
-                        fingerEvent.Item2.Invoke(leanTouchMessage.SenderConnectionId, finger);
+                        fingerEvent.Item2.Invoke(senderDeviceId, finger);
                     }
                 }
-                OnGesture.Invoke(leanTouchMessage.SenderConnectionId, new List<LeanFingerInfo>(leanTouchMessage.Gestures));
+                OnGesture.Invoke(senderDeviceId, new List<LeanFingerInfo>(leanTouchMessage.Gestures));
             }
 
             return leanTouchMessage;
+        }
+
+        protected virtual void DeviceInfoSync_DeviceInfoReceived(DeviceInfoMessage message)
+        {
+            if (devicesInfoOrLeanTouchInfoReceived)
+            {
+                StartSending();
+            }
+            devicesInfoOrLeanTouchInfoReceived = true;
+            DeviceInfoSync.DeviceInfoReceived -= DeviceInfoSync_DeviceInfoReceived;
         }
     }
 }

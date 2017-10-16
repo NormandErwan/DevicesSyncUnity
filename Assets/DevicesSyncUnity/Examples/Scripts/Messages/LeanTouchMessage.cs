@@ -177,11 +177,11 @@ namespace DevicesSyncUnity.Examples.Messages
         /// Restores all transmited <see cref="Fingers"/>.
         /// </summary>
         /// <param name="leanTouchInfo">The associated <see cref="LeanTouch"/>'s static information.</param>
-        public void Restore(LeanTouchInfoMessage leanTouchInfo)
+        public void Restore(DeviceInfoMessage deviceInfoMessage, LeanTouchInfoMessage leanTouchInfo)
         {
             foreach (var finger in Fingers)
             {
-                finger.Restore(leanTouchInfo);
+                finger.Restore(deviceInfoMessage, leanTouchInfo);
             }
         }
 
@@ -189,6 +189,46 @@ namespace DevicesSyncUnity.Examples.Messages
         {
             var fingers = Fingers.Select(finger => finger.Index.ToString()).ToArray();
             return "LeanTouchMessage (Fingers: [" + string.Join(", ", fingers) + "])";
+        }
+
+        /// <summary>
+        /// <see cref="LeanTouch.GetFingers(bool, int, LeanSelectable)"/> adapted for DevicesSyncUnity.
+        /// </summary>
+        // TODO: replace LeanSelectable
+        public List<LeanFingerInfo> GetFingers(bool ignoreGuiFingers, int requiredFingerCount = 0, LeanSelectable requiredSelectable = null)
+        {
+            List<LeanFingerInfo> filteredFingers = new List<LeanFingerInfo>();
+
+            if (requiredSelectable != null && requiredSelectable.SelectingFinger != null)
+            {
+                filteredFingers.Add(requiredSelectable.SelectingFinger);
+                return filteredFingers;
+            }
+
+            foreach (var finger in Fingers)
+            {
+                if (ignoreGuiFingers == true)
+                {
+                    if (finger.StartedOverGui == false)
+                    {
+                        filteredFingers.Add(finger);
+                    }
+                }
+                else
+                {
+                    filteredFingers.Add(finger);
+                }
+            }
+
+            if (requiredFingerCount > 0)
+            {
+                if (filteredFingers.Count != requiredFingerCount)
+                {
+                    return null;
+                }
+            }
+
+            return filteredFingers;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Lean.Touch;
+﻿using DevicesSyncUnity.Messages;
+using Lean.Touch;
 using UnityEngine;
 
 namespace DevicesSyncUnity.Examples.Messages
@@ -36,20 +37,20 @@ namespace DevicesSyncUnity.Examples.Messages
         public Vector2 SwipeScaledDelta;
 
         private LeanFinger leanFinger;
+        private DeviceInfoMessage devicesInfo;
         private LeanTouchInfoMessage leanTouchInfo;
 
         // Methods
 
-        // TODO: replace LeanTouch.GetCamera
-        /*public Ray GetRay(Camera camera = null)
+        public Ray GetRay(Camera camera = null)
         {
-            return leanFinger.GetRay(camera);
+            return leanFinger.GetStartRay(camera);
         }
 
         public Ray GetStartRay(Camera camera = null)
         {
             return leanFinger.GetStartRay(camera);
-        }*/
+        }
 
         // TODO: replace LeanSnapshot.TryGetScreenPosition
         /*public Vector2 GetSnapshotScreenDelta(float deltaTime)
@@ -132,8 +133,7 @@ namespace DevicesSyncUnity.Examples.Messages
             return GetLastScreenDistance(point) * leanTouchInfo.ScalingFactor;
         }
 
-        // TODO: replace LeanTouch.GetCamera
-        /*public Vector3 GetStartWorldPosition(float distance, Camera camera = null)
+        public Vector3 GetStartWorldPosition(float distance, Camera camera = null)
         {
             return leanFinger.GetStartWorldPosition(distance, camera);
         }
@@ -156,7 +156,7 @@ namespace DevicesSyncUnity.Examples.Messages
         public Vector3 GetWorldDelta(float lastDistance, float distance, Camera camera = null)
         {
             return leanFinger.GetWorldDelta(lastDistance, distance, camera);
-        }*/
+        }
 
         // TODO
         /*public void ClearSnapshots(int count = -1)
@@ -202,8 +202,16 @@ namespace DevicesSyncUnity.Examples.Messages
             };
         }
 
-        internal void Restore(LeanTouchInfoMessage leanTouchInfo)
+        internal void Restore(DeviceInfoMessage deviceInfo, LeanTouchInfoMessage leanTouchInfo)
         {
+            Vector2 scaleVector = new Vector2(Screen.width / (float)deviceInfo.screenWidth, Screen.height / (float)deviceInfo.screenHeight);
+            StartScreenPosition = Vector2.Scale(scaleVector, StartScreenPosition);
+            LastScreenPosition = Vector2.Scale(scaleVector, LastScreenPosition);
+            ScreenPosition = Vector2.Scale(scaleVector, ScreenPosition);
+            LastSnapshotScreenDelta = Vector2.Scale(scaleVector, LastSnapshotScreenDelta);
+            ScreenDelta = Vector2.Scale(scaleVector, ScreenDelta);
+            SwipeScreenDelta = Vector2.Scale(scaleVector, SwipeScreenDelta);
+
             leanFinger = new LeanFinger()
             {
                 Index = this.Index,
