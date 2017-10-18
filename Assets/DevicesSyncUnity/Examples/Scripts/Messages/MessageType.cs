@@ -25,9 +25,14 @@ namespace DevicesSyncUnity.Examples.Messages
         public static short LeanTouch { get { return (short)(Smallest + 1); } }
 
         /// <summary>
+        /// Networking message for communicating <see cref="StateMessage"/>
+        /// </summary>
+        public static short State { get { return (short)(Smallest + 2); } }
+
+        /// <summary>
         /// See <see cref="DevicesSyncUnity.Messages.MessageType.Highest"/>.
         /// </summary>
-        public static new short Highest { get { return LeanTouch; } }
+        public static new short Highest { get { return State; } }
 
         // Variables
 
@@ -43,6 +48,14 @@ namespace DevicesSyncUnity.Examples.Messages
             if (value == LeanTouch)
             {
                 return "LeanTouch";
+            }
+            else if (value == LeanTouchInfo)
+            {
+                return "LeanTouchInfo";
+            }
+            else if (value == State)
+            {
+                return "State";
             }
             else
             {
