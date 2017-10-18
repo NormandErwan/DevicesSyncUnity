@@ -6,7 +6,7 @@ namespace DevicesSyncUnity.Examples.LeanTouchExamples
     /// <summary>
     /// <see cref="Lean.Touch.LeanCameraMoveSmooth"/> ported to DevicesSyncUnity.
     /// </summary>
-    public class LeanCameraMoveSmooth : LeanCameraMove
+    public class LeanCameraMoveSmoothSync : LeanCameraMoveSync
     {
         [Tooltip("How quickly the zoom reaches the target value")]
         public float Dampening = 10.0f;

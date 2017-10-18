@@ -7,7 +7,7 @@ namespace DevicesSyncUnity.Examples.LeanTouchExamples
     /// <see cref="Lean.Touch.LeanCameraZoom"/> ported to DevicesSyncUnity.
     /// </summary>
     [ExecuteInEditMode]
-    public class LeanCameraZoom : LeanTouchSyncSubscriber
+    public class LeanCameraZoomSync : LeanTouchSyncSubscriber
     {
         [Tooltip("The camera that will be zoomed")]
         public Camera Camera;
@@ -47,7 +47,7 @@ namespace DevicesSyncUnity.Examples.LeanTouchExamples
         protected virtual void LeanTouchSync_LeanTouchReceived(LeanTouchMessage leanTouch)
         {
             var fingers = leanTouch.GetFingers(IgnoreGuiFingers, RequiredFingerCount);
-            var pinchRatio = LeanGesture.GetPinchRatio(fingers, WheelSensitivity);
+            var pinchRatio = LeanGestureSync.GetPinchRatio(fingers, WheelSensitivity);
             Zoom *= pinchRatio;
             if (ZoomClamp == true)
             {

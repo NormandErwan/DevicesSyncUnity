@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -267,12 +267,12 @@ Prefab:
     - target: {fileID: 224412940583875836, guid: 3191926bab0cd2c4c8d978cd213a1a27,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 453.5
+      value: 635.5
       objectReference: {fileID: 0}
     - target: {fileID: 224412940583875836, guid: 3191926bab0cd2c4c8d978cd213a1a27,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 216
+      value: 364.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3191926bab0cd2c4c8d978cd213a1a27, type: 2}
@@ -406,7 +406,6 @@ GameObject:
   m_Component:
   - component: {fileID: 747369878}
   - component: {fileID: 747369877}
-  - component: {fileID: 747369876}
   - component: {fileID: 747369875}
   - component: {fileID: 747369874}
   - component: {fileID: 747369880}
@@ -426,13 +425,6 @@ AudioListener:
   m_GameObject: {fileID: 747369873}
   m_Enabled: 1
 --- !u!124 &747369875
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 747369873}
-  m_Enabled: 1
---- !u!92 &747369876
 Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -810,7 +802,7 @@ Prefab:
       objectReference: {fileID: 1352797723}
     - target: {fileID: 1439899623964042, guid: 79ffb0cb981d6524b81d2d8d353e34f2, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79ffb0cb981d6524b81d2d8d353e34f2, type: 2}
@@ -872,7 +864,7 @@ Prefab:
       objectReference: {fileID: 528649006}
     - target: {fileID: 1221272105469696, guid: 908ea74875919ba48b8521b198aa4a18, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 908ea74875919ba48b8521b198aa4a18, type: 2}
@@ -1139,17 +1131,17 @@ Prefab:
     - target: {fileID: 224212894610886376, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 453.5
+      value: 635.5
       objectReference: {fileID: 0}
     - target: {fileID: 224212894610886376, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 216
+      value: 364.5
       objectReference: {fileID: 0}
     - target: {fileID: 224825293941490126, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.000030517578
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224558607042708082, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}
@@ -1179,7 +1171,7 @@ Prefab:
     - target: {fileID: 224081744518033128, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 71.16443
+      value: 44.4422
       objectReference: {fileID: 0}
     - target: {fileID: 224081744518033128, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}
@@ -1189,7 +1181,7 @@ Prefab:
     - target: {fileID: 224129517076037502, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 171.16443
+      value: 144.4422
       objectReference: {fileID: 0}
     - target: {fileID: 224129517076037502, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}
@@ -1199,7 +1191,7 @@ Prefab:
     - target: {fileID: 224185719184640916, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 253.66443
+      value: 226.9422
       objectReference: {fileID: 0}
     - target: {fileID: 224185719184640916, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}

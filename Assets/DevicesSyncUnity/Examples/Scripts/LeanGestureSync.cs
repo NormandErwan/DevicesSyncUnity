@@ -4,7 +4,7 @@ using DevicesSyncUnity.Examples.Messages;
 
 namespace DevicesSyncUnity.Examples
 {
-    public static class LeanGesture
+    public static class LeanGestureSync
     {
         // Gets the average ScreenPosition of the fingers
         public static Vector2 GetScreenCenter(LeanTouchSync leanTouchSync, int deviceId)
@@ -474,8 +474,8 @@ namespace DevicesSyncUnity.Examples
 
         public static float GetTwistRadians(List<LeanFingerInfo> fingers)
         {
-            var center = LeanGesture.GetScreenCenter(fingers);
-            var lastCenter = LeanGesture.GetLastScreenCenter(fingers);
+            var center = LeanGestureSync.GetScreenCenter(fingers);
+            var lastCenter = LeanGestureSync.GetLastScreenCenter(fingers);
 
             return GetTwistRadians(fingers, center, lastCenter);
         }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DevicesSyncUnity.Examples.LeanTouchExamples
 {
-    public class LeanCameraZoomSmooth : LeanCameraZoom
+    public class LeanCameraZoomSmoothSync : LeanCameraZoomSync
     {
         [Tooltip("How quickly the zoom reaches the target value")]
         public float Dampening = 10.0f;

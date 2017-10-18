@@ -6,7 +6,7 @@ namespace DevicesSyncUnity.Examples.LeanTouchExamples
     /// <summary>
     /// <see cref="Lean.Touch.LeanCameraMove"/> ported to DevicesSyncUnity.
     /// </summary>
-    public class LeanCameraMove : LeanTouchSyncSubscriber
+    public class LeanCameraMoveSync : LeanTouchSyncSubscriber
     {
         [Tooltip("The camera the movement will be done relative to")]
         public Camera Camera;
@@ -36,7 +36,7 @@ namespace DevicesSyncUnity.Examples.LeanTouchExamples
         protected virtual void LeanTouchSync_LeanTouchReceived(LeanTouchMessage leanTouch)
         {
             var fingers = leanTouch.GetFingers(IgnoreGuiFingers, RequiredFingerCount);
-            var worldDelta = LeanGesture.GetWorldDelta(fingers, Distance, Camera);
+            var worldDelta = LeanGestureSync.GetWorldDelta(fingers, Distance, Camera);
             transform.position -= worldDelta * Sensitivity;
         }
     }
