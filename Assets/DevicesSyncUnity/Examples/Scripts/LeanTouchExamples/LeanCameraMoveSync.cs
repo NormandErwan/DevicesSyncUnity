@@ -25,12 +25,18 @@ namespace DevicesSyncUnity.Examples.LeanTouchExamples
 
         protected virtual void OnEnable()
         {
-            LeanTouchSync.LeanTouchReceived += LeanTouchSync_LeanTouchReceived;
+            if (LeanTouchSync != null)
+            {
+                LeanTouchSync.LeanTouchReceived += LeanTouchSync_LeanTouchReceived;
+            }
         }
 
         protected virtual void OnDisable()
         {
-            LeanTouchSync.LeanTouchReceived -= LeanTouchSync_LeanTouchReceived;
+            if (LeanTouchSync != null)
+            {
+                LeanTouchSync.LeanTouchReceived -= LeanTouchSync_LeanTouchReceived;
+            }
         }
 
         protected virtual void LeanTouchSync_LeanTouchReceived(LeanTouchMessage leanTouch)

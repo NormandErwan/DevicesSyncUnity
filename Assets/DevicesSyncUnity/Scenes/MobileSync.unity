@@ -388,6 +388,10 @@ Prefab:
       propertyPath: deviceInfoSync
       value: 
       objectReference: {fileID: 528649006}
+    - target: {fileID: 1722333672929716, guid: 719bee7f119dfeb48b86ba9fc4096477, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 719bee7f119dfeb48b86ba9fc4096477, type: 2}
   m_IsPrefabParent: 0
@@ -1221,6 +1225,16 @@ Prefab:
     - target: {fileID: 224020633665835592, guid: 8166c9f2197c4b94c9627c753edaad1b,
         type: 2}
       propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224778085026160446, guid: 8166c9f2197c4b94c9627c753edaad1b,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 599.60925
+      objectReference: {fileID: 0}
+    - target: {fileID: 224778085026160446, guid: 8166c9f2197c4b94c9627c753edaad1b,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
