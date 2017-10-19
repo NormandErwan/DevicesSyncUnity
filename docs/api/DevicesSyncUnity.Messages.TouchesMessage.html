@@ -81,7 +81,7 @@
   
   <h1 id="DevicesSyncUnity_Messages_TouchesMessage" data-uid="DevicesSyncUnity.Messages.TouchesMessage" class="text-break">Class TouchesMessage
   </h1>
-  <div class="markdown level0 summary"><p>Message that contains device touches information from latest frame, and touches average information from
+  <div class="markdown level0 summary"><p>Message that contains device touches information from current frame, and touches average information from
 previous frames.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -100,27 +100,6 @@ previous frames.</p>
     <div>
       <span class="xref">UnityEngine.Networking.MessageBase.Serialize(UnityEngine.Networking.NetworkWriter)</span>
     </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetHashCode()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.GetType()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.MemberwiseClone()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ToString()</span>
-    </div>
-    <div>
-      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="DevicesSyncUnity.Messages.html">DevicesSyncUnity.Messages</a></h6>
   <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
@@ -132,10 +111,10 @@ previous frames.</p>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage_senderConnectionId.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage.senderConnectionId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage_senderConnectionId.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage.senderConnectionId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L24">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L30">View Source</a>
   </span>
   <h4 id="DevicesSyncUnity_Messages_TouchesMessage_senderConnectionId" data-uid="DevicesSyncUnity.Messages.TouchesMessage.senderConnectionId">senderConnectionId</h4>
   <div class="markdown level1 summary"><p>See <a class="xref" href="DevicesSyncUnity.Messages.DevicesSyncMessage.html#DevicesSyncUnity_Messages_DevicesSyncMessage_SenderConnectionId">SenderConnectionId</a>.</p>
@@ -162,10 +141,10 @@ previous frames.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage_touches.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage.touches%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage_touches.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage.touches%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L29">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L35">View Source</a>
   </span>
   <h4 id="DevicesSyncUnity_Messages_TouchesMessage_touches" data-uid="DevicesSyncUnity.Messages.TouchesMessage.touches">touches</h4>
   <div class="markdown level1 summary"><p>Copy of the latest <span class="xref">UnityEngine.Input.touches</span>.</p>
@@ -190,24 +169,25 @@ previous frames.</p>
       </tr>
     </tbody>
   </table>
+  <h3 id="properties">Properties
+  </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage_touchesAverage.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage.touchesAverage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage_MessageType.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage.MessageType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L36">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L23">View Source</a>
   </span>
-  <h4 id="DevicesSyncUnity_Messages_TouchesMessage_touchesAverage" data-uid="DevicesSyncUnity.Messages.TouchesMessage.touchesAverage">touchesAverage</h4>
-  <div class="markdown level1 summary"><p>Copy of the latest <span class="xref">UnityEngine.Input.touches</span> with some fields summed up over the previous frames
-(<span class="xref">UnityEngine.Touch.deltaPosition</span>, <span class="xref">UnityEngine.Touch.deltaTime</span>, <span class="xref">UnityEngine.Touch.tapCount</span>) and other
-averaged (<span class="xref">UnityEngine.Touch.pressure</span>, <span class="xref">UnityEngine.Touch.radius</span>, <span class="xref">UnityEngine.Touch.radiusVariance</span>).</p>
+  <a id="DevicesSyncUnity_Messages_TouchesMessage_MessageType_" data-uid="DevicesSyncUnity.Messages.TouchesMessage.MessageType*"></a>
+  <h4 id="DevicesSyncUnity_Messages_TouchesMessage_MessageType" data-uid="DevicesSyncUnity.Messages.TouchesMessage.MessageType">MessageType</h4>
+  <div class="markdown level1 summary"><p>See <a class="xref" href="DevicesSyncUnity.Messages.DevicesSyncMessage.html#DevicesSyncUnity_Messages_DevicesSyncMessage_MessageType">MessageType</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TouchInfo[] touchesAverage</code></pre>
+    <pre><code class="lang-csharp hljs">public override short MessageType { get; }</code></pre>
   </div>
-  <h5 class="fieldValue">Field Value</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -217,19 +197,19 @@ averaged (<span class="xref">UnityEngine.Touch.pressure</span>, <span class="xre
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="DevicesSyncUnity.Messages.TouchInfo.html">TouchInfo</a>[]</td>
+        <td><span class="xref">System.Int16</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  <h3 id="properties">Properties
-  </h3>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="DevicesSyncUnity.Messages.DevicesSyncMessage.html#DevicesSyncUnity_Messages_DevicesSyncMessage_MessageType">DevicesSyncMessage.MessageType</a></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage_SenderConnectionId.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage.SenderConnectionId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage_SenderConnectionId.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage.SenderConnectionId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L17">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L18">View Source</a>
   </span>
   <a id="DevicesSyncUnity_Messages_TouchesMessage_SenderConnectionId_" data-uid="DevicesSyncUnity.Messages.TouchesMessage.SenderConnectionId*"></a>
   <h4 id="DevicesSyncUnity_Messages_TouchesMessage_SenderConnectionId" data-uid="DevicesSyncUnity.Messages.TouchesMessage.SenderConnectionId">SenderConnectionId</h4>
@@ -261,19 +241,34 @@ averaged (<span class="xref">UnityEngine.Touch.pressure</span>, <span class="xre
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage_SetTouchesAverage_System_Collections_Generic_Stack_DevicesSyncUnity_Messages_TouchInfo____.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage.SetTouchesAverage(System.Collections.Generic.Stack%7BDevicesSyncUnity.Messages.TouchInfo%5B%5D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage_Reset.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage.Reset%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L56">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L56">View Source</a>
   </span>
-  <a id="DevicesSyncUnity_Messages_TouchesMessage_SetTouchesAverage_" data-uid="DevicesSyncUnity.Messages.TouchesMessage.SetTouchesAverage*"></a>
-  <h4 id="DevicesSyncUnity_Messages_TouchesMessage_SetTouchesAverage_System_Collections_Generic_Stack_DevicesSyncUnity_Messages_TouchInfo____" data-uid="DevicesSyncUnity.Messages.TouchesMessage.SetTouchesAverage(System.Collections.Generic.Stack{DevicesSyncUnity.Messages.TouchInfo[]})">SetTouchesAverage(Stack&lt;TouchInfo[]&gt;)</h4>
-  <div class="markdown level1 summary"><p>Sets <a class="xref" href="DevicesSyncUnity.Messages.TouchesMessage.html#DevicesSyncUnity_Messages_TouchesMessage_touchesAverage">touchesAverage</a> with <a class="xref" href="DevicesSyncUnity.Messages.TouchesMessage.html#DevicesSyncUnity_Messages_TouchesMessage_touches">touches</a> and touches from previous frames.</p>
+  <a id="DevicesSyncUnity_Messages_TouchesMessage_Reset_" data-uid="DevicesSyncUnity.Messages.TouchesMessage.Reset*"></a>
+  <h4 id="DevicesSyncUnity_Messages_TouchesMessage_Reset" data-uid="DevicesSyncUnity.Messages.TouchesMessage.Reset">Reset()</h4>
+  <div class="markdown level1 summary"><p>Reset the touches array.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void SetTouchesAverage(Stack&lt;TouchInfo[]&gt; previousTouchesStack)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Reset()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage_Restore_DevicesSyncUnity_Messages_DeviceInfoMessage_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage.Restore(DevicesSyncUnity.Messages.DeviceInfoMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L62">View Source</a>
+  </span>
+  <a id="DevicesSyncUnity_Messages_TouchesMessage_Restore_" data-uid="DevicesSyncUnity.Messages.TouchesMessage.Restore*"></a>
+  <h4 id="DevicesSyncUnity_Messages_TouchesMessage_Restore_DevicesSyncUnity_Messages_DeviceInfoMessage_" data-uid="DevicesSyncUnity.Messages.TouchesMessage.Restore(DevicesSyncUnity.Messages.DeviceInfoMessage)">Restore(DeviceInfoMessage)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Restore(DeviceInfoMessage deviceInfo)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -286,28 +281,27 @@ averaged (<span class="xref">UnityEngine.Touch.pressure</span>, <span class="xre
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.Stack</span>&lt;<a class="xref" href="DevicesSyncUnity.Messages.TouchInfo.html">TouchInfo</a>[]&gt;</td>
-        <td><span class="parametername">previousTouchesStack</span></td>
-        <td><p>Touches from previous frames.</p>
-</td>
+        <td><a class="xref" href="DevicesSyncUnity.Messages.DeviceInfoMessage.html">DeviceInfoMessage</a></td>
+        <td><span class="parametername">deviceInfo</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage_UpdateInfo.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage.UpdateInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage_Update.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage.Update%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L43">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L44">View Source</a>
   </span>
-  <a id="DevicesSyncUnity_Messages_TouchesMessage_UpdateInfo_" data-uid="DevicesSyncUnity.Messages.TouchesMessage.UpdateInfo*"></a>
-  <h4 id="DevicesSyncUnity_Messages_TouchesMessage_UpdateInfo" data-uid="DevicesSyncUnity.Messages.TouchesMessage.UpdateInfo">UpdateInfo()</h4>
+  <a id="DevicesSyncUnity_Messages_TouchesMessage_Update_" data-uid="DevicesSyncUnity.Messages.TouchesMessage.Update*"></a>
+  <h4 id="DevicesSyncUnity_Messages_TouchesMessage_Update" data-uid="DevicesSyncUnity.Messages.TouchesMessage.Update">Update()</h4>
   <div class="markdown level1 summary"><p>Copies the current <span class="xref">UnityEngine.Input.touches</span> to <a class="xref" href="DevicesSyncUnity.Messages.TouchesMessage.html#DevicesSyncUnity_Messages_TouchesMessage_touches">touches</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void UpdateInfo()</code></pre>
+    <pre><code class="lang-csharp hljs">public void Update()</code></pre>
   </div>
 </article>
           </div>
@@ -317,10 +311,10 @@ averaged (<span class="xref">UnityEngine.Touch.pressure</span>, <span class="xre
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/enormand/DeviceSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_Messages_TouchesMessage.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.Messages.TouchesMessage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/enormand/DeviceSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L10" class="contribution-link">View Source</a>
+                    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/Messages/TouchesMessage.cs/#L11" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

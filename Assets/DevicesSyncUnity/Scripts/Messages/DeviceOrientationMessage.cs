@@ -33,7 +33,7 @@ namespace DevicesSyncUnity.Messages
         public int senderConnectionId;
 
         /// <summary>
-        /// Values of <see cref="deviceOrientation"/> transmitted through network.
+        /// Values of <see cref="Input.deviceOrientation"/> transmitted through network.
         /// </summary>
         public int[] deviceOrientationValues;
 

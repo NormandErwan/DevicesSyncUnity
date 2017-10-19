@@ -1,6 +1,6 @@
 {
   "homepages": [],
-  "source_base_path": "D:/Etudes/ETS/Maitrise/Prototype/DevicesSyncUnity",
+  "source_base_path": "D:/Maitrise/Prototype/DevicesSyncUnity",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "GWgRxClkzB6LYVPe6/iUSA=="
+          "hash": "TmwLF/ChKY+ZQXSYhBgQaA=="
         }
       },
       "is_incremental": false,
@@ -38,11 +38,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/DevicesSyncUnity.AccelerationEventsSync.yml",
+      "source_relative_path": "obj/api/DevicesSyncUnity.AccelerationSync.yml",
       "output": {
         ".html": {
-          "relative_path": "api/DevicesSyncUnity.AccelerationEventsSync.html",
-          "hash": "i7JIP7+gOlLNMva9KLcwGA=="
+          "relative_path": "api/DevicesSyncUnity.AccelerationSync.html",
+          "hash": "A2OeGOZHDD5S7uIqO948gA=="
         }
       },
       "is_incremental": false,
@@ -50,11 +50,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/DevicesSyncUnity.Debug.MobileSyncDisplay.yml",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Debug.MobilesSyncDisplay.yml",
       "output": {
         ".html": {
-          "relative_path": "api/DevicesSyncUnity.Debug.MobileSyncDisplay.html",
-          "hash": "mG6bjgcyBfmqvJezA3wN1Q=="
+          "relative_path": "api/DevicesSyncUnity.Debug.MobilesSyncDisplay.html",
+          "hash": "IP8N0fFYg89ENvIJSZ9qFQ=="
         }
       },
       "is_incremental": false,
@@ -66,7 +66,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Debug.NetworkManagerHUD.ConnectionInfo.html",
-          "hash": "93d1LqjZ/jumC8lEETxxCw=="
+          "hash": "E5AFCJTFbnnJO/wZykyIIw=="
         }
       },
       "is_incremental": false,
@@ -78,7 +78,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Debug.NetworkManagerHUD.PanelList.html",
-          "hash": "+df2ZX+28YElxjxMADA46Q=="
+          "hash": "rt/dOaWzGOnuV31JuLpjcg=="
         }
       },
       "is_incremental": false,
@@ -90,7 +90,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Debug.NetworkManagerHUD.html",
-          "hash": "gNDf+ebiogeSvqGvsoW5PQ=="
+          "hash": "jw3ZuzfmT9WqY/9DmcLbEg=="
         }
       },
       "is_incremental": false,
@@ -102,7 +102,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Debug.TouchDisplay.html",
-          "hash": "r9QEwmpJ1Rjhr/dTMcuGZQ=="
+          "hash": "KcVrEgQop1tSAlGRTD4bNQ=="
         }
       },
       "is_incremental": false,
@@ -114,7 +114,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Debug.html",
-          "hash": "fuMEGfotkCQx7QzD0X46tg=="
+          "hash": "pJ1ey74yuwJXvxMD6OoM9Q=="
         }
       },
       "is_incremental": false,
@@ -126,7 +126,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.DevicesInfoSync.html",
-          "hash": "L8+SwUS4gbVvJXFNu67Gfg=="
+          "hash": "UWu2539/AVcbyTADHtVv+A=="
         }
       },
       "is_incremental": false,
@@ -138,7 +138,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.DevicesSync.html",
-          "hash": "KBYTpeUTX+NZo9uMW7CevQ=="
+          "hash": "EN6mMHYsMpac3E19I3gUNA=="
         }
       },
       "is_incremental": false,
@@ -150,7 +150,271 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.DevicesSyncInterval.html",
-          "hash": "sAi2yKifuJNLhXZYSRQhJA=="
+          "hash": "Oy9Qbe7NFaYf8pibCpF7eQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.Debug.StateSyncDisplay.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.Debug.StateSyncDisplay.html",
+          "hash": "Gn4PGpXBbTFW4GUHiPOyvw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.Debug.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.Debug.html",
+          "hash": "EOUKyPvimbOmqnoiVCpKmQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.LeanGestureSync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.LeanGestureSync.html",
+          "hash": "SWNaMUB4/GGW4WLVxd5EEg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.LeanTouchExamples.LeanCameraMoveSmoothSync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.LeanTouchExamples.LeanCameraMoveSmoothSync.html",
+          "hash": "gtAfZwFvRtlCf6jjMr2NNQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.LeanTouchExamples.LeanCameraMoveSync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.LeanTouchExamples.LeanCameraMoveSync.html",
+          "hash": "+x+kxKu/m/diw8ROoCNO0w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.LeanTouchExamples.LeanCameraZoomSmoothSync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.LeanTouchExamples.LeanCameraZoomSmoothSync.html",
+          "hash": "/hq7+BYOF9ONNuaEJinu9Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.LeanTouchExamples.LeanCameraZoomSync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.LeanTouchExamples.LeanCameraZoomSync.html",
+          "hash": "8k8WC0H6f5tMsNtSCkuh3A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.LeanTouchExamples.LeanTouchSyncSubscriber.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.LeanTouchExamples.LeanTouchSyncSubscriber.html",
+          "hash": "SzIBCW5b3iI6vnYGOmIgkw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.LeanTouchExamples.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.LeanTouchExamples.html",
+          "hash": "8zwVq6BX1S0+kJq4rk8KSw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.LeanTouchSync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.LeanTouchSync.html",
+          "hash": "/wVaKP5khMxDuSDlLJZ+Ew=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.Messages.LeanFingerInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.Messages.LeanFingerInfo.html",
+          "hash": "SQz2wktAtKOI+94v0H7BbA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.Messages.LeanTouchInfoMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.Messages.LeanTouchInfoMessage.html",
+          "hash": "53xJWy5K0gS8Rk3InkOY1Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.Messages.LeanTouchMessage.LeanTouchEventCapture-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.Messages.LeanTouchMessage.LeanTouchEventCapture-1.html",
+          "hash": "QzolAJnfGbvoqO2vO/O8pA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.Messages.LeanTouchMessage.LeanTouchFingerEventCapture.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.Messages.LeanTouchMessage.LeanTouchFingerEventCapture.html",
+          "hash": "wHVYQPIwAf4vGyMATgHlrQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.Messages.LeanTouchMessage.LeanTouchGestureEventCapture.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.Messages.LeanTouchMessage.LeanTouchGestureEventCapture.html",
+          "hash": "wtrMLgE4yviN31mhaR7FJA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.Messages.LeanTouchMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.Messages.LeanTouchMessage.html",
+          "hash": "Gbf9ihzl169+8w75svS+dQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.Messages.MessageType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.Messages.MessageType.html",
+          "hash": "humxmPsUjR2ob+YACFuaew=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.Messages.State.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.Messages.State.html",
+          "hash": "cSWTDA1Rp9WX0VNQCs+YFA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.Messages.StateMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.Messages.StateMessage.html",
+          "hash": "6YK0k+3WT3HAl1OA9KJ1EA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.Messages.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.Messages.html",
+          "hash": "Mz1w+fGXWEPJSCFTMyZ3Lg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.StateSync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.StateSync.html",
+          "hash": "j5rR86ao8lI5IcNRRcfp3Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Examples.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Examples.html",
+          "hash": "Q3/HQX0GwVQS+4F1TlRigg=="
         }
       },
       "is_incremental": false,
@@ -162,7 +426,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Messages.AccelerationEventInfo.html",
-          "hash": "RtU6XmV7MQOD55hbOFMPAw=="
+          "hash": "dmZZ+OO9G6lIs4lxfEYkWA=="
         }
       },
       "is_incremental": false,
@@ -170,11 +434,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.AccelerationEventsMessage.yml",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.AccelerationMessage.yml",
       "output": {
         ".html": {
-          "relative_path": "api/DevicesSyncUnity.Messages.AccelerationEventsMessage.html",
-          "hash": "TlhdKoUMuIps7Mc7JT/lYw=="
+          "relative_path": "api/DevicesSyncUnity.Messages.AccelerationMessage.html",
+          "hash": "nuLsqrE4p47GN3I08f/16Q=="
         }
       },
       "is_incremental": false,
@@ -182,11 +446,47 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.DevicesInfoMessage.yml",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.DeviceConnectedMessage.yml",
       "output": {
         ".html": {
-          "relative_path": "api/DevicesSyncUnity.Messages.DevicesInfoMessage.html",
-          "hash": "Sllz+wgS2VFZ76/A7cjuOg=="
+          "relative_path": "api/DevicesSyncUnity.Messages.DeviceConnectedMessage.html",
+          "hash": "W+WwjyOA4PQn1jcMEeYlng=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.DeviceDisconnectedMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Messages.DeviceDisconnectedMessage.html",
+          "hash": "GNDWo3dqqeyb67tM7M6b/w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.DeviceInfoMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Messages.DeviceInfoMessage.html",
+          "hash": "Y7iEuIlSfuKV8y05SjGiyA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Messages.DeviceOrientationMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Messages.DeviceOrientationMessage.html",
+          "hash": "h+qJcFNls1mMUvjEK3Utww=="
         }
       },
       "is_incremental": false,
@@ -198,7 +498,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Messages.DevicesSyncMessage.html",
-          "hash": "OO0v/SVNXhV90qJWEB6cfg=="
+          "hash": "ThyzIamewKItHC9JnHaJ1Q=="
         }
       },
       "is_incremental": false,
@@ -210,7 +510,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Messages.MessageType.html",
-          "hash": "qPiTrt9NtnsGQbUk8e9Sdg=="
+          "hash": "nWvyqWW3v0w6QbDyK1/Scw=="
         }
       },
       "is_incremental": false,
@@ -222,7 +522,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Messages.TouchInfo.html",
-          "hash": "r8BFqFGVVXT2i7CHGsXWeg=="
+          "hash": "YdgMyDvTWkPowZepcmSeRQ=="
         }
       },
       "is_incremental": false,
@@ -234,7 +534,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Messages.TouchesMessage.html",
-          "hash": "RpphOe5bcL1STBoB+ccBFA=="
+          "hash": "U3Xi2AX3IEv1jeDIC7tF6w=="
         }
       },
       "is_incremental": false,
@@ -246,7 +546,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Messages.html",
-          "hash": "smj+5Mln60coFS5txpXKhg=="
+          "hash": "pNcJr2iuaI2Ys+MlWbhrKA=="
         }
       },
       "is_incremental": false,
@@ -258,7 +558,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.SendingMode.html",
-          "hash": "snEKYymu5EPmnilGf8DfnQ=="
+          "hash": "OhuAFTkDRP9sHYpU+4pFZw=="
         }
       },
       "is_incremental": false,
@@ -270,7 +570,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.SyncMode.html",
-          "hash": "9lE/rWbibSVgRpG3jfDdjA=="
+          "hash": "lhMqKnRagwHUuP0AlXDwEg=="
         }
       },
       "is_incremental": false,
@@ -282,19 +582,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.TouchesSync.html",
-          "hash": "98OrQGuRIB691dhGoEtJdA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/DevicesSyncUnity.Utilities.Debug.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/DevicesSyncUnity.Utilities.Debug.html",
-          "hash": "QXNv0ri9jS4lYBHb0C9q3g=="
+          "hash": "bx1LND027NMTq42gtODkVw=="
         }
       },
       "is_incremental": false,
@@ -306,7 +594,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Utilities.GameObjecExtensions.html",
-          "hash": "vIdbm45X8r7jbxls1m+BcA=="
+          "hash": "GZapNCSNHmNHr4DAVNe6MA=="
         }
       },
       "is_incremental": false,
@@ -318,7 +606,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Utilities.RectTransformExtensions.html",
-          "hash": "rqxQni+NiZrf53/2w7jPrQ=="
+          "hash": "iqSZHxqyBXZAl/6GjXNzkQ=="
         }
       },
       "is_incremental": false,
@@ -330,7 +618,67 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Utilities.TransformExtensions.html",
-          "hash": "3IngTtqqKi6jfn6mJCL/Lw=="
+          "hash": "bJy6tkA8eZm1xfC02rUofw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Utilities.Tuple-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Utilities.Tuple-1.html",
+          "hash": "aQ+s9BGVOpXNVDn0WlExgQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Utilities.Tuple-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Utilities.Tuple-2.html",
+          "hash": "ueQuG7zH28DMFYSAXbiuKw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Utilities.Tuple-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Utilities.Tuple-3.html",
+          "hash": "Rno3yFRmtdoY8CS8qsVoJw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Utilities.Tuple-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Utilities.Tuple-4.html",
+          "hash": "kS4EbGze8t29LbAB/4eDNg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/DevicesSyncUnity.Utilities.Tuple.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/DevicesSyncUnity.Utilities.Tuple.html",
+          "hash": "Co7iSO4sv1lyVADu+NkODQ=="
         }
       },
       "is_incremental": false,
@@ -342,7 +690,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.Utilities.html",
-          "hash": "bB1qLDz+mQIKh0ZtLOYxGA=="
+          "hash": "K0XlteDtvSXnwFU15ixsEA=="
         }
       },
       "is_incremental": false,
@@ -354,7 +702,7 @@
       "output": {
         ".html": {
           "relative_path": "api/DevicesSyncUnity.html",
-          "hash": "uVJF0RWP/lg1eI1PNtlbiQ=="
+          "hash": "OlCpY88fpBeCAVW+fLsTWQ=="
         }
       },
       "is_incremental": false,
@@ -366,7 +714,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "0XFYuUeCWV7HcU13n/ym7A=="
+          "hash": "hRh3Ec2xc628O1HofKR2pg=="
         }
       },
       "is_incremental": false,
@@ -376,31 +724,32 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
         "incrementalPhase": "build"
       },
       "processors": {
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "RestApiDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build"
-        },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
+          "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
         "ConceptualDocumentProcessor": {
-          "can_incremental": true,
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "RestApiDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor RestApiDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         }
       }

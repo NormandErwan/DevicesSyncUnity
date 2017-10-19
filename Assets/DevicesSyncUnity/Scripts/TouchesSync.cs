@@ -59,7 +59,7 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Subscribes to <see cref="TouchesSync.ClientDeviceInfoReceived"/>.
+        /// Subscribes to <see cref="DevicesInfoSync.DeviceInfoReceived"/>.
         /// </summary>
         protected override void Start()
         {
@@ -71,6 +71,9 @@ namespace DevicesSyncUnity
             }
         }
 
+        /// <summary>
+        /// Unsubscribes from <see cref="DevicesInfoSync.DeviceInfoReceived"/>.
+        /// </summary>
         protected override void OnDestroy()
         {
             base.OnDestroy();

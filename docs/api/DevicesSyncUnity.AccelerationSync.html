@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class TouchesSync
+    <title>Class AccelerationSync
    | DevicesSyncUnity documentation </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class TouchesSync
+    <meta name="title" content="Class AccelerationSync
    | DevicesSyncUnity documentation ">
     <meta name="generator" content="docfx 2.24.0.0">
     
@@ -76,12 +76,12 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="DevicesSyncUnity.TouchesSync">
+            <article class="content wrap" id="_content" data-uid="DevicesSyncUnity.AccelerationSync">
   
   
-  <h1 id="DevicesSyncUnity_TouchesSync" data-uid="DevicesSyncUnity.TouchesSync" class="text-break">Class TouchesSync
+  <h1 id="DevicesSyncUnity_AccelerationSync" data-uid="DevicesSyncUnity.AccelerationSync" class="text-break">Class AccelerationSync
   </h1>
-  <div class="markdown level0 summary"><p>Synchronize touches information between devices with <a class="xref" href="DevicesSyncUnity.Messages.AccelerationMessage.html">AccelerationMessage</a>.</p>
+  <div class="markdown level0 summary"><p>Synchronize acceleration, device orientation and acceleration events between devices with <a class="xref" href="DevicesSyncUnity.Messages.AccelerationMessage.html">AccelerationMessage</a>.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -94,7 +94,7 @@
     <div class="level5"><span class="xref">UnityEngine.Networking.NetworkBehaviour</span></div>
     <div class="level6"><a class="xref" href="DevicesSyncUnity.DevicesSync.html">DevicesSync</a></div>
     <div class="level7"><a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html">DevicesSyncInterval</a></div>
-    <div class="level8"><span class="xref">TouchesSync</span></div>
+    <div class="level8"><span class="xref">AccelerationSync</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -123,6 +123,9 @@
       <a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html#DevicesSyncUnity_DevicesSyncInterval_StartSending">DevicesSyncInterval.StartSending()</a>
     </div>
     <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html#DevicesSyncUnity_DevicesSyncInterval_Start">DevicesSyncInterval.Start()</a>
+    </div>
+    <div>
       <a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html#DevicesSyncUnity_DevicesSyncInterval_SendToServerWithInterval">DevicesSyncInterval.SendToServerWithInterval()</a>
     </div>
     <div>
@@ -148,6 +151,9 @@
     </div>
     <div>
       <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_DeviceDisconnected">DevicesSync.DeviceDisconnected</a>
+    </div>
+    <div>
+      <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_OnDestroy">DevicesSync.OnDestroy()</a>
     </div>
     <div>
       <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_ServerDeviceConnected_UnityEngine_Networking_NetworkMessage_">DevicesSync.ServerDeviceConnected(NetworkMessage)</a>
@@ -182,25 +188,25 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="DevicesSyncUnity.html">DevicesSyncUnity</a></h6>
   <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
-  <h5 id="DevicesSyncUnity_TouchesSync_syntax">Syntax</h5>
+  <h5 id="DevicesSyncUnity_AccelerationSync_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class TouchesSync : DevicesSyncInterval</code></pre>
+    <pre><code class="lang-csharp hljs">public class AccelerationSync : DevicesSyncInterval</code></pre>
   </div>
   <h3 id="fields">Fields
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync_initialAutoStartSending.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync.initialAutoStartSending%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationSync_accelerationMessage.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationSync.accelerationMessage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L43">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationSync.cs/#L39">View Source</a>
   </span>
-  <h4 id="DevicesSyncUnity_TouchesSync_initialAutoStartSending" data-uid="DevicesSyncUnity.TouchesSync.initialAutoStartSending">initialAutoStartSending</h4>
+  <h4 id="DevicesSyncUnity_AccelerationSync_accelerationMessage" data-uid="DevicesSyncUnity.AccelerationSync.accelerationMessage">accelerationMessage</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected bool initialAutoStartSending</code></pre>
+    <pre><code class="lang-csharp hljs">protected AccelerationMessage accelerationMessage</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -212,24 +218,24 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><a class="xref" href="DevicesSyncUnity.Messages.AccelerationMessage.html">AccelerationMessage</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync_noTouchesLastMessage.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync.noTouchesLastMessage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationSync_deviceOrientationMessage.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationSync.deviceOrientationMessage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L41">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationSync.cs/#L40">View Source</a>
   </span>
-  <h4 id="DevicesSyncUnity_TouchesSync_noTouchesLastMessage" data-uid="DevicesSyncUnity.TouchesSync.noTouchesLastMessage">noTouchesLastMessage</h4>
+  <h4 id="DevicesSyncUnity_AccelerationSync_deviceOrientationMessage" data-uid="DevicesSyncUnity.AccelerationSync.deviceOrientationMessage">deviceOrientationMessage</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected bool noTouchesLastMessage</code></pre>
+    <pre><code class="lang-csharp hljs">protected DeviceOrientationMessage deviceOrientationMessage</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -241,7 +247,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><a class="xref" href="DevicesSyncUnity.Messages.DeviceOrientationMessage.html">DeviceOrientationMessage</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -250,19 +256,19 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync_DeviceInfoSync.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync.DeviceInfoSync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationSync_Accelerations.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationSync.Accelerations%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L25">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationSync.cs/#L18">View Source</a>
   </span>
-  <a id="DevicesSyncUnity_TouchesSync_DeviceInfoSync_" data-uid="DevicesSyncUnity.TouchesSync.DeviceInfoSync*"></a>
-  <h4 id="DevicesSyncUnity_TouchesSync_DeviceInfoSync" data-uid="DevicesSyncUnity.TouchesSync.DeviceInfoSync">DeviceInfoSync</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the devices&apos; static information to use.</p>
+  <a id="DevicesSyncUnity_AccelerationSync_Accelerations_" data-uid="DevicesSyncUnity.AccelerationSync.Accelerations*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationSync_Accelerations" data-uid="DevicesSyncUnity.AccelerationSync.Accelerations">Accelerations</h4>
+  <div class="markdown level1 summary"><p>Gets latest accelerations and acceleration events from currently connected devices.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DevicesInfoSync DeviceInfoSync { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;int, AccelerationMessage&gt; Accelerations { get; protected set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -274,26 +280,26 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="DevicesSyncUnity.DevicesInfoSync.html">DevicesInfoSync</a></td>
+        <td><span class="xref">System.Collections.Generic.Dictionary</span>&lt;<span class="xref">System.Int32</span>, <a class="xref" href="DevicesSyncUnity.Messages.AccelerationMessage.html">AccelerationMessage</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync_Touches.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync.Touches%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationSync_DeviceOrientations.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationSync.DeviceOrientations%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L30">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationSync.cs/#L23">View Source</a>
   </span>
-  <a id="DevicesSyncUnity_TouchesSync_Touches_" data-uid="DevicesSyncUnity.TouchesSync.Touches*"></a>
-  <h4 id="DevicesSyncUnity_TouchesSync_Touches" data-uid="DevicesSyncUnity.TouchesSync.Touches">Touches</h4>
-  <div class="markdown level1 summary"><p>Gets the latest touches information from currently connected devices.</p>
+  <a id="DevicesSyncUnity_AccelerationSync_DeviceOrientations_" data-uid="DevicesSyncUnity.AccelerationSync.DeviceOrientations*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationSync_DeviceOrientations" data-uid="DevicesSyncUnity.AccelerationSync.DeviceOrientations">DeviceOrientations</h4>
+  <div class="markdown level1 summary"><p>Gets latest device orientations from currently connected devices.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Dictionary&lt;int, TouchesMessage&gt; Touches { get; protected set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;int, DeviceOrientationMessage&gt; DeviceOrientations { get; protected set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -305,7 +311,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Collections.Generic.Dictionary</span>&lt;<span class="xref">System.Int32</span>, <a class="xref" href="DevicesSyncUnity.Messages.TouchesMessage.html">TouchesMessage</a>&gt;</td>
+        <td><span class="xref">System.Collections.Generic.Dictionary</span>&lt;<span class="xref">System.Int32</span>, <a class="xref" href="DevicesSyncUnity.Messages.DeviceOrientationMessage.html">DeviceOrientationMessage</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -314,13 +320,13 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync_Awake.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync.Awake%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationSync_Awake.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationSync.Awake%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L50">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationSync.cs/#L47">View Source</a>
   </span>
-  <a id="DevicesSyncUnity_TouchesSync_Awake_" data-uid="DevicesSyncUnity.TouchesSync.Awake*"></a>
-  <h4 id="DevicesSyncUnity_TouchesSync_Awake" data-uid="DevicesSyncUnity.TouchesSync.Awake">Awake()</h4>
+  <a id="DevicesSyncUnity_AccelerationSync_Awake_" data-uid="DevicesSyncUnity.AccelerationSync.Awake*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationSync_Awake" data-uid="DevicesSyncUnity.AccelerationSync.Awake">Awake()</h4>
   <div class="markdown level1 summary"><p>Initializes the properties.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -332,46 +338,13 @@
   <div><a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_Awake">DevicesSync.Awake()</a></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync_DeviceInfoSync_ClientDeviceInfoReceived_DevicesSyncUnity_Messages_DeviceInfoMessage_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync.DeviceInfoSync_ClientDeviceInfoReceived(DevicesSyncUnity.Messages.DeviceInfoMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationSync_OnClientDeviceConnected_System_Int32_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationSync.OnClientDeviceConnected(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L152">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationSync.cs/#L104">View Source</a>
   </span>
-  <a id="DevicesSyncUnity_TouchesSync_DeviceInfoSync_ClientDeviceInfoReceived_" data-uid="DevicesSyncUnity.TouchesSync.DeviceInfoSync_ClientDeviceInfoReceived*"></a>
-  <h4 id="DevicesSyncUnity_TouchesSync_DeviceInfoSync_ClientDeviceInfoReceived_DevicesSyncUnity_Messages_DeviceInfoMessage_" data-uid="DevicesSyncUnity.TouchesSync.DeviceInfoSync_ClientDeviceInfoReceived(DevicesSyncUnity.Messages.DeviceInfoMessage)">DeviceInfoSync_ClientDeviceInfoReceived(DeviceInfoMessage)</h4>
-  <div class="markdown level1 summary"><p>Starts sending touches as the server has transmited current device&apos;s static information.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void DeviceInfoSync_ClientDeviceInfoReceived(DeviceInfoMessage message)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="DevicesSyncUnity.Messages.DeviceInfoMessage.html">DeviceInfoMessage</a></td>
-        <td><span class="parametername">message</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync_OnClientDeviceConnected_System_Int32_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync.OnClientDeviceConnected(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L136">View Source</a>
-  </span>
-  <a id="DevicesSyncUnity_TouchesSync_OnClientDeviceConnected_" data-uid="DevicesSyncUnity.TouchesSync.OnClientDeviceConnected*"></a>
-  <h4 id="DevicesSyncUnity_TouchesSync_OnClientDeviceConnected_System_Int32_" data-uid="DevicesSyncUnity.TouchesSync.OnClientDeviceConnected(System.Int32)">OnClientDeviceConnected(Int32)</h4>
+  <a id="DevicesSyncUnity_AccelerationSync_OnClientDeviceConnected_" data-uid="DevicesSyncUnity.AccelerationSync.OnClientDeviceConnected*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationSync_OnClientDeviceConnected_System_Int32_" data-uid="DevicesSyncUnity.AccelerationSync.OnClientDeviceConnected(System.Int32)">OnClientDeviceConnected(Int32)</h4>
   <div class="markdown level1 summary"><p>See <a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_OnClientDeviceConnected_System_Int32_">OnClientDeviceConnected(Int32)</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -400,14 +373,14 @@
   <div><a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_OnClientDeviceConnected_System_Int32_">DevicesSync.OnClientDeviceConnected(Int32)</a></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync_OnClientDeviceDisconnected_System_Int32_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync.OnClientDeviceDisconnected(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationSync_OnClientDeviceDisconnected_System_Int32_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationSync.OnClientDeviceDisconnected(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L144">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationSync.cs/#L112">View Source</a>
   </span>
-  <a id="DevicesSyncUnity_TouchesSync_OnClientDeviceDisconnected_" data-uid="DevicesSyncUnity.TouchesSync.OnClientDeviceDisconnected*"></a>
-  <h4 id="DevicesSyncUnity_TouchesSync_OnClientDeviceDisconnected_System_Int32_" data-uid="DevicesSyncUnity.TouchesSync.OnClientDeviceDisconnected(System.Int32)">OnClientDeviceDisconnected(Int32)</h4>
-  <div class="markdown level1 summary"><p>Device client removes the disconnected device from <a class="xref" href="DevicesSyncUnity.TouchesSync.html#DevicesSyncUnity_TouchesSync_Touches">Touches</a>.</p>
+  <a id="DevicesSyncUnity_AccelerationSync_OnClientDeviceDisconnected_" data-uid="DevicesSyncUnity.AccelerationSync.OnClientDeviceDisconnected*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationSync_OnClientDeviceDisconnected_System_Int32_" data-uid="DevicesSyncUnity.AccelerationSync.OnClientDeviceDisconnected(System.Int32)">OnClientDeviceDisconnected(Int32)</h4>
+  <div class="markdown level1 summary"><p>Removes the disconnected device from <a class="xref" href="DevicesSyncUnity.AccelerationSync.html#DevicesSyncUnity_AccelerationSync_Accelerations">Accelerations</a> and <a class="xref" href="DevicesSyncUnity.AccelerationSync.html#DevicesSyncUnity_AccelerationSync_DeviceOrientations">DeviceOrientations</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -436,14 +409,14 @@
   <div><a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_OnClientDeviceDisconnected_System_Int32_">DevicesSync.OnClientDeviceDisconnected(Int32)</a></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync_OnClientMessageReceived_UnityEngine_Networking_NetworkMessage_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync.OnClientMessageReceived(UnityEngine.Networking.NetworkMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationSync_OnClientMessageReceived_UnityEngine_Networking_NetworkMessage_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationSync.OnClientMessageReceived(UnityEngine.Networking.NetworkMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L122">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationSync.cs/#L95">View Source</a>
   </span>
-  <a id="DevicesSyncUnity_TouchesSync_OnClientMessageReceived_" data-uid="DevicesSyncUnity.TouchesSync.OnClientMessageReceived*"></a>
-  <h4 id="DevicesSyncUnity_TouchesSync_OnClientMessageReceived_UnityEngine_Networking_NetworkMessage_" data-uid="DevicesSyncUnity.TouchesSync.OnClientMessageReceived(UnityEngine.Networking.NetworkMessage)">OnClientMessageReceived(NetworkMessage)</h4>
-  <div class="markdown level1 summary"><p>Device client updates <a class="xref" href="DevicesSyncUnity.TouchesSync.html#DevicesSyncUnity_TouchesSync_Touches">Touches</a> and calls <a class="xref" href="DevicesSyncUnity.TouchesSync.html#DevicesSyncUnity_TouchesSync_TouchesReceived">TouchesReceived</a>.</p>
+  <a id="DevicesSyncUnity_AccelerationSync_OnClientMessageReceived_" data-uid="DevicesSyncUnity.AccelerationSync.OnClientMessageReceived*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationSync_OnClientMessageReceived_UnityEngine_Networking_NetworkMessage_" data-uid="DevicesSyncUnity.AccelerationSync.OnClientMessageReceived(UnityEngine.Networking.NetworkMessage)">OnClientMessageReceived(NetworkMessage)</h4>
+  <div class="markdown level1 summary"><p>Calls <a class="xref" href="DevicesSyncUnity.AccelerationSync.html#DevicesSyncUnity_AccelerationSync_ProcessMessageReceived_UnityEngine_Networking_NetworkMessage_">ProcessMessageReceived(NetworkMessage)</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -486,33 +459,15 @@
   <div><a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_OnClientMessageReceived_UnityEngine_Networking_NetworkMessage_">DevicesSync.OnClientMessageReceived(NetworkMessage)</a></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync_OnDestroy.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync.OnDestroy%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationSync_OnSendToServerIntervalIteration_System_Boolean_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationSync.OnSendToServerIntervalIteration(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L77">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationSync.cs/#L63">View Source</a>
   </span>
-  <a id="DevicesSyncUnity_TouchesSync_OnDestroy_" data-uid="DevicesSyncUnity.TouchesSync.OnDestroy*"></a>
-  <h4 id="DevicesSyncUnity_TouchesSync_OnDestroy" data-uid="DevicesSyncUnity.TouchesSync.OnDestroy">OnDestroy()</h4>
-  <div class="markdown level1 summary"><p>Unsubscribes from <a class="xref" href="DevicesSyncUnity.DevicesInfoSync.html#DevicesSyncUnity_DevicesInfoSync_DeviceInfoReceived">DeviceInfoReceived</a>.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override void OnDestroy()</code></pre>
-  </div>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_OnDestroy">DevicesSync.OnDestroy()</a></div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync_OnSendToServerIntervalIteration_System_Boolean_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync.OnSendToServerIntervalIteration(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L92">View Source</a>
-  </span>
-  <a id="DevicesSyncUnity_TouchesSync_OnSendToServerIntervalIteration_" data-uid="DevicesSyncUnity.TouchesSync.OnSendToServerIntervalIteration*"></a>
-  <h4 id="DevicesSyncUnity_TouchesSync_OnSendToServerIntervalIteration_System_Boolean_" data-uid="DevicesSyncUnity.TouchesSync.OnSendToServerIntervalIteration(System.Boolean)">OnSendToServerIntervalIteration(Boolean)</h4>
-  <div class="markdown level1 summary"><p>Sends current and previous touches information if required and if there are touches information and
-there were touches information at the previous interval.</p>
+  <a id="DevicesSyncUnity_AccelerationSync_OnSendToServerIntervalIteration_" data-uid="DevicesSyncUnity.AccelerationSync.OnSendToServerIntervalIteration*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationSync_OnSendToServerIntervalIteration_System_Boolean_" data-uid="DevicesSyncUnity.AccelerationSync.OnSendToServerIntervalIteration(System.Boolean)">OnSendToServerIntervalIteration(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Updates a <a class="xref" href="DevicesSyncUnity.Messages.AccelerationMessage.html">AccelerationMessage</a> and a <a class="xref" href="DevicesSyncUnity.Messages.DeviceOrientationMessage.html">DeviceOrientationMessage</a> and sends them if
+required and there are not empty.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -532,7 +487,7 @@ there were touches information at the previous interval.</p>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">sendToServerThisFrame</span></td>
-        <td><p>If the touches information should be sent this frame.</p>
+        <td><p>If the messages should be sent this frame.</p>
 </td>
       </tr>
     </tbody>
@@ -541,14 +496,14 @@ there were touches information at the previous interval.</p>
   <div><a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html#DevicesSyncUnity_DevicesSyncInterval_OnSendToServerIntervalIteration_System_Boolean_">DevicesSyncInterval.OnSendToServerIntervalIteration(Boolean)</a></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync_OnServerMessageReceived_UnityEngine_Networking_NetworkMessage_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync.OnServerMessageReceived(UnityEngine.Networking.NetworkMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationSync_OnServerMessageReceived_UnityEngine_Networking_NetworkMessage_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationSync.OnServerMessageReceived(UnityEngine.Networking.NetworkMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L111">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationSync.cs/#L87">View Source</a>
   </span>
-  <a id="DevicesSyncUnity_TouchesSync_OnServerMessageReceived_" data-uid="DevicesSyncUnity.TouchesSync.OnServerMessageReceived*"></a>
-  <h4 id="DevicesSyncUnity_TouchesSync_OnServerMessageReceived_UnityEngine_Networking_NetworkMessage_" data-uid="DevicesSyncUnity.TouchesSync.OnServerMessageReceived(UnityEngine.Networking.NetworkMessage)">OnServerMessageReceived(NetworkMessage)</h4>
-  <div class="markdown level1 summary"><p>Server updates <a class="xref" href="DevicesSyncUnity.TouchesSync.html#DevicesSyncUnity_TouchesSync_Touches">Touches</a> and calls <a class="xref" href="DevicesSyncUnity.TouchesSync.html#DevicesSyncUnity_TouchesSync_TouchesReceived">TouchesReceived</a>.</p>
+  <a id="DevicesSyncUnity_AccelerationSync_OnServerMessageReceived_" data-uid="DevicesSyncUnity.AccelerationSync.OnServerMessageReceived*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationSync_OnServerMessageReceived_UnityEngine_Networking_NetworkMessage_" data-uid="DevicesSyncUnity.AccelerationSync.OnServerMessageReceived(UnityEngine.Networking.NetworkMessage)">OnServerMessageReceived(NetworkMessage)</h4>
+  <div class="markdown level1 summary"><p>Calls <a class="xref" href="DevicesSyncUnity.AccelerationSync.html#DevicesSyncUnity_AccelerationSync_ProcessMessageReceived_UnityEngine_Networking_NetworkMessage_">ProcessMessageReceived(NetworkMessage)</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -591,38 +546,71 @@ there were touches information at the previous interval.</p>
   <div><a class="xref" href="DevicesSyncUnity.DevicesSync.html#DevicesSyncUnity_DevicesSync_OnServerMessageReceived_UnityEngine_Networking_NetworkMessage_">DevicesSync.OnServerMessageReceived(NetworkMessage)</a></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync_Start.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync.Start%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationSync_ProcessMessageReceived_UnityEngine_Networking_NetworkMessage_.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationSync.ProcessMessageReceived(UnityEngine.Networking.NetworkMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L64">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationSync.cs/#L124">View Source</a>
   </span>
-  <a id="DevicesSyncUnity_TouchesSync_Start_" data-uid="DevicesSyncUnity.TouchesSync.Start*"></a>
-  <h4 id="DevicesSyncUnity_TouchesSync_Start" data-uid="DevicesSyncUnity.TouchesSync.Start">Start()</h4>
-  <div class="markdown level1 summary"><p>Subscribes to <a class="xref" href="DevicesSyncUnity.DevicesInfoSync.html#DevicesSyncUnity_DevicesInfoSync_DeviceInfoReceived">DeviceInfoReceived</a>.</p>
+  <a id="DevicesSyncUnity_AccelerationSync_ProcessMessageReceived_" data-uid="DevicesSyncUnity.AccelerationSync.ProcessMessageReceived*"></a>
+  <h4 id="DevicesSyncUnity_AccelerationSync_ProcessMessageReceived_UnityEngine_Networking_NetworkMessage_" data-uid="DevicesSyncUnity.AccelerationSync.ProcessMessageReceived(UnityEngine.Networking.NetworkMessage)">ProcessMessageReceived(NetworkMessage)</h4>
+  <div class="markdown level1 summary"><p>Updates <a class="xref" href="DevicesSyncUnity.AccelerationSync.html#DevicesSyncUnity_AccelerationSync_Accelerations">Accelerations</a> or <a class="xref" href="DevicesSyncUnity.AccelerationSync.html#DevicesSyncUnity_AccelerationSync_DeviceOrientations">DeviceOrientations</a> and invokes
+<a class="xref" href="DevicesSyncUnity.AccelerationSync.html#DevicesSyncUnity_AccelerationSync_AccelerationMessageReceived">AccelerationMessageReceived</a> or <a class="xref" href="DevicesSyncUnity.AccelerationSync.html#DevicesSyncUnity_AccelerationSync_DeviceOrientationMessageReceived">DeviceOrientationMessageReceived</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override void Start()</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual DevicesSyncMessage ProcessMessageReceived(NetworkMessage netMessage)</code></pre>
   </div>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="DevicesSyncUnity.DevicesSyncInterval.html#DevicesSyncUnity_DevicesSyncInterval_Start">DevicesSyncInterval.Start()</a></div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Networking.NetworkMessage</span></td>
+        <td><span class="parametername">netMessage</span></td>
+        <td><p>The received networking message.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="DevicesSyncUnity.Messages.DevicesSyncMessage.html">DevicesSyncMessage</a></td>
+        <td><p>The typed network message extracted.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="events">Events
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync_TouchesReceived.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync.TouchesReceived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationSync_AccelerationMessageReceived.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationSync.AccelerationMessageReceived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L37">View Source</a>
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationSync.cs/#L30">View Source</a>
   </span>
-  <h4 id="DevicesSyncUnity_TouchesSync_TouchesReceived" data-uid="DevicesSyncUnity.TouchesSync.TouchesReceived">TouchesReceived</h4>
-  <div class="markdown level1 summary"><p>Called on server and on device client when a <a class="xref" href="DevicesSyncUnity.Messages.TouchesMessage.html">TouchesMessage</a> is received.</p>
+  <h4 id="DevicesSyncUnity_AccelerationSync_AccelerationMessageReceived" data-uid="DevicesSyncUnity.AccelerationSync.AccelerationMessageReceived">AccelerationMessageReceived</h4>
+  <div class="markdown level1 summary"><p>Called on server and on device client when a new <a class="xref" href="DevicesSyncUnity.Messages.AccelerationMessage.html">AccelerationMessage</a> is received.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public event Action&lt;TouchesMessage&gt; TouchesReceived</code></pre>
+    <pre><code class="lang-csharp hljs">public event Action&lt;AccelerationMessage&gt; AccelerationMessageReceived</code></pre>
   </div>
   <h5 class="eventType">Event Type</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -634,7 +622,37 @@ there were touches information at the previous interval.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Action</span>&lt;<a class="xref" href="DevicesSyncUnity.Messages.TouchesMessage.html">TouchesMessage</a>&gt;</td>
+        <td><span class="xref">System.Action</span>&lt;<a class="xref" href="DevicesSyncUnity.Messages.AccelerationMessage.html">AccelerationMessage</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationSync_DeviceOrientationMessageReceived.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationSync.DeviceOrientationMessageReceived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationSync.cs/#L35">View Source</a>
+  </span>
+  <h4 id="DevicesSyncUnity_AccelerationSync_DeviceOrientationMessageReceived" data-uid="DevicesSyncUnity.AccelerationSync.DeviceOrientationMessageReceived">DeviceOrientationMessageReceived</h4>
+  <div class="markdown level1 summary"><p>Called on server and on device client when a new <a class="xref" href="DevicesSyncUnity.Messages.DeviceOrientationMessage.html">DeviceOrientationMessage</a> is received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;DeviceOrientationMessage&gt; DeviceOrientationMessageReceived</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;<a class="xref" href="DevicesSyncUnity.Messages.DeviceOrientationMessage.html">DeviceOrientationMessage</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -647,10 +665,10 @@ there were touches information at the previous interval.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_TouchesSync.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.TouchesSync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/enormand/DevicesSyncUnity/new/master/apiSpec/new?filename=DevicesSyncUnity_AccelerationSync.md&amp;value=---%0Auid%3A%20DevicesSyncUnity.AccelerationSync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/TouchesSync.cs/#L12" class="contribution-link">View Source</a>
+                    <a href="https://github.com/enormand/DevicesSyncUnity/blob/master/Assets/DevicesSyncUnity/Scripts/AccelerationSync.cs/#L11" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
