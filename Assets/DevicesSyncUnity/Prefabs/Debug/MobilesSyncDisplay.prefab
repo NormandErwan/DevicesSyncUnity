@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4575812144527752}
   - component: {fileID: 114134725037383630}
-  - component: {fileID: 114412747533735806}
   m_Layer: 0
   m_Name: MobilesSyncDisplay
   m_TagString: Untagged
@@ -39,7 +38,7 @@ GameObject:
   - component: {fileID: 223417311069870864}
   - component: {fileID: 114304707693103740}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: DisplayCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,8 +71,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deviceInfoSync: {fileID: 0}
   touchesSync: {fileID: 0}
-  accelerometerSync: {fileID: 0}
-  displayCanvas: {fileID: 0}
+  accelerationSync: {fileID: 0}
+  displayCanvas: {fileID: 223417311069870864}
 --- !u!114 &114304707693103740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -95,38 +94,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114412747533735806
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1193881202498058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 49
-    i1: 145
-    i2: 146
-    i3: 107
-    i4: 171
-    i5: 12
-    i6: 210
-    i7: 196
-    i8: 200
-    i9: 217
-    i10: 120
-    i11: 205
-    i12: 33
-    i13: 58
-    i14: 26
-    i15: 39
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!223 &223417311069870864
 Canvas:
   m_ObjectHideFlags: 1
