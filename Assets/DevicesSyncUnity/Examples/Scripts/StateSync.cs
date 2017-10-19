@@ -79,5 +79,12 @@ namespace DevicesSyncUnity.Examples
             CurrentStateUpdated.Invoke(latestStateMessage);
             return latestStateMessage;
         }
+        
+        /// <summary>
+        /// See <see cref="DevicesSync.OnClientDeviceDisconnected(int)"/>.
+        /// </summary>=
+        protected override void OnClientDeviceDisconnected(int deviceId)
+        {
+        }
     }
 }
