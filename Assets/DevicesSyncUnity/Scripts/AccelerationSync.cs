@@ -98,6 +98,14 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
+        /// See <see cref="DevicesSync.OnClientDeviceConnected(int)"/>.
+        /// </summary>
+        /// <param name="deviceId"></param>
+        protected override void OnClientDeviceConnected(int deviceId)
+        {
+        }
+
+        /// <summary>
         /// Removes the disconnected device from <see cref="Accelerations"/> and <see cref="DeviceOrientations"/>.
         /// </summary>
         /// <param name="deviceId">The id of the disconnected device.</param>

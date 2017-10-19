@@ -79,7 +79,16 @@ namespace DevicesSyncUnity.Examples
             CurrentStateUpdated.Invoke(latestStateMessage);
             return latestStateMessage;
         }
-        
+
+        /// <summary>
+        /// See <see cref="DevicesSync.OnClientDeviceConnected(int)"/>.
+        /// </summary>
+        /// <param name="deviceId"></param>
+        protected override void OnClientDeviceConnected(int deviceId)
+        {
+            SendToClient(deviceId, latestStateMessage);
+        }
+
         /// <summary>
         /// See <see cref="DevicesSync.OnClientDeviceDisconnected(int)"/>.
         /// </summary>=

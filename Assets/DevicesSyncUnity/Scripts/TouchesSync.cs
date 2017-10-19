@@ -65,9 +65,19 @@ namespace DevicesSyncUnity
         {
             base.Start();
 
-            if (SyncMode != SyncMode.ReceiverOnly && initialAutoStartSending && isClient)
+            if (isClient && SyncMode != SyncMode.ReceiverOnly && initialAutoStartSending)
             {
                 DeviceInfoSync.DeviceInfoReceived += DeviceInfoSync_ClientDeviceInfoReceived;
+            }
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            if (isClient && SyncMode != SyncMode.ReceiverOnly && initialAutoStartSending)
+            {
+                DeviceInfoSync.DeviceInfoReceived -= DeviceInfoSync_ClientDeviceInfoReceived;
             }
         }
 
@@ -114,6 +124,14 @@ namespace DevicesSyncUnity
             Touches[touchesMessage.SenderConnectionId] = touchesMessage;
             TouchesReceived.Invoke(touchesMessage);
             return touchesMessage;
+        }
+
+        /// <summary>
+        /// See <see cref="DevicesSync.OnClientDeviceConnected(int)"/>.
+        /// </summary>
+        /// <param name="deviceId"></param>
+        protected override void OnClientDeviceConnected(int deviceId)
+        {
         }
 
         /// <summary>

@@ -227,6 +227,14 @@ namespace DevicesSyncUnity.Examples
         }
 
         /// <summary>
+        /// See <see cref="DevicesSync.OnClientDeviceConnected(int)"/>.
+        /// </summary>
+        /// <param name="deviceId"></param>
+        protected override void OnClientDeviceConnected(int deviceId)
+        {
+        }
+
+        /// <summary>
         /// Removes the disconnected device from <see cref="LeanTouchesInfo"/> and <see cref="LeanTouches"/>.
         /// </summary>
         /// <param name="deviceId">The id of the disconnected device.</param>

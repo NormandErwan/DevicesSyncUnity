@@ -16,29 +16,34 @@ namespace DevicesSyncUnity.Messages
         public static short Smallest { get { return smallest; } set { smallest = value; } }
 
         /// <summary>
-        /// Networking message for communicating <see cref="DeviceInfoMessage"/>.
+        /// Networking message used for communicating a device client has connected to the server.
         /// </summary>
-        public static short DeviceInfo { get { return Smallest; } }
+        public static short DeviceConnected { get { return Smallest; } }
 
         /// <summary>
-        /// Networking message used by server for communicating to clients another client has disconnected.
+        /// Networking message used by server for communicating to device clients another device has disconnected.
         /// </summary>
         public static short DeviceDisconnected { get { return (short)(Smallest + 1); } }
 
         /// <summary>
+        /// Networking message for communicating <see cref="DeviceInfoMessage"/>.
+        /// </summary>
+        public static short DeviceInfo { get { return (short)(Smallest + 2); } }
+
+        /// <summary>
         /// Networking message for communicating <see cref="TouchesMessage"/>.
         /// </summary>
-        public static short Touches { get { return (short)(Smallest + 2); } }
+        public static short Touches { get { return (short)(Smallest + 3); } }
 
         /// <summary>
         /// Networking message for communicating <see cref="AccelerationMessage"/>.
         /// </summary>
-        public static short AccelerationEvents { get { return (short)(Smallest + 3); } }
+        public static short AccelerationEvents { get { return (short)(Smallest + 4); } }
 
         /// <summary>
         /// Networking message for communicating <see cref="DeviceOrientationMessage"/>.
         /// </summary>
-        public static short DeviceOrientation { get { return (short)(Smallest + 4); } }
+        public static short DeviceOrientation { get { return (short)(Smallest + 5); } }
 
         /// <summary>
         /// The highest value of this serie of networking message ids. Additional ids must be above this value.
