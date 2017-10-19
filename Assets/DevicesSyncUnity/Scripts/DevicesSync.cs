@@ -182,6 +182,8 @@ namespace DevicesSyncUnity
             }
 
             ConnectedDeviceIds.Add(deviceConnectedMessage.SenderConnectionId);
+            ConnectedDeviceIds.Sort();
+
             DeviceConnected.Invoke(deviceConnectedMessage.SenderConnectionId);
             SendToAllClients(deviceConnectedMessage, Channels.DefaultReliable);
         }
@@ -198,9 +200,10 @@ namespace DevicesSyncUnity
                 UnityEngine.Debug.Log("Client: device client " + message.SenderConnectionId + " has connected");
             }
 
-            if (ConnectedDeviceIds.Contains(message.SenderConnectionId))
+            if (!ConnectedDeviceIds.Contains(message.SenderConnectionId)) // If it's simultaneously client and server, the device has already been added
             {
                 ConnectedDeviceIds.Add(message.SenderConnectionId);
+                ConnectedDeviceIds.Sort();
             }
             DeviceConnected.Invoke(message.SenderConnectionId);
         }
@@ -259,22 +262,6 @@ namespace DevicesSyncUnity
             var message = OnServerMessageReceived(netMessage);
             if (message != null)
             {
-                if (!ConnectedDeviceIds.Contains(message.SenderConnectionId))
-                {
-                    if (LogFilter.logInfo)
-                    {
-                        UnityEngine.Debug.Log("Server: device client " + message.SenderConnectionId + " has connected");
-                    }
-
-                    ConnectedDeviceIds.Add(message.SenderConnectionId);
-                    ConnectedDeviceIds.Sort();
-
-                    if (isClient)
-                    {
-                        OnClientDeviceConnected(message.SenderConnectionId);
-                    }
-                    DeviceConnected.Invoke(message.SenderConnectionId);
-                }
                 SendToAllClients(message);
             }
             else
@@ -303,19 +290,6 @@ namespace DevicesSyncUnity
             var message = OnClientMessageReceived(netMessage);
             if (message != null)
             {
-                if (!ConnectedDeviceIds.Contains(message.SenderConnectionId))
-                {
-                    if (LogFilter.logInfo)
-                    {
-                        UnityEngine.Debug.Log("Client: device client " + message.SenderConnectionId + " has connected");
-                    }
-
-                    ConnectedDeviceIds.Add(message.SenderConnectionId);
-                    ConnectedDeviceIds.Sort();
-                    OnClientDeviceConnected(message.SenderConnectionId);
-                    DeviceConnected.Invoke(message.SenderConnectionId);
-                }
-
                 if (LogFilter.logInfo)
                 {
                     UnityEngine.Debug.Log("Client: received message from device client " + message.SenderConnectionId
@@ -359,7 +333,7 @@ namespace DevicesSyncUnity
         {
             if (LogFilter.logInfo)
             {
-                UnityEngine.Debug.Log("Server: transfer message from device client " + message.SenderConnectionId 
+                UnityEngine.Debug.Log("Server: transfer message from device client " + message.SenderConnectionId
                     + " to all " + "device clients: " + message);
             }
 
@@ -371,7 +345,7 @@ namespace DevicesSyncUnity
         {
             if (LogFilter.logInfo)
             {
-                UnityEngine.Debug.Log("Server: transfer message from device client " + message.SenderConnectionId 
+                UnityEngine.Debug.Log("Server: transfer message from device client " + message.SenderConnectionId
                     + " to device client " + deviceId + ": " + message);
             }
             NetworkServer.SendToClient(deviceId, message.MessageType, message);
