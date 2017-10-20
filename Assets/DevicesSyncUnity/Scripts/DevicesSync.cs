@@ -63,7 +63,7 @@ namespace DevicesSyncUnity
         /// <summary>
         /// Gets the default channel to use for sending messages.
         /// </summary>
-        protected virtual int DefaultChannelId { get { return defaultChannelId; } set { defaultChannelId = value; } }
+        protected virtual int DefaultChannelId { get { return Channels.DefaultUnreliable; } }
 
         /// <summary>
         /// Gets the networking message types to use for exchange between device clients and the server.
@@ -87,7 +87,6 @@ namespace DevicesSyncUnity
         private static bool initializedOtherDeviceSync = false;
         private DeviceConnectedMessage deviceConnectedMessage = new DeviceConnectedMessage();
         private DeviceDisconnectedMessage deviceDisconnectedMessage = new DeviceDisconnectedMessage();
-        private int defaultChannelId = Channels.DefaultUnreliable;
 
         // Methods
 

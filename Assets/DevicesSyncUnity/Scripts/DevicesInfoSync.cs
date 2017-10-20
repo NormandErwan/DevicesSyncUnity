@@ -17,6 +17,8 @@ namespace DevicesSyncUnity
         /// </summary>
         public Dictionary<int, DeviceInfoMessage> DevicesInfo { get; protected set; }
 
+        protected override int DefaultChannelId { get { return Channels.DefaultReliable; } }
+
         // Events
 
         /// <summary>
@@ -39,8 +41,6 @@ namespace DevicesSyncUnity
 
             MessageTypes.Add(deviceInfoMessage.MessageType);
             DevicesInfo = new Dictionary<int, DeviceInfoMessage>();
-
-            DefaultChannelId = Channels.DefaultReliable;
         }
 
         /// <summary>
