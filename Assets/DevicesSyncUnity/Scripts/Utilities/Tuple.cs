@@ -1,4 +1,5 @@
-﻿namespace DevicesSyncUnity.Utilities
+﻿#if NET_2_0 || NET_2_0_SUBSET
+namespace DevicesSyncUnity.Utilities
 {
     public class Tuple<T1>
     {
@@ -66,3 +67,4 @@
         }
     }
 }
+#endif
