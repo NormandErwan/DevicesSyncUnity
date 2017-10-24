@@ -55,22 +55,14 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Server sends to new device client information from all the currently connected devices. 
+        /// Server updates <see cref="DevicesInfo"/> and calls <see cref="DeviceInfoReceived"/>.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
         /// <returns>The typed network message extracted.</returns>
         protected override DevicesSyncMessage OnServerMessageReceived(NetworkMessage netMessage)
         {
-            // Get the information of the new device client
             var deviceInfoMessage = netMessage.ReadMessage<DeviceInfoMessage>();
             DeviceInfoReceived.Invoke(deviceInfoMessage);
-
-            // Send to new device client information from all the currently connected devices
-            foreach (var deviceInfo in DevicesInfo)
-            {
-                SendToClient(deviceInfoMessage.SenderConnectionId, deviceInfo.Value);
-            }
-
             DevicesInfo[deviceInfoMessage.SenderConnectionId] = deviceInfoMessage;
             return deviceInfoMessage;
         }
@@ -83,17 +75,24 @@ namespace DevicesSyncUnity
         protected override DevicesSyncMessage OnClientMessageReceived(NetworkMessage netMessage)
         {
             var deviceInfoMessage = netMessage.ReadMessage<DeviceInfoMessage>();
-            DevicesInfo[deviceInfoMessage.SenderConnectionId] = deviceInfoMessage;
-            DeviceInfoReceived.Invoke(deviceInfoMessage);
+            if (!isServer)
+            {
+                DevicesInfo[deviceInfoMessage.SenderConnectionId] = deviceInfoMessage;
+                DeviceInfoReceived.Invoke(deviceInfoMessage);
+            }
             return deviceInfoMessage;
         }
 
         /// <summary>
-        /// See <see cref="DevicesSync.OnClientDeviceConnected(int)"/>.
+        /// Ssrver sends to new device client information from all the currently connected devices
         /// </summary>
-        /// <param name="deviceId"></param>
+        /// <param name="deviceId">The new device client id.</param>
         protected override void OnClientDeviceConnected(int deviceId)
         {
+            foreach (var deviceInfo in DevicesInfo)
+            {
+                SendToClient(deviceInfoMessage.SenderConnectionId, deviceInfo.Value);
+            }
         }
 
         /// <summary>
