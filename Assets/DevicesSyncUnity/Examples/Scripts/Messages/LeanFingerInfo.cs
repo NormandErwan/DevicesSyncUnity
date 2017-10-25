@@ -202,16 +202,8 @@ namespace DevicesSyncUnity.Examples.Messages
             };
         }
 
-        internal void Restore(DeviceInfoMessage deviceInfo, LeanTouchInfoMessage leanTouchInfo)
+        internal void Restore(LeanTouchInfoMessage leanTouchInfo)
         {
-            Vector2 scaleVector = new Vector2(Screen.width / (float)deviceInfo.screenWidth, Screen.height / (float)deviceInfo.screenHeight);
-            StartScreenPosition = Vector2.Scale(scaleVector, StartScreenPosition);
-            LastScreenPosition = Vector2.Scale(scaleVector, LastScreenPosition);
-            ScreenPosition = Vector2.Scale(scaleVector, ScreenPosition);
-            LastSnapshotScreenDelta = Vector2.Scale(scaleVector, LastSnapshotScreenDelta);
-            ScreenDelta = Vector2.Scale(scaleVector, ScreenDelta);
-            SwipeScreenDelta = Vector2.Scale(scaleVector, SwipeScreenDelta);
-
             leanFinger = new LeanFinger()
             {
                 Index = this.Index,

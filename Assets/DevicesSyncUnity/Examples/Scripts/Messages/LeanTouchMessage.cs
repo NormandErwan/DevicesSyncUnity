@@ -177,11 +177,11 @@ namespace DevicesSyncUnity.Examples.Messages
         /// Restores all transmited <see cref="Fingers"/>.
         /// </summary>
         /// <param name="leanTouchInfo">The associated <see cref="LeanTouch"/>'s static information.</param>
-        public void Restore(DeviceInfoMessage deviceInfoMessage, LeanTouchInfoMessage leanTouchInfo)
+        public void Restore(LeanTouchInfoMessage leanTouchInfo)
         {
             foreach (var finger in Fingers)
             {
-                finger.Restore(deviceInfoMessage, leanTouchInfo);
+                finger.Restore(leanTouchInfo);
             }
         }
 
