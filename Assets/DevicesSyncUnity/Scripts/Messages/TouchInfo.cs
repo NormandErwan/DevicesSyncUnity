@@ -7,6 +7,12 @@ namespace DevicesSyncUnity.Messages
     /// </summary>
     public class TouchInfo
     {
+        // Properties
+
+        public Vector2 ScaledPosition { get; protected set; }
+        public Vector2 ScaledRawPosition { get; protected set; }
+        public Vector2 ScaledDeltaPosition { get; protected set; }
+
         // Variables
 
         public int fingerId;
@@ -75,9 +81,9 @@ namespace DevicesSyncUnity.Messages
         internal void Restore(DeviceInfoMessage deviceInfo)
         {
             Vector2 scaleVector = new Vector2(Screen.width / (float)deviceInfo.screenWidth, Screen.height / (float)deviceInfo.screenHeight);
-            position = Vector2.Scale(scaleVector, position);
-            rawPosition = Vector2.Scale(scaleVector, position);
-            deltaPosition = Vector2.Scale(scaleVector, position);
+            ScaledPosition = Vector2.Scale(scaleVector, position);
+            ScaledRawPosition = Vector2.Scale(scaleVector, position);
+            ScaledDeltaPosition = Vector2.Scale(scaleVector, position);
         }
     }
 }

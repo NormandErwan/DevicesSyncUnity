@@ -11,8 +11,6 @@ namespace DevicesSyncUnity
     /// </summary>
     public class TouchesSync : DevicesSyncInterval
     {
-        // Editor fields
-
         [SerializeField]
         [Tooltip("The devices' static information to use.")]
         private DevicesInfoSync deviceInfoSync;
@@ -40,7 +38,6 @@ namespace DevicesSyncUnity
 
         protected bool noTouchesLastMessage = false;
         private TouchesMessage touchesMessage = new TouchesMessage();
-        protected bool initialAutoStartSending;
 
         // Methods
 
@@ -51,37 +48,8 @@ namespace DevicesSyncUnity
         {
             base.Awake();
 
-            initialAutoStartSending = AutoStartSending;
-            AutoStartSending = false;
-
             Touches = new Dictionary<int, TouchesMessage>();
             MessageTypes.Add(touchesMessage.MessageType);
-        }
-
-        /// <summary>
-        /// Subscribes to <see cref="DevicesInfoSync.DeviceInfoReceived"/>.
-        /// </summary>
-        protected override void Start()
-        {
-            base.Start();
-
-            if (isClient && SyncMode != SyncMode.ReceiverOnly && initialAutoStartSending)
-            {
-                DeviceInfoSync.DeviceInfoReceived += DeviceInfoSync_ClientDeviceInfoReceived;
-            }
-        }
-
-        /// <summary>
-        /// Unsubscribes from <see cref="DevicesInfoSync.DeviceInfoReceived"/>.
-        /// </summary>
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            if (isClient && SyncMode != SyncMode.ReceiverOnly && initialAutoStartSending)
-            {
-                DeviceInfoSync.DeviceInfoReceived -= DeviceInfoSync_ClientDeviceInfoReceived;
-            }
         }
 
         /// <summary>
@@ -144,15 +112,6 @@ namespace DevicesSyncUnity
         protected override void OnClientDeviceDisconnected(int deviceId)
         {
             Touches.Remove(deviceId);
-        }
-
-        /// <summary>
-        /// Starts sending touches as the server has transmited current device's static information.
-        /// </summary>
-        protected virtual void DeviceInfoSync_ClientDeviceInfoReceived(DeviceInfoMessage message)
-        {
-            StartSending();
-            DeviceInfoSync.DeviceInfoReceived -= DeviceInfoSync_ClientDeviceInfoReceived;
         }
     }
 }

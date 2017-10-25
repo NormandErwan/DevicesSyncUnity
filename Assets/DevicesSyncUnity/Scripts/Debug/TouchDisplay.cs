@@ -69,7 +69,7 @@ namespace DevicesSyncUnity.Debug
                 touchSize *= touch.radius;
             }
 
-            Vector2 touchPosition = Vector2.Scale(touch.position, canvasRect.rect.size);
+            Vector2 touchPosition = Vector2.Scale(touch.ScaledPosition, canvasRect.rect.size);
             touchPosition = new Vector2(touchPosition.x / Screen.width, touchPosition.y / Screen.height);
 
             // Display the touch

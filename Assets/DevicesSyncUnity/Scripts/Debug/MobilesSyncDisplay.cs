@@ -100,24 +100,24 @@ namespace DevicesSyncUnity.Debug
         protected virtual void TouchesSync_ClientTouchesReceived(TouchesMessage touchesMessage)
         {
             // Get or create the touch displays associated with the sender
-            List<TouchDisplay> touchDisplays;
-            GameObject touchDisplaysParent;
-            if (!touchesDisplays.TryGetValue(touchesMessage.SenderConnectionId, out touchDisplays))
+            List<TouchDisplay> touchesDisplay;
+            GameObject touchesDisplaysParent;
+            if (!touchesDisplays.TryGetValue(touchesMessage.SenderConnectionId, out touchesDisplay))
             {
-                touchDisplays = new List<TouchDisplay>(touchesMessage.touches.Length);
-                touchesDisplays.Add(touchesMessage.SenderConnectionId, touchDisplays);
+                touchesDisplay = new List<TouchDisplay>(touchesMessage.touches.Length);
+                touchesDisplays.Add(touchesMessage.SenderConnectionId, touchesDisplay);
 
-                touchDisplaysParent = displayCanvas.gameObject.AddChild("Device " + touchesMessage.SenderConnectionId + " touches");
-                touchDisplaysParent.AddComponent<RectTransform>().Stretch();
-                touchesDisplaysParents.Add(touchesMessage.SenderConnectionId, touchDisplaysParent);
+                touchesDisplaysParent = displayCanvas.gameObject.AddChild("Device " + touchesMessage.SenderConnectionId + " touches");
+                touchesDisplaysParent.AddComponent<RectTransform>().Stretch();
+                touchesDisplaysParents.Add(touchesMessage.SenderConnectionId, touchesDisplaysParent);
             }
             else
             {
-                touchDisplaysParent = touchesDisplaysParents[touchesMessage.SenderConnectionId];
+                touchesDisplaysParent = touchesDisplaysParents[touchesMessage.SenderConnectionId];
             }
 
             // Hide the previous touch displays
-            foreach (var touchDisplay in touchDisplays)
+            foreach (var touchDisplay in touchesDisplay)
             {
                 touchDisplay.GameObject.SetActive(false);
             }
@@ -127,14 +127,14 @@ namespace DevicesSyncUnity.Debug
             for (int i = 0; i < touchesMessage.touches.Length; i++)
             {
                 TouchDisplay touchDisplay;
-                if (touchDisplays.Count <= i)
+                if (touchesDisplay.Count <= i)
                 {
-                    touchDisplay = new TouchDisplay(touchDisplaysParent, canvasRect, deviceColor);
-                    touchDisplays.Add(touchDisplay);
+                    touchDisplay = new TouchDisplay(touchesDisplaysParent, canvasRect, deviceColor);
+                    touchesDisplay.Add(touchDisplay);
                 }
                 else
                 {
-                    touchDisplay = touchDisplays[i];
+                    touchDisplay = touchesDisplay[i];
                     touchDisplay.GameObject.SetActive(true);
                 }
                 touchDisplay.UpdateDisplay(touchesMessage, i);
