@@ -49,7 +49,18 @@ namespace DevicesSyncUnity
             base.Awake();
 
             Touches = new Dictionary<int, TouchesMessage>();
+
+            DeviceDisconnected += DevicesInfoSync_DeviceDisconnected;
+
             MessageTypes.Add(touchesMessage.MessageType);
+        }
+
+        /// <summary>
+        /// Unsubscribes to events.
+        /// </summary>
+        protected virtual void OnDestroy()
+        {
+            DeviceDisconnected -= DevicesInfoSync_DeviceDisconnected;
         }
 
         /// <summary>
