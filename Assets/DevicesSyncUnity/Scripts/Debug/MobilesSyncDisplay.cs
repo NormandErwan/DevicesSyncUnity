@@ -22,9 +22,6 @@ namespace DevicesSyncUnity.Debug
         // Editor fields
 
         [SerializeField]
-        private DevicesInfoSync deviceInfoSync;
-
-        [SerializeField]
         protected TouchesSync touchesSync;
 
         [SerializeField]
@@ -49,8 +46,8 @@ namespace DevicesSyncUnity.Debug
         {
             canvasRect = displayCanvas.GetComponent<RectTransform>();
 
+            DevicesSync.DeviceConnected += DevicesSync_DeviceConnected;
             DevicesSync.DeviceDisconnected += DevicesSync_DeviceDisconnected;
-            deviceInfoSync.DeviceInfoReceived += DeviceInfoSync_DeviceInfoReceived;
 
             if (touchesSync != null)
             {
@@ -65,7 +62,7 @@ namespace DevicesSyncUnity.Debug
         protected virtual void OnDestroy()
         {
             DevicesSync.DeviceDisconnected -= DevicesSync_DeviceDisconnected;
-            deviceInfoSync.DeviceInfoReceived -= DeviceInfoSync_DeviceInfoReceived;
+            DevicesSync.DeviceConnected -= DevicesSync_DeviceConnected;
 
             if (touchesSync != null)
             {
@@ -77,11 +74,11 @@ namespace DevicesSyncUnity.Debug
             }
         }
 
-        protected void DeviceInfoSync_DeviceInfoReceived(DeviceInfoMessage deviceInfoMessage)
+        protected void DevicesSync_DeviceConnected(int deviceId)
         {
-            float randomColorHue = (goldenRatioConjugate * deviceInfoMessage.SenderConnectionId) % 1;
+            float randomColorHue = (goldenRatioConjugate * deviceId) % 1;
             var deviceColor = Color.HSVToRGB(randomColorHue, 0.9f, 1f);
-            deviceColors[deviceInfoMessage.SenderConnectionId] = deviceColor;
+            deviceColors[deviceId] = deviceColor;
             UpdateDevicesText();
         }
 
