@@ -96,6 +96,11 @@ namespace DevicesSyncUnity.Debug
 
         protected virtual void TouchesSync_ClientTouchesReceived(TouchesMessage touchesMessage)
         {
+            if (!deviceColors.ContainsKey(touchesMessage.SenderConnectionId))
+            {
+                DevicesSync_DeviceConnected(touchesMessage.SenderConnectionId);
+            }
+
             // Get or create the touch displays associated with the sender
             List<TouchDisplay> touchesDisplay;
             GameObject touchesDisplaysParent;
