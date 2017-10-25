@@ -174,16 +174,24 @@ namespace DevicesSyncUnity
         /// <param name="netMessage">The connection message from the connected device client.</param>
         protected void ServerDeviceConnected(NetworkMessage netMessage)
         {
-            deviceConnectedMessage.SenderConnectionId = netMessage.conn.connectionId;
+            var connectedDeviceId = netMessage.conn.connectionId;
             if (LogFilter.logInfo)
             {
-                UnityEngine.Debug.Log("Server: device client " + deviceConnectedMessage.SenderConnectionId + " has connected");
+                UnityEngine.Debug.Log("Server: device client " + connectedDeviceId + " has connected");
             }
 
-            ConnectedDeviceIds.Add(deviceConnectedMessage.SenderConnectionId);
+            foreach (var deviceId in ConnectedDeviceIds)
+            {
+                deviceConnectedMessage.senderConnectionId = deviceId;
+                SendToClient(connectedDeviceId, deviceConnectedMessage);
+            }
+
+            ConnectedDeviceIds.Add(connectedDeviceId);
             ConnectedDeviceIds.Sort();
 
-            DeviceConnected.Invoke(deviceConnectedMessage.SenderConnectionId);
+            DeviceConnected.Invoke(connectedDeviceId);
+
+            deviceConnectedMessage.senderConnectionId = connectedDeviceId;
             SendToAllClients(deviceConnectedMessage, Channels.DefaultReliable);
         }
 
