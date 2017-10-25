@@ -27,17 +27,28 @@ namespace DevicesSyncUnity.Examples
         // Variables
 
         protected StateMessage latestStateMessage = new StateMessage();
+        protected StateMessage stateMessageToSend = new StateMessage();
 
         // Methods
 
         /// <summary>
-        /// Initializes the properties.
+        /// Initializes the properties and susbcribes to events.
         /// </summary>
         protected override void Awake()
         {
             base.Awake();
 
+            DeviceConnected += DevicesInfoSync_DeviceConnected;
+
             MessageTypes.Add(latestStateMessage.MessageType);
+        }
+
+        /// <summary>
+        /// Unsubscribes to events.
+        /// </summary>
+        protected virtual void OnDestroy()
+        {
+            DeviceConnected -= DevicesInfoSync_DeviceConnected;
         }
 
         /// <summary>
@@ -48,24 +59,9 @@ namespace DevicesSyncUnity.Examples
         {
             if (newState != latestStateMessage.state)
             {
-                SendToServer(new StateMessage() { state = newState });
+                stateMessageToSend.state = newState;
+                SendToServer(stateMessageToSend);
             }
-        }
-
-        /// <summary>
-        /// Calls <see cref="ProcessMessageReceived(NetworkMessage)"/>.
-        /// </summary>
-        protected override DevicesSyncMessage OnServerMessageReceived(NetworkMessage netMessage)
-        {
-            return ProcessMessageReceived(netMessage);
-        }
-
-        /// <summary>
-        /// Calls <see cref="ProcessMessageReceived(NetworkMessage)"/>.
-        /// </summary>
-        protected override DevicesSyncMessage OnClientMessageReceived(NetworkMessage netMessage)
-        {
-            return ProcessMessageReceived(netMessage);
         }
 
         /// <summary>
@@ -73,7 +69,7 @@ namespace DevicesSyncUnity.Examples
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
         /// <returns>The typed network message extracted.</returns>
-        protected virtual DevicesSyncMessage ProcessMessageReceived(NetworkMessage netMessage)
+        protected override DevicesSyncMessage OnServerMessageReceived(NetworkMessage netMessage)
         {
             latestStateMessage = netMessage.ReadMessage<StateMessage>();
             CurrentStateUpdated.Invoke(latestStateMessage);
@@ -81,19 +77,30 @@ namespace DevicesSyncUnity.Examples
         }
 
         /// <summary>
-        /// See <see cref="DevicesSync.OnClientDeviceConnected(int)"/>.
+        /// Updates <see cref="CurrentState"/> and invokes <see cref="CurrentStateUpdated"/>.
         /// </summary>
-        /// <param name="deviceId"></param>
-        protected override void OnClientDeviceConnected(int deviceId)
+        /// <param name="netMessage">The received networking message.</param>
+        /// <returns>The typed network message extracted.</returns>
+        protected override DevicesSyncMessage OnClientMessageReceived(NetworkMessage netMessage)
         {
-            SendToClient(deviceId, latestStateMessage);
+            latestStateMessage = netMessage.ReadMessage<StateMessage>();
+            if (isServer)
+            {
+                CurrentStateUpdated.Invoke(latestStateMessage);
+            }
+            return latestStateMessage;
         }
 
         /// <summary>
-        /// See <see cref="DevicesSync.OnClientDeviceDisconnected(int)"/>.
-        /// </summary>=
-        protected override void OnClientDeviceDisconnected(int deviceId)
+        /// Server sends to the new device client the current state.
+        /// </summary>
+        /// <param name="deviceId">The new device client id.</param>
+        protected virtual void DevicesInfoSync_DeviceConnected(int deviceId)
         {
+            if (isServer)
+            {
+                SendToClient(deviceId, latestStateMessage);
+            }
         }
     }
 }

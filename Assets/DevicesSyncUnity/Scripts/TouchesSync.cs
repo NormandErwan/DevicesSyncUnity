@@ -42,7 +42,7 @@ namespace DevicesSyncUnity
         // Methods
 
         /// <summary>
-        /// Initializes the properties.
+        /// Initializes the properties and susbcribes to events.
         /// </summary>
         protected override void Awake()
         {
@@ -74,44 +74,49 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Server updates <see cref="Touches"/> and calls <see cref="TouchesReceived"/>.
+        /// Server calls <see cref="ProcessTouchesMessageReceived(TouchesMessage)"/>.
         /// </summary>
         protected override DevicesSyncMessage OnServerMessageReceived(NetworkMessage netMessage)
         {
             var touchesMessage = netMessage.ReadMessage<TouchesMessage>();
-            Touches[touchesMessage.SenderConnectionId] = touchesMessage;
-            TouchesReceived.Invoke(touchesMessage);
+            ProcessTouchesMessageReceived(touchesMessage);
             return touchesMessage;
         }
 
         /// <summary>
-        /// Device client updates <see cref="Touches"/> and calls <see cref="TouchesReceived"/>.
+        /// Device client calls <see cref="ProcessTouchesMessageReceived(TouchesMessage)"/>.
         /// </summary>
         protected override DevicesSyncMessage OnClientMessageReceived(NetworkMessage netMessage)
         {
             var touchesMessage = netMessage.ReadMessage<TouchesMessage>();
-            touchesMessage.Restore(DeviceInfoSync.DevicesInfo[touchesMessage.SenderConnectionId]);
-
-            Touches[touchesMessage.SenderConnectionId] = touchesMessage;
-            TouchesReceived.Invoke(touchesMessage);
+            if (!isServer)
+            {
+                ProcessTouchesMessageReceived(touchesMessage);
+            }
             return touchesMessage;
         }
 
         /// <summary>
-        /// See <see cref="DevicesSync.OnClientDeviceConnected(int)"/>.
+        /// Removes the disconnected device from <see cref="Touches"/>.
         /// </summary>
-        /// <param name="deviceId"></param>
-        protected override void OnClientDeviceConnected(int deviceId)
+        /// <param name="deviceId">The id of the disconnected device.</param>
+        protected virtual void DevicesInfoSync_DeviceDisconnected(int deviceId)
         {
+            Touches.Remove(deviceId);
         }
 
         /// <summary>
-        /// Device client removes the disconnected device from <see cref="Touches"/>.
+        /// Updates <see cref="Touches"/> and calls <see cref="TouchesReceived"/>.
         /// </summary>
-        /// <param name="deviceId">The id of the disconnected device.</param>
-        protected override void OnClientDeviceDisconnected(int deviceId)
+        /// <param name="touchesMesssage">The message received to process.</param>
+        protected virtual void ProcessTouchesMessageReceived(TouchesMessage touchesMesssage)
         {
-            Touches.Remove(deviceId);
+            if (DeviceInfoSync.DevicesInfo.ContainsKey(touchesMessage.SenderConnectionId))
+            {
+                touchesMessage.Restore(DeviceInfoSync.DevicesInfo[touchesMessage.SenderConnectionId]);
+            }
+            Touches[touchesMessage.SenderConnectionId] = touchesMessage;
+            TouchesReceived.Invoke(touchesMessage);
         }
     }
 }

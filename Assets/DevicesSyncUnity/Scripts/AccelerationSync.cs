@@ -42,7 +42,7 @@ namespace DevicesSyncUnity
         // Methods
 
         /// <summary>
-        /// Initializes the properties.
+        /// Initializes the properties and susbcribes to events.
         /// </summary>
         protected override void Awake()
         {
@@ -51,8 +51,18 @@ namespace DevicesSyncUnity
             Accelerations = new Dictionary<int, AccelerationMessage>();
             DeviceOrientations = new Dictionary<int, DeviceOrientationMessage>();
 
+            DeviceDisconnected += DevicesInfoSync_DeviceDisconnected;
+
             MessageTypes.Add(accelerationMessage.MessageType);
             MessageTypes.Add(deviceOrientationMessage.MessageType);
+        }
+
+        /// <summary>
+        /// Unsubscribes to events.
+        /// </summary>
+        protected virtual void OnDestroy()
+        {
+            DeviceDisconnected -= DevicesInfoSync_DeviceDisconnected;
         }
 
         /// <summary>
@@ -86,7 +96,19 @@ namespace DevicesSyncUnity
         /// </summary>
         protected override DevicesSyncMessage OnServerMessageReceived(NetworkMessage netMessage)
         {
-            return ProcessMessageReceived(netMessage);
+            if (netMessage.msgType == accelerationMessage.MessageType)
+            {
+                var accelerationMessage = netMessage.ReadMessage<AccelerationMessage>();
+                ProcessMessageReceived(accelerationMessage);
+                return accelerationMessage;
+            }
+            else if (netMessage.msgType == deviceOrientationMessage.MessageType)
+            {
+                var deviceOrientationMessage = netMessage.ReadMessage<DeviceOrientationMessage>();
+                ProcessMessageReceived(deviceOrientationMessage);
+                return deviceOrientationMessage;
+            }
+            return null;
         }
 
         /// <summary>
@@ -94,22 +116,32 @@ namespace DevicesSyncUnity
         /// </summary>
         protected override DevicesSyncMessage OnClientMessageReceived(NetworkMessage netMessage)
         {
-            return ProcessMessageReceived(netMessage);
-        }
-
-        /// <summary>
-        /// See <see cref="DevicesSync.OnClientDeviceConnected(int)"/>.
-        /// </summary>
-        /// <param name="deviceId"></param>
-        protected override void OnClientDeviceConnected(int deviceId)
-        {
+            if (netMessage.msgType == accelerationMessage.MessageType)
+            {
+                var accelerationMessage = netMessage.ReadMessage<AccelerationMessage>();
+                if (!isServer)
+                {
+                    ProcessMessageReceived(accelerationMessage);
+                }
+                return accelerationMessage;
+            }
+            else if (netMessage.msgType == deviceOrientationMessage.MessageType)
+            {
+                var deviceOrientationMessage = netMessage.ReadMessage<DeviceOrientationMessage>();
+                if (!isServer)
+                {
+                    ProcessMessageReceived(deviceOrientationMessage);
+                }
+                return deviceOrientationMessage;
+            }
+            return null;
         }
 
         /// <summary>
         /// Removes the disconnected device from <see cref="Accelerations"/> and <see cref="DeviceOrientations"/>.
         /// </summary>
         /// <param name="deviceId">The id of the disconnected device.</param>
-        protected override void OnClientDeviceDisconnected(int deviceId)
+        protected virtual void DevicesInfoSync_DeviceDisconnected(int deviceId)
         {
             Accelerations.Remove(deviceId);
             DeviceOrientations.Remove(deviceId);
@@ -119,28 +151,21 @@ namespace DevicesSyncUnity
         /// Updates <see cref="Accelerations"/> or <see cref="DeviceOrientations"/> and invokes
         /// <see cref="AccelerationMessageReceived"/> or <see cref="DeviceOrientationMessageReceived"/>.
         /// </summary>
-        /// <param name="netMessage">The received networking message.</param>
-        /// <returns>The typed network message extracted.</returns>
-        protected virtual DevicesSyncMessage ProcessMessageReceived(NetworkMessage netMessage)
+        /// <param name="accelerationMessage">The received message.</param>
+        protected virtual void ProcessMessageReceived(AccelerationMessage accelerationMessage)
         {
-            if (netMessage.msgType == accelerationMessage.MessageType)
-            {
-                var accelerationMessage = netMessage.ReadMessage<AccelerationMessage>();
-                Accelerations[accelerationMessage.SenderConnectionId] = accelerationMessage;
-                AccelerationMessageReceived.Invoke(accelerationMessage);
-                return accelerationMessage;
-            }
-            else if (netMessage.msgType == deviceOrientationMessage.MessageType)
-            {
-                var deviceOrientationMessage = netMessage.ReadMessage<DeviceOrientationMessage>();
-                DeviceOrientations[deviceOrientationMessage.SenderConnectionId] = deviceOrientationMessage;
-                DeviceOrientationMessageReceived.Invoke(deviceOrientationMessage);
-                return deviceOrientationMessage;
-            }
-            else
-            {
-                return null;
-            }
+            Accelerations[accelerationMessage.SenderConnectionId] = accelerationMessage;
+            AccelerationMessageReceived.Invoke(accelerationMessage);
+        }
+
+        /// <summary>
+        /// Updates <see cref="DeviceOrientations"/> and invokes <see cref="DeviceOrientationMessageReceived"/>.
+        /// </summary>
+        /// <param name="deviceOrientationMessage">The received message.</param>
+        protected virtual void ProcessMessageReceived(DeviceOrientationMessage deviceOrientationMessage)
+        {
+            DeviceOrientations[deviceOrientationMessage.SenderConnectionId] = deviceOrientationMessage;
+            DeviceOrientationMessageReceived.Invoke(deviceOrientationMessage);
         }
     }
 }

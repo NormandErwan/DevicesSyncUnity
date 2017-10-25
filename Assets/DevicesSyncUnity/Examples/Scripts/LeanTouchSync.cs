@@ -3,7 +3,6 @@ using DevicesSyncUnity.Messages;
 using DevicesSyncUnity.Utilities;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Networking;
 
 namespace DevicesSyncUnity.Examples
@@ -78,7 +77,7 @@ namespace DevicesSyncUnity.Examples
         // Methods
 
         /// <summary>
-        /// Initializes the properties.
+        /// Initializes the properties and susbcribes to events.
         /// </summary>
         protected override void Awake()
         {
@@ -87,8 +86,8 @@ namespace DevicesSyncUnity.Examples
             LeanTouchesInfo = new Dictionary<int, LeanTouchInfoMessage>();
             LeanTouches = new Dictionary<int, LeanTouchMessage>();
 
-            MessageTypes.Add(leanTouchInfoMessage.MessageType);
-            MessageTypes.Add(leanTouchMessage.MessageType);
+            DeviceConnected += DevicesInfoSync_DeviceConnected;
+            DeviceDisconnected += DevicesInfoSync_DeviceDisconnected;
 
             if (LogFilter.logInfo)
             {
@@ -98,6 +97,9 @@ namespace DevicesSyncUnity.Examples
                 OnFingerTap   += (clientId, finger) => { UnityEngine.Debug.Log("LeanTouchSync: finger " + finger.Index + " tap on client " + clientId); };
                 OnFingerSwipe += (clientId, finger) => { UnityEngine.Debug.Log("LeanTouchSync: finger " + finger.Index + " swipe on client " + clientId); };
             }
+
+            MessageTypes.Add(leanTouchInfoMessage.MessageType);
+            MessageTypes.Add(leanTouchMessage.MessageType);
         }
 
         /// <summary>
@@ -114,12 +116,14 @@ namespace DevicesSyncUnity.Examples
         }
 
         /// <summary>
-        /// Stop capturing the LeanTouch events.
+        /// Unsubscribes to events and stop capturing the LeanTouch events.
         /// </summary>
-        public override void OnNetworkDestroy()
+        protected virtual void OnDestroy()
         {
-            base.OnNetworkDestroy();
             leanTouchMessage.SetCapturingEvents(false);
+
+            DeviceConnected -= DevicesInfoSync_DeviceConnected;
+            DeviceDisconnected -= DevicesInfoSync_DeviceDisconnected;
         }
 
         /// <summary>
@@ -144,7 +148,7 @@ namespace DevicesSyncUnity.Examples
         }
 
         /// <summary>
-        /// For <see cref="LeanTouchInfoMessage"/>, sends the equivalent information from other devices to the sender.
+        /// For <see cref="LeanTouchInfoMessage"/>, .
         /// For <see cref="LeanTouchMessage"/>, calls <see cref="ProcessLeanTouchMessage"/>.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
@@ -153,16 +157,13 @@ namespace DevicesSyncUnity.Examples
         {
             if (netMessage.msgType == leanTouchMessage.MessageType)
             {
-                return ProcessLeanTouchMessage(netMessage);
+                var leanTouchMessage = netMessage.ReadMessage<LeanTouchMessage>();
+                ProcessLeanTouchMessage(leanTouchMessage);
+                return leanTouchMessage;
             }
             else if (netMessage.msgType == leanTouchInfoMessage.MessageType)
             {
                 var leanTouchInfoMessage = netMessage.ReadMessage<LeanTouchInfoMessage>();
-                foreach (var leanTouchInfo in LeanTouchesInfo)
-                {
-                    SendToClient(leanTouchInfoMessage.SenderConnectionId, leanTouchInfo.Value);
-                }
-
                 LeanTouchesInfo[leanTouchInfoMessage.SenderConnectionId] = leanTouchInfoMessage;
                 LeanTouchInfoReceived.Invoke(leanTouchInfoMessage);
                 return leanTouchInfoMessage;
@@ -184,13 +185,21 @@ namespace DevicesSyncUnity.Examples
         {
             if (netMessage.msgType == leanTouchMessage.MessageType)
             {
-                return ProcessLeanTouchMessage(netMessage);
+                var leanTouchMessage = netMessage.ReadMessage<LeanTouchMessage>();
+                if (!isServer)
+                {
+                    ProcessLeanTouchMessage(leanTouchMessage);
+                }
+                return leanTouchMessage;
             }
             else if (netMessage.msgType == leanTouchInfoMessage.MessageType)
             {
                 var leanTouchInfoMessage = netMessage.ReadMessage<LeanTouchInfoMessage>();
-                LeanTouchesInfo[leanTouchInfoMessage.SenderConnectionId] = leanTouchInfoMessage;
-                LeanTouchInfoReceived.Invoke(leanTouchInfoMessage);
+                if (!isServer)
+                {
+                    LeanTouchesInfo[leanTouchInfoMessage.SenderConnectionId] = leanTouchInfoMessage;
+                    LeanTouchInfoReceived.Invoke(leanTouchInfoMessage);
+                }
                 return leanTouchInfoMessage;
             }
             else
@@ -200,18 +209,25 @@ namespace DevicesSyncUnity.Examples
         }
 
         /// <summary>
-        /// See <see cref="DevicesSync.OnClientDeviceConnected(int)"/>.
+        /// Server sends to the new device client the LeanTouch information from all the currently connected devices.
         /// </summary>
-        /// <param name="deviceId"></param>
-        protected override void OnClientDeviceConnected(int deviceId)
+        /// <param name="deviceId">The new device client id.</param>
+        protected virtual void DevicesInfoSync_DeviceConnected(int deviceId)
         {
+            if (isServer)
+            {
+                foreach (var leanTouchInfo in LeanTouchesInfo)
+                {
+                    SendToClient(deviceId, leanTouchInfo.Value);
+                }
+            }
         }
 
         /// <summary>
         /// Removes the disconnected device from <see cref="LeanTouchesInfo"/> and <see cref="LeanTouches"/>.
         /// </summary>
         /// <param name="deviceId">The id of the disconnected device.</param>
-        protected override void OnClientDeviceDisconnected(int deviceId)
+        protected virtual void DevicesInfoSync_DeviceDisconnected(int deviceId)
         {
             LeanTouchesInfo.Remove(deviceId);
             LeanTouches.Remove(deviceId);
@@ -221,11 +237,9 @@ namespace DevicesSyncUnity.Examples
         /// Updates <see cref="LeanTouches"/> and invokes <see cref="LeanTouchReceived"/>, fingers and gestures related
         /// events.
         /// </summary>
-        protected virtual LeanTouchMessage ProcessLeanTouchMessage(NetworkMessage netMessage)
+        protected virtual void ProcessLeanTouchMessage(LeanTouchMessage leanTouchMessage)
         {
-            var leanTouchMessage = netMessage.ReadMessage<LeanTouchMessage>();
             int senderDeviceId = leanTouchMessage.SenderConnectionId;
-
             if (LeanTouchesInfo.ContainsKey(senderDeviceId))
             {
                 leanTouchMessage.Restore(LeanTouchesInfo[senderDeviceId]);
@@ -254,8 +268,6 @@ namespace DevicesSyncUnity.Examples
                 }
                 OnGesture.Invoke(senderDeviceId, new List<LeanFingerInfo>(leanTouchMessage.Gestures));
             }
-
-            return leanTouchMessage;
         }
     }
 }

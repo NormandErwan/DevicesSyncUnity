@@ -33,14 +33,27 @@ namespace DevicesSyncUnity
         // Methods
 
         /// <summary>
-        /// Initializes properties.
+        /// Initializes properties and susbcribes to events.
         /// </summary>
         protected override void Awake()
         {
             base.Awake();
 
-            MessageTypes.Add(deviceInfoMessage.MessageType);
             DevicesInfo = new Dictionary<int, DeviceInfoMessage>();
+
+            DeviceConnected += DevicesInfoSync_DeviceConnected;
+            DeviceDisconnected += DevicesInfoSync_DeviceDisconnected;
+
+            MessageTypes.Add(deviceInfoMessage.MessageType);
+        }
+
+        /// <summary>
+        /// Unsubscribes to events.
+        /// </summary>
+        protected virtual void OnDestroy()
+        {
+            DeviceConnected -= DevicesInfoSync_DeviceConnected;
+            DeviceDisconnected -= DevicesInfoSync_DeviceDisconnected;
         }
 
         /// <summary>
@@ -84,22 +97,25 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Ssrver sends to new device client information from all the currently connected devices
+        /// Server sends to the new device client the information from all the currently connected devices.
         /// </summary>
         /// <param name="deviceId">The new device client id.</param>
-        protected override void OnClientDeviceConnected(int deviceId)
+        protected virtual void DevicesInfoSync_DeviceConnected(int deviceId)
         {
-            foreach (var deviceInfo in DevicesInfo)
+            if (isServer)
             {
-                SendToClient(deviceInfoMessage.SenderConnectionId, deviceInfo.Value);
+                foreach (var deviceInfo in DevicesInfo)
+                {
+                    SendToClient(deviceId, deviceInfo.Value);
+                }
             }
         }
 
         /// <summary>
-        /// Device client removes the disconnected device from <see cref="DevicesInfo"/>.
+        /// Removes the disconnected device from <see cref="DevicesInfo"/>.
         /// </summary>
         /// <param name="deviceId">The id of the disconnected device.</param>
-        protected override void OnClientDeviceDisconnected(int deviceId)
+        protected virtual void DevicesInfoSync_DeviceDisconnected(int deviceId)
         {
             DevicesInfo.Remove(deviceId);
         }

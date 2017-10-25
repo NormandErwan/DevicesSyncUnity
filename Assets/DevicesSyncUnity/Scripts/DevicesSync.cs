@@ -73,17 +73,18 @@ namespace DevicesSyncUnity
         // Events
 
         /// <summary>
-        /// Called when a device has connected to the server.
+        /// Called on server and on client (on host, only called on server) when a device has connected to the server.
         /// </summary>
         public static event Action<int> DeviceConnected = delegate { };
 
         /// <summary>
-        /// Called when a device has been disconnected from the server.
+        /// Called on server and on client (on host, only called on server) when a device has disconnected from the server.
         /// </summary>
         public static event Action<int> DeviceDisconnected = delegate { };
 
         // Variables
 
+        private static bool isServer;
         private static bool initializedOtherDeviceSync = false;
         private DeviceConnectedMessage deviceConnectedMessage = new DeviceConnectedMessage();
         private DeviceDisconnectedMessage deviceDisconnectedMessage = new DeviceDisconnectedMessage();
@@ -109,7 +110,8 @@ namespace DevicesSyncUnity
             {
                 throw new Exception("There is no NetworkManager in the scene");
             }
-            
+            isServer = base.isServer;
+
             // Configure the server handlers
             if (isServer)
             {
@@ -135,12 +137,6 @@ namespace DevicesSyncUnity
                     {
                         client.RegisterHandler(deviceConnectedMessage.MessageType, ClientDeviceConnectedReceived);
                         client.RegisterHandler(deviceDisconnectedMessage.MessageType, ClientDeviceDisconnectedReceived);
-                    }
-                    DeviceConnected += OnClientDeviceConnected;
-                    DeviceDisconnected += OnClientDeviceDisconnected;
-
-                    if (!initializedOtherDeviceSync)
-                    {
                         SendToServer(deviceConnectedMessage);
                     }
 
@@ -157,15 +153,6 @@ namespace DevicesSyncUnity
             }
 
             initializedOtherDeviceSync = true;
-        }
-
-        protected virtual void OnDestroy()
-        {
-            if (isClient)
-            {
-                DeviceConnected -= OnClientDeviceConnected;
-                DeviceDisconnected -= OnClientDeviceDisconnected;
-            }
         }
 
         /// <summary>
@@ -207,19 +194,13 @@ namespace DevicesSyncUnity
                 UnityEngine.Debug.Log("Client: device client " + message.SenderConnectionId + " has connected");
             }
 
-            if (!ConnectedDeviceIds.Contains(message.SenderConnectionId)) // If it's simultaneously client and server, the device has already been added
+            if (!isServer)
             {
                 ConnectedDeviceIds.Add(message.SenderConnectionId);
                 ConnectedDeviceIds.Sort();
+                DeviceConnected.Invoke(message.SenderConnectionId);
             }
-            DeviceConnected.Invoke(message.SenderConnectionId);
         }
-
-        /// <summary>
-        /// Device client process the connection of another device.
-        /// </summary>
-        /// <param name="deviceId">The id of the connected device.</param>
-        protected abstract void OnClientDeviceConnected(int deviceId);
 
         /// <summary>
         /// Server sends a <see cref="DeviceDisconnectedMessage"/> message to all device clients to inform another device has disconnected.
@@ -250,15 +231,12 @@ namespace DevicesSyncUnity
                 UnityEngine.Debug.Log("Client: device client " + message.SenderConnectionId + " has disconnected");
             }
 
-            ConnectedDeviceIds.Remove(message.SenderConnectionId);
-            DeviceDisconnected.Invoke(message.SenderConnectionId);
+            if (!isServer)
+            {
+                ConnectedDeviceIds.Remove(message.SenderConnectionId);
+                DeviceDisconnected.Invoke(message.SenderConnectionId);
+            }
         }
-
-        /// <summary>
-        /// Device client process the disconnection of another device.
-        /// </summary>
-        /// <param name="deviceId">The id of the disconnected device.</param>
-        protected abstract void OnClientDeviceDisconnected(int deviceId);
 
         /// <summary>
         /// Server broadcasts any received networking message of type <see cref="MessageTypes"/> to all device clients.
