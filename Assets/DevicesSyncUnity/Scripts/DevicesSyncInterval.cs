@@ -27,16 +27,16 @@ namespace DevicesSyncUnity
         // Editor fields
 
         [SerializeField]
-        [Tooltip("Interval mode to use to send regularly messages.")]
+        [Tooltip("Interval mode to send regularly messages.")]
         private SendingMode sendingMode = SendingMode.FramesInterval;
 
         [SerializeField]
-        [Tooltip("The number of frame to use between each message in FramesInterval mode.")]
-        private float sendingTimeInterval = 0.1f;
+        [Tooltip("The number of frame between each message in TimeInterval mode.")]
+        private uint sendingFramesInterval = 1;
 
         [SerializeField]
-        [Tooltip("The time in seconds to use between each message in TimeInterval mode.")]
-        private uint sendingFramesInterval = 1;
+        [Tooltip("The time in seconds between each message in FramesInterval mode.")]
+        private float sendingTimeInterval = 0.1f;
 
         [SerializeField]
         private bool autoStartSending = true;
