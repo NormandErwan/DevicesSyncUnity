@@ -31,11 +31,11 @@ namespace DevicesSyncUnity
         private SendingMode sendingMode = SendingMode.FramesInterval;
 
         [SerializeField]
-        [Tooltip("The number of frame between each message in TimeInterval mode.")]
+        [Tooltip("The number of frame between each message in FramesInterval mode.")]
         private uint sendingFramesInterval = 1;
 
         [SerializeField]
-        [Tooltip("The time in seconds between each message in FramesInterval mode.")]
+        [Tooltip("The time in seconds between each message in TimeInterval mode.")]
         private float sendingTimeInterval = 0.1f;
 
         [SerializeField]
