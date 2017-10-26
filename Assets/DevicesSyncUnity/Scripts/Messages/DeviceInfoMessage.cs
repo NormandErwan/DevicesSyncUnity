@@ -56,7 +56,7 @@ namespace DevicesSyncUnity.Messages
         /// <summary>
         /// Updates the public variables with device <see cref="Input"/> and <see cref="Screen"/> information.
         /// </summary>
-        public void UpdateInfo()
+        public void Update()
         {
             multiTouchEnabled = Input.multiTouchEnabled;
             stylusTouchSupported = Input.stylusTouchSupported;

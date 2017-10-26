@@ -63,7 +63,7 @@ namespace DevicesSyncUnity
         {
             base.Start();
 
-            deviceInfoMessage.UpdateInfo();
+            deviceInfoMessage.Update();
             SendToServer(deviceInfoMessage);
         }
 
