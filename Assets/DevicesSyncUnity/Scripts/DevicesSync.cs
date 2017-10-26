@@ -239,7 +239,7 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Server broadcasts any received networking message of type <see cref="MessageTypes"/> to all device clients.
+        /// Server transfers any received networking message of type <see cref="MessageTypes"/> to all device clients.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
         protected virtual void ServerMessageReceived(NetworkMessage netMessage)
@@ -247,7 +247,10 @@ namespace DevicesSyncUnity
             var message = OnServerMessageReceived(netMessage);
             if (message != null)
             {
-                SendToAllClients(message);
+                if (SyncMode != SyncMode.SenderOnly)
+                {
+                    SendToAllClients(message);
+                }
             }
             else
             {
