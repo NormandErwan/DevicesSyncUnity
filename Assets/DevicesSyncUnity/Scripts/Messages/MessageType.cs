@@ -46,9 +46,14 @@ namespace DevicesSyncUnity.Messages
         public static short DeviceOrientation { get { return (short)(Smallest + 5); } }
 
         /// <summary>
+        /// Networking message for communicating <see cref="TransformMessage"/>.
+        /// </summary>
+        public static short Transform { get { return (short)(Smallest + 6); } }
+
+        /// <summary>
         /// The highest value of this serie of networking message ids. Additional ids must be above this value.
         /// </summary>
-        public static new short Highest { get { return DeviceOrientation; } }
+        public static new short Highest { get { return Transform; } }
 
         // Variables
 
