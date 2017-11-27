@@ -36,10 +36,6 @@ namespace DevicesSyncUnity
         // Editor fields
 
         [SerializeField]
-        [Tooltip("The network manager to use for receive messages from the server.")]
-        protected NetworkManager networkManager;
-
-        [SerializeField]
         [Tooltip("Synchronization mode to use between device clients and the server.")]
         private SyncMode syncMode = SyncMode.SenderAndReceiver;
 
@@ -53,7 +49,7 @@ namespace DevicesSyncUnity
         /// <summary>
         /// The network manager to use for receive messages from the server.
         /// </summary>
-        public NetworkManager NetworkManager { get { return networkManager; } set { networkManager = value; } }
+        public NetworkManager NetworkManager { get; set; }
 
         /// <summary>
         /// Gets or sets the synchronization mode between device clients and the server.
@@ -84,7 +80,7 @@ namespace DevicesSyncUnity
 
         // Variables
 
-        private static bool isServer;
+        private new static bool isServer;
         private static bool initializedOtherDeviceSync = false;
         private DeviceConnectedMessage deviceConnectedMessage = new DeviceConnectedMessage();
         private DeviceDisconnectedMessage deviceDisconnectedMessage = new DeviceDisconnectedMessage();
@@ -105,10 +101,9 @@ namespace DevicesSyncUnity
         /// </summary>
         protected virtual void Start()
         {
-            NetworkManager = NetworkManager.singleton;
             if (NetworkManager == null)
             {
-                throw new Exception("There is no NetworkManager in the scene");
+                NetworkManager = NetworkManager.singleton;
             }
             isServer = base.isServer;
 
