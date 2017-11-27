@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace DevicesSyncUnity.Messages
 {
@@ -28,23 +29,35 @@ namespace DevicesSyncUnity.Messages
         /// </summary>
         public int senderConnectionId;
 
-        public TransformInfo transformInfo;
+        public TransformInfo[] transformInfos;
 
         // Methods
 
-        public void Update(Transform transform, float movementThreshold)
+        public void Configure(List<Transform> syncedTransforms, List<float> movementThresholds)
         {
-            if (transformInfo == null)
+            transformInfos = new TransformInfo[syncedTransforms.Count];
+            for (int i = 0; i < transformInfos.Length; i++)
             {
-                transformInfo = new TransformInfo();
+                transformInfos[i] = new TransformInfo();
             }
-            transformInfo.Update(transform, movementThreshold);
-            ShouldBeSynchronized = transformInfo.ShouldBeSynchronized;
         }
 
-        public void Restore(Transform transform)
+        public void Update(List<Transform> syncedTransforms, List<float> movementThresholds)
         {
-            transformInfo.Restore(transform);
+            ShouldBeSynchronized = false;
+            for (int i = 0; i < transformInfos.Length; i++)
+            {
+                transformInfos[i].Update(syncedTransforms[i], movementThresholds[i]);
+                ShouldBeSynchronized |= transformInfos[i].ShouldBeSynchronized;
+            }
+        }
+
+        public void Restore(List<Transform> syncedTransforms)
+        {
+            for (int i = 0; i < transformInfos.Length; i++)
+            {
+                transformInfos[i].Restore(syncedTransforms[i]);
+            }
         }
     }
 }

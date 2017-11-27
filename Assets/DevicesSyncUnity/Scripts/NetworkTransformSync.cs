@@ -1,4 +1,5 @@
 ﻿using DevicesSyncUnity.Messages;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -12,7 +13,8 @@ namespace DevicesSyncUnity
     {
         // Variables
 
-        protected NetworkTransform networkTransform;
+        protected List<Transform> syncedTransforms;
+        protected List<float> movementThresholds;
         protected TransformMessage transformMessage = new TransformMessage();
 
         // Methods
@@ -24,7 +26,22 @@ namespace DevicesSyncUnity
         {
             base.Awake();
 
-            networkTransform = GetComponent<NetworkTransform>();
+            var networkTransform = GetComponent<NetworkTransform>();
+            var networkTransformChildren = new List<NetworkTransformChild>(GetComponents<NetworkTransformChild>());
+
+            int memberListsCapacity = 1 + networkTransformChildren.Count;
+            syncedTransforms = new List<Transform>(memberListsCapacity);
+            movementThresholds = new List<float>(memberListsCapacity);
+
+            syncedTransforms.Add(transform);
+            movementThresholds.Add(networkTransform.movementTheshold);
+            foreach (var networkTransformChild in networkTransformChildren)
+            {
+                syncedTransforms.Add(networkTransformChild.target);
+                movementThresholds.Add(networkTransformChild.movementThreshold);
+            }
+
+            transformMessage.Configure(syncedTransforms, movementThresholds);
 
             MessageTypes.Add(transformMessage.MessageType);
         }
@@ -37,19 +54,11 @@ namespace DevicesSyncUnity
             }
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                transform.Rotate(new Vector3(30f, 0f, 0f));
-            }
-        }
-
         protected override void OnSendToServerIntervalIteration(bool shouldSendThisFrame)
         {
             if (shouldSendThisFrame)
             {
-                transformMessage.Update(transform, networkTransform.movementTheshold);
+                transformMessage.Update(syncedTransforms, movementThresholds);
                 if (transformMessage.ShouldBeSynchronized)
                 {
                     SendToServer(transformMessage);
@@ -64,7 +73,7 @@ namespace DevicesSyncUnity
         protected override DevicesSyncMessage OnServerMessageReceived(NetworkMessage netMessage)
         {
             var transformMessage = netMessage.ReadMessage<TransformMessage>();
-            transformMessage.Restore(transform);
+            transformMessage.Restore(syncedTransforms);
             return transformMessage;
         }
 
