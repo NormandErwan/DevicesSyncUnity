@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 namespace DevicesSyncUnity
 {
     /// <summary>
-    /// Synchronize <see cref="Transform"/> of an object between devices with <see cref="TransformMessage"/>.
+    /// Synchronize multiple objects' <see cref="Transform"/> between devices with <see cref="TransformMessage"/>.
     /// </summary>
     public class TransformSync : DevicesSyncInterval
     {
@@ -59,7 +59,7 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Updates the transform message, and send it if one of the synced transform has moved since the previous send.
+        /// Updates the transform message, and send it if one of the synced transform has changed since the previous send.
         /// </summary>
         /// <param name="shouldSendThisFrame">If the transform information must be updated this frame.</param>
         protected override void OnSendToServerIntervalIteration(bool shouldSendThisFrame)
@@ -67,7 +67,7 @@ namespace DevicesSyncUnity
             if (shouldSendThisFrame)
             {
                 transformMessage.Update(SyncedTransforms, MovementThresholdToSync);
-                if (transformMessage.ShouldBeSynchronized)
+                if (transformMessage.HasChanged)
                 {
                     SendToServer(transformMessage);
                 }

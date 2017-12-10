@@ -4,8 +4,8 @@ using UnityEngine;
 namespace DevicesSyncUnity.Messages
 {
     /// <summary>
-    /// Message that contains <see cref="Transform.position"/> and <see cref="Transform.rotation"/> information of
-    /// multiple transforms.
+    /// Message that contains the <see cref="Transform.position"/>, <see cref="Transform.rotation"/> and
+    /// <see cref="GameObject.activeInHierarchy"/> information of multiple objects.
     /// </summary>
     public class TransformMessage : DevicesSyncMessage
     {
@@ -21,7 +21,10 @@ namespace DevicesSyncUnity.Messages
         /// </summary>
         public override short MessageType { get { return Messages.MessageType.Transform; } }
 
-        public bool ShouldBeSynchronized { get; protected set; }
+        /// <summary>
+        /// True if only one <see cref="TransformInfo.HasChanged"/> is set in <see cref="transformInfos"/>.
+        /// </summary>
+        public bool HasChanged { get; protected set; }
 
         // Variables
 
@@ -31,12 +34,18 @@ namespace DevicesSyncUnity.Messages
         public int senderConnectionId;
 
         /// <summary>
-        /// The position and rotation information of the synchronized transforms.
+        /// The position, rotation and object active information of the synchronized objects.
         /// </summary>
         public TransformInfo[] transformInfos;
 
         // Methods
 
+        /// <summary>
+        /// Copies <paramref name="syncedTransforms"/> to <see cref="transformInfos"/> and updates
+        /// <see cref="HasChanged"/>.
+        /// </summary>
+        /// <param name="syncedTransforms"><see cref="TransformSync.SyncedTransforms"/></param>
+        /// <param name="movementThreshold"><see cref="TransformSync.MovementThresholdToSync"/></param>
         public void Update(List<Transform> syncedTransforms, float movementThreshold)
         {
             if (transformInfos == null || transformInfos.Length != syncedTransforms.Count)
@@ -48,14 +57,18 @@ namespace DevicesSyncUnity.Messages
                 }
             }
 
-            ShouldBeSynchronized = false;
+            HasChanged = false;
             for (int i = 0; i < transformInfos.Length; i++)
             {
                 transformInfos[i].Update(syncedTransforms[i], movementThreshold);
-                ShouldBeSynchronized |= transformInfos[i].HasMoved;
+                HasChanged |= transformInfos[i].HasChanged;
             }
         }
 
+        /// <summary>
+        /// Updates <paramref name="syncedTransforms"/> with <see cref="transformInfos"/>.
+        /// </summary>
+        /// <param name="syncedTransforms"><see cref="TransformSync.SyncedTransforms"/></param>
         public void Restore(List<Transform> syncedTransforms)
         {
             for (int i = 0; i < transformInfos.Length; i++)
