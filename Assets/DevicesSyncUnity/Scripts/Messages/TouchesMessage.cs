@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace DevicesSyncUnity.Messages
@@ -59,6 +58,10 @@ namespace DevicesSyncUnity.Messages
             touchesQueue.Clear();
         }
 
+        /// <summary>
+        /// Restores the touches informations.
+        /// </summary>
+        /// <param name="deviceInfo">The associated information from which the touches come from.</param>
         public void Restore(DeviceInfoMessage deviceInfo)
         {
             foreach (var touch in touches)

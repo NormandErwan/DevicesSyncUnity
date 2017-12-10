@@ -117,7 +117,7 @@ namespace DevicesSyncUnity
         }
 
         /// <summary>
-        /// Updates <see cref="Touches"/> and calls <see cref="TouchesReceived"/>.
+        /// Updates <see cref="Touches"/> and calls the <see cref="TouchesReceived"/> event.
         /// </summary>
         /// <param name="touchesMesssage">The message received to process.</param>
         protected virtual void ProcessTouchesMessageReceived(TouchesMessage touchesMesssage)
@@ -127,7 +127,7 @@ namespace DevicesSyncUnity
                 touchesMessage.Restore(DeviceInfoSync.DevicesInfo[touchesMessage.SenderConnectionId]);
             }
             Touches[touchesMessage.SenderConnectionId] = touchesMessage;
-            TouchesReceived.Invoke(touchesMessage);
+            TouchesReceived(touchesMessage);
         }
     }
 }

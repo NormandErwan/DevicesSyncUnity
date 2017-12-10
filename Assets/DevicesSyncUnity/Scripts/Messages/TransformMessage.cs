@@ -4,7 +4,8 @@ using UnityEngine;
 namespace DevicesSyncUnity.Messages
 {
     /// <summary>
-    /// Message that contains device static <see cref="Input"/> and <see cref="Camera.main"/> information.
+    /// Message that contains <see cref="Transform.position"/> and <see cref="Transform.rotation"/> information of
+    /// multiple transforms.
     /// </summary>
     public class TransformMessage : DevicesSyncMessage
     {
@@ -29,26 +30,29 @@ namespace DevicesSyncUnity.Messages
         /// </summary>
         public int senderConnectionId;
 
+        /// <summary>
+        /// The position and rotation information of the synchronized transforms.
+        /// </summary>
         public TransformInfo[] transformInfos;
 
         // Methods
 
-        public void Configure(List<Transform> syncedTransforms, List<float> movementThresholds)
+        public void Update(List<Transform> syncedTransforms, float movementThreshold)
         {
-            transformInfos = new TransformInfo[syncedTransforms.Count];
-            for (int i = 0; i < transformInfos.Length; i++)
+            if (transformInfos == null || transformInfos.Length != syncedTransforms.Count)
             {
-                transformInfos[i] = new TransformInfo();
+                transformInfos = new TransformInfo[syncedTransforms.Count];
+                for (int i = 0; i < transformInfos.Length; i++)
+                {
+                    transformInfos[i] = new TransformInfo();
+                }
             }
-        }
 
-        public void Update(List<Transform> syncedTransforms, List<float> movementThresholds)
-        {
             ShouldBeSynchronized = false;
             for (int i = 0; i < transformInfos.Length; i++)
             {
-                transformInfos[i].Update(syncedTransforms[i], movementThresholds[i]);
-                ShouldBeSynchronized |= transformInfos[i].ShouldBeSynchronized;
+                transformInfos[i].Update(syncedTransforms[i], movementThreshold);
+                ShouldBeSynchronized |= transformInfos[i].HasMoved;
             }
         }
 
@@ -56,7 +60,10 @@ namespace DevicesSyncUnity.Messages
         {
             for (int i = 0; i < transformInfos.Length; i++)
             {
-                transformInfos[i].Restore(syncedTransforms[i]);
+                if (syncedTransforms.Count > i)
+                {
+                    transformInfos[i].Restore(syncedTransforms[i]);
+                }
             }
         }
     }
