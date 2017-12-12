@@ -20,7 +20,7 @@ namespace DevicesSyncUnity
         [SerializeField]
         [Tooltip("The minimum movement that any transform must have done to sync. In meters for position and degrees" +
             "for rotation.")]
-        private float movementThresholdToSync;
+        private float movementThresholdToSync = 0.001f;
 
         // Properties
 
@@ -37,7 +37,7 @@ namespace DevicesSyncUnity
 
         // Variables
 
-        protected TransformMessage transformMessage = new TransformMessage();
+        protected TransformMessage currentMessage = new TransformMessage();
 
         // Events
 
@@ -55,7 +55,7 @@ namespace DevicesSyncUnity
         {
             base.Awake();
             SyncedTransforms = new List<Transform>(syncedTransforms);
-            MessageTypes.Add(transformMessage.MessageType);
+            MessageTypes.Add(currentMessage.MessageType);
         }
 
         /// <summary>
@@ -66,10 +66,10 @@ namespace DevicesSyncUnity
         {
             if (shouldSendThisFrame)
             {
-                transformMessage.Update(SyncedTransforms, MovementThresholdToSync);
-                if (transformMessage.HasChanged)
+                currentMessage.Update(SyncedTransforms, MovementThresholdToSync);
+                if (currentMessage.HasChanged)
                 {
-                    SendToServer(transformMessage);
+                    SendToServer(currentMessage);
                 }
             }
         }
@@ -100,6 +100,7 @@ namespace DevicesSyncUnity
             if (!isServer)
             {
                 transformMessage.Restore(SyncedTransforms);
+                currentMessage.Update(SyncedTransforms, MovementThresholdToSync);
                 SyncedTransformsUpdated(this);
             }
             return transformMessage;
