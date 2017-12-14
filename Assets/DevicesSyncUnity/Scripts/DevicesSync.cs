@@ -237,7 +237,7 @@ namespace DevicesSyncUnity
         /// Server transfers any received networking message of type <see cref="MessageTypes"/> to all device clients.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
-        protected virtual void ServerMessageReceived(NetworkMessage netMessage)
+        protected void ServerMessageReceived(NetworkMessage netMessage)
         {
             var message = OnServerMessageReceived(netMessage);
             if (message != null)
@@ -245,14 +245,6 @@ namespace DevicesSyncUnity
                 if (SyncMode != SyncMode.SenderOnly)
                 {
                     SendToAllClients(message);
-                }
-            }
-            else
-            {
-                if (LogFilter.logWarn)
-                {
-                    UnityEngine.Debug.Log("OnServerMessageReceived has returned null instead of returning a "
-                    + "DevicesSyncMessage read from the received NetworkMessage");
                 }
             }
         }
@@ -268,7 +260,7 @@ namespace DevicesSyncUnity
         /// Device client receives a network message of type <see cref="MessageTypes"/> from the server.
         /// </summary>
         /// <param name="netMessage">The received networking message.</param>
-        protected virtual void ClientMessageReceived(NetworkMessage netMessage)
+        protected void ClientMessageReceived(NetworkMessage netMessage)
         {
             var message = OnClientMessageReceived(netMessage);
             if (message != null)
@@ -277,14 +269,6 @@ namespace DevicesSyncUnity
                 {
                     UnityEngine.Debug.Log("Client: received message from device client " + message.SenderConnectionId
                     + ": " + message);
-                }
-            }
-            else
-            {
-                if (LogFilter.logWarn)
-                {
-                    UnityEngine.Debug.Log("OnClientMessageReceived has returned null instead of returning a "
-                    + "DevicesSyncMessage read from the received NetworkMessage");
                 }
             }
         }
@@ -312,7 +296,7 @@ namespace DevicesSyncUnity
             NetworkManager.client.SendByChannel(message.MessageType, message, channelId);
         }
 
-        protected void SendToAllClients(DevicesSyncMessage message, int? channelIdOrDefault = null)
+        protected virtual void SendToAllClients(DevicesSyncMessage message, int? channelIdOrDefault = null)
         {
             if (LogFilter.logInfo)
             {
@@ -324,7 +308,7 @@ namespace DevicesSyncUnity
             NetworkServer.SendByChannelToAll(message.MessageType, message, channelId);
         }
 
-        protected void SendToClient(int deviceId, DevicesSyncMessage message)
+        protected virtual void SendToClient(int deviceId, DevicesSyncMessage message)
         {
             if (LogFilter.logInfo)
             {
@@ -332,6 +316,20 @@ namespace DevicesSyncUnity
                     + " to device client " + deviceId + ": " + message);
             }
             NetworkServer.SendToClient(deviceId, message.MessageType, message);
+        }
+
+        protected virtual DevicesSyncMessage ProcessReceivedMessage<T>(NetworkMessage netMessage, short messageType,
+          Action<T> messageAction)
+          where T : DevicesSyncMessage, new()
+        {
+            DevicesSyncMessage devicesSyncMessage = null;
+            if (netMessage.msgType == messageType)
+            {
+                var receivedMessage = netMessage.ReadMessage<T>();
+                devicesSyncMessage = receivedMessage;
+                messageAction(receivedMessage);
+            }
+            return devicesSyncMessage;
         }
 
         /// <summary>
